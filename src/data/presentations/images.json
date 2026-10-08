@@ -9,7 +9,7 @@
         1280,
         1920
       ],
-      "color": "#cfd1ae"
+      "color": "#b5bca4"
     },
     "02": {
       "kind": "screen-landscape",
@@ -20,7 +20,7 @@
         1280,
         1920
       ],
-      "color": "#cbceac"
+      "color": "#bec8b6"
     },
     "03": {
       "kind": "screen-landscape",
@@ -31,7 +31,7 @@
         1280,
         1920
       ],
-      "color": "#cdd2b4"
+      "color": "#abb3ae"
     },
     "04": {
       "kind": "screen-landscape",
@@ -42,41 +42,9 @@
         1280,
         1920
       ],
-      "color": "#d4d8be"
+      "color": "#c4c3b6"
     },
     "05": {
-      "kind": "screen-portrait",
-      "width": 1600,
-      "height": 2392,
-      "variants": [
-        600,
-        1000,
-        1600
-      ],
-      "color": "#dde3df"
-    },
-    "06": {
-      "kind": "screen-portrait",
-      "width": 1600,
-      "height": 2392,
-      "variants": [
-        600,
-        1000,
-        1600
-      ],
-      "color": "#d9e0db"
-    },
-    "07": {
-      "kind": "photo",
-      "width": 1586,
-      "height": 992,
-      "variants": [
-        640,
-        1280
-      ],
-      "color": "#b1b6b4"
-    },
-    "08": {
       "kind": "screen-landscape",
       "width": 2560,
       "height": 1410,
@@ -85,7 +53,39 @@
         1280,
         1920
       ],
-      "color": "#dde4df"
+      "color": "#c0c6ad"
+    },
+    "06": {
+      "kind": "screen-landscape",
+      "width": 2560,
+      "height": 1410,
+      "variants": [
+        800,
+        1280,
+        1920
+      ],
+      "color": "#e1e7e2"
+    },
+    "07": {
+      "kind": "screen-landscape",
+      "width": 2560,
+      "height": 1410,
+      "variants": [
+        800,
+        1280,
+        1920
+      ],
+      "color": "#cedad3"
+    },
+    "08": {
+      "kind": "photo",
+      "width": 1586,
+      "height": 992,
+      "variants": [
+        640,
+        1280
+      ],
+      "color": "#b1b6b4"
     },
     "09": {
       "kind": "screen-landscape",
@@ -96,7 +96,7 @@
         1280,
         1920
       ],
-      "color": "#b0b6b1"
+      "color": "#cdd9d3"
     },
     "10": {
       "kind": "screen-landscape",
@@ -107,9 +107,64 @@
         1280,
         1920
       ],
-      "color": "#bcc2bd"
+      "color": "#acaca4"
     },
     "11": {
+      "kind": "screen-landscape",
+      "width": 2560,
+      "height": 1410,
+      "variants": [
+        800,
+        1280,
+        1920
+      ],
+      "color": "#acaba3"
+    },
+    "12": {
+      "kind": "screen-landscape",
+      "width": 2560,
+      "height": 1410,
+      "variants": [
+        800,
+        1280,
+        1920
+      ],
+      "color": "#caccc5"
+    },
+    "13": {
+      "kind": "screen-landscape",
+      "width": 2560,
+      "height": 1410,
+      "variants": [
+        800,
+        1280,
+        1920
+      ],
+      "color": "#eaefeb"
+    },
+    "14": {
+      "kind": "screen-landscape",
+      "width": 2560,
+      "height": 1410,
+      "variants": [
+        800,
+        1280,
+        1920
+      ],
+      "color": "#e9efea"
+    },
+    "15": {
+      "kind": "screen-landscape",
+      "width": 2560,
+      "height": 1410,
+      "variants": [
+        800,
+        1280,
+        1920
+      ],
+      "color": "#f2f3f0"
+    },
+    "16": {
       "kind": "photo",
       "width": 1672,
       "height": 941,

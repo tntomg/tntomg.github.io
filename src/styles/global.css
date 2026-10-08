@@ -426,7 +426,7 @@
   /* ================= APPS (night block) ================= */
   .apps { position: relative; background: var(--night); color: var(--moon); padding-block: clamp(96px, 11vw, 168px); }
   .apps .section-head { max-width: 860px; }
-  .route { position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(20px, 3vw, 40px); margin-bottom: clamp(56px, 7vw, 96px); }
+  .route { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(20px, 3vw, 40px); margin-bottom: clamp(56px, 7vw, 96px); }
   .route::before { content: ''; position: absolute; left: 22px; right: 22px; top: 22px; height: 1px; background: var(--night-line); }
   .route a, .route div { position: relative; display: grid; gap: 4px; padding-top: 58px; }
   .route-node { position: absolute; top: 0; left: 0; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--night); border: 1px solid var(--night-line); font-size: var(--t-xs); font-weight: 600; color: var(--moon-2); font-variant-numeric: tabular-nums; transition: border-color var(--d-fast), color var(--d-fast); }
@@ -435,7 +435,7 @@
   .route strong { font-size: var(--t-lg); font-weight: 600; letter-spacing: -0.015em; font-variation-settings: var(--sharp); }
   .route .is-pending strong { color: var(--moon-2); font-weight: 500; }
 
-  .app { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr); gap: clamp(32px, 5vw, 80px); align-items: center; padding-block: clamp(40px, 5vw, 72px); }
+  .app { position: relative; display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr); gap: clamp(32px, 5vw, 80px); align-items: center; padding-block: clamp(40px, 5vw, 72px); }
   .app + .app { border-top: 1px solid var(--night-line); }
   .app-reverse .app-visual { order: 2; }
   .app-visual { position: relative; border-radius: var(--r-media); background: var(--night-2); border: 1px solid var(--night-line); overflow: hidden; }
@@ -528,6 +528,8 @@
     aspect-ratio: 1280 / 705;
     object-fit: cover;
   }
+  .petrography-showcase .phone-screen-wrap img { aspect-ratio: 9 / 20; }
+  .core-screen-img { aspect-ratio: 8 / 5; object-fit: contain; }
   .device-screen-overlay {
     position: absolute;
     inset: 0;
@@ -1121,3 +1123,6 @@
     .layer-swatch, .stage-band { forced-color-adjust: none; }
   }
 }
+
+@font-face{font-family:PetrographyBrand;src:url('/presentations/petrography/brand-font.woff2') format('woff2');font-weight:100 900;font-style:normal;font-display:block}
+.petrography-name-fix{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}

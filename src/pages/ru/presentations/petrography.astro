@@ -1,0 +1,1551 @@
+---
+// Supplied Petrography deck, optimized media and site navigation.
+---
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>RockSurv Petrography | ОБЗОР ПРИЛОЖЕНИЯ</title>
+  <style is:global>
+    :root {
+      --paper: #f8fafc;
+      --paper-card: #ffffff;
+      --ink: #07111b;
+      --muted: #475569;
+      --muted-light: #64748b;
+      --accent: #0284c7;
+      --cyan: #38bdf8;
+      --cyan-deep: #0ea5e9;
+      --line: #cbd5e1;
+      --emerald: #059669;
+      --gold: #d97706;
+      --closing-bg: #edf5fb;
+      --cover-bg: #07111b;
+      --phone-w: 335px;
+      --phone-h: 710px;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      background: #060e17;
+      color: var(--ink);
+      font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Roboto', Arial, sans-serif;
+      overflow: hidden;
+    }
+    button { font: inherit; }
+
+    #stage {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 1600px;
+      height: 900px;
+      transform: translate(-50%, -50%) scale(var(--scale, 1));
+      transform-origin: center;
+    }
+
+    .slide {
+      display: none;
+      position: relative;
+      width: 1600px;
+      height: 900px;
+      overflow: hidden;
+      background: var(--paper);
+      padding: 48px 70px;
+    }
+    .slide.active { display: block; }
+
+    .brandline {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+    .brandline .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 26px;
+      letter-spacing: -.5px;
+      font-weight: 800;
+      color: var(--ink);
+    }
+    .eyebrow {
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: 2px;
+      font-size: 15px;
+    }
+
+    h1, h2, h3, p { margin: 0; }
+    h2 {
+      font-weight: 750;
+      letter-spacing: -1.5px;
+      font-size: 45px;
+      line-height: 1.14;
+      margin: 16px 0 10px;
+      max-width: 1060px;
+      color: var(--ink);
+    }
+    .lead {
+      font-size: 21px;
+      line-height: 1.36;
+      color: var(--muted);
+      max-width: 1040px;
+      margin-bottom: 16px;
+    }
+
+    .feature-content {
+      position: relative;
+      margin-top: 8px;
+      display: block;
+    }
+    .copy {
+      padding-top: 2px;
+      max-width: 1040px;
+    }
+    .point {
+      border-top: 1px solid var(--line);
+      padding-top: 12px;
+      margin-bottom: 14px;
+    }
+    .point h3 {
+      margin: 0 0 4px;
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.16;
+      letter-spacing: -.4px;
+      color: var(--ink);
+    }
+    .point p {
+      font-size: 18px;
+      line-height: 1.34;
+      color: var(--muted);
+    }
+
+    .metric-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 14px;
+      margin-bottom: 10px;
+    }
+    .metric-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: #e2e8f0;
+      border: 1px solid #cbd5e1;
+      font-size: 13.5px;
+      font-weight: 700;
+      letter-spacing: .4px;
+      color: #1e293b;
+    }
+    .metric-badge.accent {
+      background: rgba(2, 132, 199, 0.12);
+      border-color: rgba(2, 132, 199, 0.35);
+      color: #0369a1;
+    }
+    .metric-badge.emerald {
+      background: rgba(16, 185, 129, 0.12);
+      border-color: rgba(16, 185, 129, 0.35);
+      color: #047857;
+    }
+    .metric-badge.amber {
+      background: rgba(217, 119, 6, 0.12);
+      border-color: rgba(217, 119, 6, 0.35);
+      color: #b45309;
+    }
+    .metric-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .caption {
+      position: absolute;
+      left: 70px;
+      bottom: 52px;
+      width: 1040px;
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.35;
+      color: var(--muted-light);
+      font-style: italic;
+    }
+
+    .footer {
+      position: absolute;
+      left: 70px;
+      right: 70px;
+      bottom: 18px;
+      border-top: 1px solid var(--line);
+      padding-top: 8px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 14.5px;
+      letter-spacing: .4px;
+      color: var(--muted);
+    }
+
+    /* Portrait visual layout with Mobile Carousel */
+    .portrait-visual {
+      position: absolute;
+      right: 70px;
+      top: 86px;
+      width: var(--phone-w);
+      height: var(--phone-h);
+    }
+
+    .carousel {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 28px;
+      overflow: hidden;
+      background: #060e17;
+      box-shadow: 0 20px 48px rgba(7, 17, 27, 0.35);
+      outline: 2px solid #cbd5e1;
+      user-select: none;
+    }
+    .carousel-track {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    .carousel-item {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .45s cubic-bezier(.4, 0, .2, 1), transform .45s cubic-bezier(.4, 0, .2, 1);
+      transform: translateX(16px) scale(0.985);
+    }
+    .carousel-item.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0) scale(1);
+      z-index: 2;
+    }
+    .carousel-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Phone Speaker / Dynamic Island Top Notch */
+    .device-notch {
+      position: absolute;
+      top: 9px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 76px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.28);
+      border-radius: 4px;
+      z-index: 10;
+    }
+
+    /* Pill state badge on top */
+    .state-badge {
+      position: absolute;
+      top: 18px;
+      left: 12px;
+      right: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(6, 14, 23, 0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(56, 189, 248, 0.45);
+      border-radius: 8px;
+      padding: 6px 11px;
+      color: #f0f7ff;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .3px;
+      z-index: 5;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+    }
+    .state-badge .badge-title {
+      color: var(--cyan);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 215px;
+    }
+    .state-badge .badge-title .indicator {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 6px var(--cyan);
+      flex-shrink: 0;
+    }
+    .state-badge .badge-count {
+      color: #94a3b8;
+      font-size: 11.5px;
+      margin-left: 8px;
+      flex-shrink: 0;
+      font-weight: 700;
+    }
+
+    /* Subtle bottom gradient to feather screenshot bottom into device bezel */
+    .carousel-bottom-gradient {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 52px;
+      background: linear-gradient(to top, rgba(6, 14, 23, 0.95) 0%, rgba(6, 14, 23, 0.5) 60%, transparent 100%);
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    /* Controls overlay at bottom of phone */
+    .carousel-nav {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      right: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 6;
+      background: rgba(6, 14, 23, 0.88);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(211, 224, 236, 0.28);
+      border-radius: 20px;
+      padding: 4px 10px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+    }
+    .carousel-btn {
+      background: transparent;
+      border: 0;
+      color: #e2e8f0;
+      cursor: pointer;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      transition: all .2s ease;
+    }
+    .carousel-btn:hover {
+      background: rgba(56, 189, 248, 0.25);
+      color: #38bdf8;
+    }
+    .carousel-dots {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+    .carousel-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.35);
+      cursor: pointer;
+      transition: all .25s ease;
+      border: none;
+      padding: 0;
+    }
+    .carousel-dot.active {
+      width: 20px;
+      background: var(--cyan);
+    }
+
+    /* Auto-cycle indicator bar */
+    .cycle-progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      background: var(--cyan);
+      width: 0%;
+      z-index: 7;
+      transition: width 0.1s linear;
+    }
+
+    /* Single-item showcase (clean frame without carousel controls) */
+    .carousel[data-count="1"] .carousel-nav,
+    .carousel[data-count="1"] .cycle-progress,
+    .carousel[data-count="1"] .badge-count,
+    .carousel[data-count="1"] .carousel-bottom-gradient {
+      display: none !important;
+    }
+
+    /* Cover Slide */
+    .cover {
+      background: radial-gradient(ellipse at 85% 20%, #15324d 0%, #0b1a28 55%, #07111b 100%);
+      color: #f0f7ff;
+    }
+    .cover .brandline .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: #ffffff;
+      font-size: 30px;
+    }
+    .cover .eyebrow, .cover .footer { color: #8bb2d4; }
+    .cover .footer { border-color: #1e3a54; }
+    .cover h1 {
+      font-size: 80px;
+      line-height: 1.05;
+      letter-spacing: -3px;
+      font-weight: 750;
+      position: absolute;
+      top: 175px;
+      left: 70px;
+      width: 900px;
+      color: #ffffff;
+    }
+    .cover h1 span {
+      display: block;
+      color: var(--cyan);
+    }
+    .cover .tagline {
+      position: absolute;
+      top: 385px;
+      left: 70px;
+      width: 860px;
+      font-size: 28px;
+      line-height: 1.45;
+      color: #d0e4f5;
+    }
+    .cover .cover-tags {
+      position: absolute;
+      top: 510px;
+      left: 70px;
+      width: 880px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .cover .cover-tag-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      border-radius: 999px;
+      background: rgba(14, 165, 233, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: #e0f2fe;
+      font-size: 16px;
+      font-weight: 650;
+      letter-spacing: .3px;
+    }
+    .cover .cover-tag-pill .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 8px var(--cyan);
+    }
+    .cover .carousel {
+      outline-color: #234b6e;
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.65);
+      background: #060e17;
+    }
+    .cover .caption {
+      color: #9abedc;
+      font-size: 16.5px;
+    }
+
+    /* Closing Slide */
+    .closing {
+      background: var(--closing-bg);
+    }
+    .closing .point {
+      border-color: #c8dbeb;
+    }
+
+    /* Controls Bar */
+    .controls {
+      position: fixed;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: rgba(6, 14, 23, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 999px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      z-index: 100;
+    }
+    .controls button {
+      background: transparent;
+      color: #e2e8f0;
+      border: 0;
+      font-size: 14.5px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .controls button:hover {
+      background: rgba(56, 189, 248, 0.25);
+      color: var(--cyan);
+    }
+    .controls output {
+      color: #cbd5e1;
+      font-size: 14px;
+      font-weight: 700;
+      min-width: 65px;
+      text-align: center;
+      letter-spacing: .5px;
+    }
+
+    @media print {
+      @page {
+        size: 1600px 900px;
+        margin: 0;
+      }
+      html, body {
+        width: 1600px !important;
+        height: auto !important;
+        overflow: visible !important;
+        background: #ffffff !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      #stage {
+        position: static !important;
+        transform: none !important;
+        width: 1600px !important;
+        height: auto !important;
+      }
+      .slide {
+        display: block !important;
+        position: relative !important;
+        width: 1600px !important;
+        height: 900px !important;
+        page-break-inside: avoid;
+        break-after: page;
+        page-break-after: always;
+      }
+      .slide:last-child {
+        break-after: auto;
+        page-break-after: auto;
+      }
+      .controls, .carousel-nav, .cycle-progress, .state-badge, .carousel-bottom-gradient {
+        display: none !important;
+      }
+      .carousel-item {
+        display: none;
+      }
+      .carousel-item:first-child {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+      }
+    }
+  
+.petrography-topbar{position:fixed;inset:0 0 auto;height:52px;padding:8px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;background:#0e1714;color:#f5f7f2;z-index:101;font-size:13px}
+.petrography-topbar a{color:inherit;text-decoration:none;padding:8px 10px;border:1px solid #38584b;border-radius:6px}
+.petrography-topbar a:hover,.petrography-topbar a:focus-visible{background:#244139;outline:2px solid #69d4ad;outline-offset:2px}
+.petrography-actions{display:flex;gap:8px}.petrography-title{font-weight:700}
+#stage{top:calc(50% - 15px)}.controls{max-width:calc(100vw - 16px);white-space:nowrap}
+@media(max-width:640px){.petrography-title,#fsBtn,#printBtn{display:none}.petrography-topbar{padding-inline:8px}.controls{padding:4px 8px;gap:6px}.controls button{min-height:44px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+@media print{.petrography-topbar{display:none}}
+@font-face{font-family:PetrographyBrand;src:url('/presentations/petrography/brand-font.woff2') format('woff2');font-weight:100 900;font-style:normal;font-display:block}
+.petrography-name-fix{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
+</style>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+</head>
+<body>
+<header class="petrography-topbar"><a href="/ru/#apps">Назад к приложениям</a><span class="petrography-title">RockSurv Petrography</span><div class="petrography-actions"><a class="petrography-language" href="/en/presentations/petrography/">EN</a><a href="/presentations/petrography/petrography-ru.pdf" download aria-label="Скачать презентацию PDF">PDF</a></div></header>
+<main id="stage">
+
+  <section class="slide cover active" id="slide-1" aria-label="1. RockSurv Petrography">
+    <div class="brandline">
+      <span class="brand"><svg class="brand-logo" viewBox="0 0 100 100" width="30" height="30" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 10px; flex-shrink: 0;"><circle cx="50" cy="50" r="49" fill="#E8F5E9" fill-opacity="0.95"/><circle cx="50" cy="50" r="48.5" stroke="#2E7D32" stroke-width="2.8"/><circle cx="50" cy="50" r="37" stroke="#81C784" stroke-width="1.8"/><polygon points="50,15 73,41 66,72.5 50,86 34,72.5 27,41" fill="#2E7D32" fill-opacity="0.88"/><polygon points="50,15 73,41 50,56" fill="#A56618"/></svg>RockSurv Petrography</span>
+      <span class="eyebrow">ОБЗОР ПРИЛОЖЕНИЯ</span>
+    </div>
+    <h1>RockSurv<span>Petrography</span></h1>
+    <p class="tagline">Высокоточная оптическая петрография<br>и диагностика минералов в шлифах.</p>
+    <div class="cover-tags">
+      <span class="cover-tag-pill"><span class="pill-dot"></span>147 минералов в проходящем свете</span><span class="cover-tag-pill"><span class="pill-dot"></span>6 рудных минералов в аншлифах</span><span class="cover-tag-pill"><span class="pill-dot"></span>267+ эталонных микрофотографий</span><span class="cover-tag-pill"><span class="pill-dot"></span>100% офлайн-архитектура</span>
+    </div>
+    
+        <div class="portrait-visual">
+          <div class="carousel" data-carousel-id="slide-1-carousel" data-count="5">
+            <div class="device-notch"></div>
+            <div class="state-badge">
+              <span class="badge-title"><span class="indicator"></span><span class="title-text">Главный портал и выбор режима</span></span>
+              <span class="badge-count">1 из 5</span>
+            </div>
+            <div class="carousel-track">
+              
+            <div class="carousel-item active" data-index="0" data-title="Главный портал и выбор режима" data-tag="Портал">
+              <img src="/presentations/petrography/01-720.webp" alt="Главный портал и выбор режима" srcset="/presentations/petrography/01-360.webp 360w, /presentations/petrography/01-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async"><svg class="petrography-name-fix" viewBox="0 0 720 1600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect x="159" y="344" width="169" height="33" fill="#fefdf5"/><text x="161" y="375" font-family="PetrographyBrand" font-size="39.19" font-weight="650" fill="#0f1009" textLength="165" lengthAdjust="spacingAndGlyphs">RockSurv</text></svg>
+            </div>
+            <div class="carousel-item" data-index="1" data-title="Оптический определитель минералов" data-tag="Определитель">
+              <img src="/presentations/petrography/02-720.webp" alt="Оптический определитель минералов" srcset="/presentations/petrography/02-360.webp 360w, /presentations/petrography/02-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async"><svg class="petrography-name-fix" viewBox="0 0 720 1600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect x="84" y="101" width="110" height="23" fill="#fefcf4"/><text x="86" y="122" font-family="PetrographyBrand" font-size="25.68" font-weight="650" fill="#0d0f08" textLength="106" lengthAdjust="spacingAndGlyphs">RockSurv</text></svg>
+            </div>
+            <div class="carousel-item" data-index="2" data-title="Номограмма Мишель-Леви и разность хода" data-tag="Мишель-Леви">
+              <img src="/presentations/petrography/03-720.webp" alt="Номограмма Мишель-Леви и разность хода" srcset="/presentations/petrography/03-360.webp 360w, /presentations/petrography/03-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async"><svg class="petrography-name-fix" viewBox="0 0 720 1600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect x="84" y="101" width="110" height="23" fill="#fefcf4"/><text x="86" y="122" font-family="PetrographyBrand" font-size="25.68" font-weight="650" fill="#0d0f08" textLength="106" lengthAdjust="spacingAndGlyphs">RockSurv</text></svg>
+            </div>
+            <div class="carousel-item" data-index="3" data-title="Атлас шлифов: Биотит в проходящем свете (PPL)" data-tag="Биотит PPL">
+              <img src="/presentations/petrography/04-720.webp" alt="Атлас шлифов: Биотит в проходящем свете (PPL)" srcset="/presentations/petrography/04-360.webp 360w, /presentations/petrography/04-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async"><svg class="petrography-name-fix" viewBox="0 0 720 1600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect x="84" y="101" width="110" height="23" fill="#fefcf4"/><text x="86" y="122" font-family="PetrographyBrand" font-size="25.68" font-weight="650" fill="#0d0f08" textLength="106" lengthAdjust="spacingAndGlyphs">RockSurv</text></svg>
+            </div>
+            <div class="carousel-item" data-index="4" data-title="Высококонтрастная тёмная тема" data-tag="Тёмная тема">
+              <img src="/presentations/petrography/05-720.webp" alt="Высококонтрастная тёмная тема" srcset="/presentations/petrography/05-360.webp 360w, /presentations/petrography/05-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async"><svg class="petrography-name-fix" viewBox="0 0 720 1600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect x="159" y="344" width="168" height="33" fill="#111411"/><text x="161" y="375" font-family="PetrographyBrand" font-size="39.19" font-weight="650" fill="#f2f5ef" textLength="164" lengthAdjust="spacingAndGlyphs">RockSurv</text></svg>
+            </div>
+            </div>
+            <div class="carousel-bottom-gradient"></div>
+            <div class="carousel-nav">
+              <button class="carousel-btn prev" aria-label="Предыдущий снимок">‹</button>
+              <div class="carousel-dots">
+                <button class="carousel-dot active" data-goto="0" aria-label="Показать экран 1"></button><button class="carousel-dot" data-goto="1" aria-label="Показать экран 2"></button><button class="carousel-dot" data-goto="2" aria-label="Показать экран 3"></button><button class="carousel-dot" data-goto="3" aria-label="Показать экран 4"></button><button class="carousel-dot" data-goto="4" aria-label="Показать экран 5"></button>
+              </div>
+              <button class="carousel-btn next" aria-label="Следующий снимок">›</button>
+            </div>
+            <div class="cycle-progress"></div>
+          </div>
+        </div>
+    <p class="caption">Профессиональный автономный программный комплекс для оптической микроскопии, анализа прозрачных шлифов и рудной минераграфии.</p>
+    <div class="footer">
+      <span>RockSurv Petrography</span>
+      <span>01 / 12</span>
+    </div>
+  </section>
+
+  <section class="slide" id="slide-2" aria-label="2. Двухрежимная среда: проходящий и отражённый свет">
+    <div class="brandline">
+      <span class="brand"><svg class="brand-logo" viewBox="0 0 100 100" width="30" height="30" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 10px; flex-shrink: 0;"><circle cx="50" cy="50" r="49" fill="#E8F5E9" fill-opacity="0.95"/><circle cx="50" cy="50" r="48.5" stroke="#2E7D32" stroke-width="2.8"/><circle cx="50" cy="50" r="37" stroke="#81C784" stroke-width="1.8"/><polygon points="50,15 73,41 66,72.5 50,86 34,72.5 27,41" fill="#2E7D32" fill-opacity="0.88"/><polygon points="50,15 73,41 50,56" fill="#A56618"/></svg>RockSurv Petrography</span>
+      <span class="eyebrow">ОПТИЧЕСКАЯ МИКРОСКОПИЯ | ПРОХОДЯЩИЙ И ОТРАЖЁННЫЙ СВЕТ</span>
+    </div>
+    <h2>Двухрежимная среда: проходящий и отражённый свет</h2>
+    <p class="lead">Мгновенный переход между породообразующими силикатами в проходящем свете (PPL/XPL) и рудными минералами в отражённом свете (RLM/XRL).</p>
+    
+    <div class="feature-content">
+      <div class="copy">
+        
+          <div class="point">
+            <h3>Проходящий свет (147 минералов)</h3>
+            <p>Полный спектр силикатов, карбонатов и сульфатов с детальными оптическими константами в параллельных (PPL) и скрещенных (XPL) николях.</p>
+          </div>
+          <div class="point">
+            <h3>Отражённый свет (Рудная минераграфия)</h3>
+            <p>Диагностика непрозрачных сульфидов и оксидов по отражательной способности (R%), двуотражению, анизотропии и рельефу полировки.</p>
+          </div>
+          <div class="point">
+            <h3>Сквозная архитектура в один клик</h3>
+            <p>Переключатель в шапке синхронно адаптирует определитель, поисковый каталог, справочные таблицы и атлас под выбранный оптический режим.</p>
+          </div>
+        <div class="metric-row">
+          <span class="metric-badge accent"><span class="metric-dot"></span>PPL / XPL (147 минералов)</span><span class="metric-badge emerald"><span class="metric-dot"></span>RLM / XRL (рудные фазы)</span><span class="metric-badge amber"><span class="metric-dot"></span>Сквозное переключение</span>
+        </div>
+      </div>
+    </div>
+    
+    
+        <div class="portrait-visual">
+          <div class="carousel" data-carousel-id="slide-2-carousel" data-count="3">
+            <div class="device-notch"></div>
+            <div class="state-badge">
+              <span class="badge-title"><span class="indicator"></span><span class="title-text">Главный портал и выбор режима света</span></span>
+              <span class="badge-count">1 из 3</span>
+            </div>
+            <div class="carousel-track">
+              
+            <div class="carousel-item active" data-index="0" data-title="Главный портал и выбор режима света" data-tag="Главный экран">
+              <img src="/presentations/petrography/01-720.webp" alt="Главный портал и выбор режима света" srcset="/presentations/petrography/01-360.webp 360w, /presentations/petrography/01-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async"><svg class="petrography-name-fix" viewBox="0 0 720 1600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect x="159" y="344" width="169" height="33" fill="#fefdf5"/><text x="161" y="375" font-family="PetrographyBrand" font-size="39.19" font-weight="650" fill="#0f1009" textLength="165" lengthAdjust="spacingAndGlyphs">RockSurv</text></svg>
+            </div>
+            <div class="carousel-item" data-index="1" data-title="Интерактивные разделы и быстрый доступ" data-tag="Разделы">
+              <img src="/presentations/petrography/06-720.webp" alt="Интерактивные разделы и быстрый доступ" srcset="/presentations/petrography/06-360.webp 360w, /presentations/petrography/06-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async">
+            </div>
+            <div class="carousel-item" data-index="2" data-title="Определитель в отражённом свете" data-tag="Отражённый свет">
+              <img src="/presentations/petrography/07-720.webp" alt="Определитель в отражённом свете" srcset="/presentations/petrography/07-360.webp 360w, /presentations/petrography/07-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async"><svg class="petrography-name-fix" viewBox="0 0 720 1600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect x="86" y="101" width="109" height="23" fill="#fdfdf5"/><text x="88" y="122" font-family="PetrographyBrand" font-size="25.68" font-weight="650" fill="#0d0e08" textLength="105" lengthAdjust="spacingAndGlyphs">RockSurv</text></svg>
+            </div>
+            </div>
+            <div class="carousel-bottom-gradient"></div>
+            <div class="carousel-nav">
+              <button class="carousel-btn prev" aria-label="Предыдущий снимок">‹</button>
+              <div class="carousel-dots">
+                <button class="carousel-dot active" data-goto="0" aria-label="Показать экран 1"></button><button class="carousel-dot" data-goto="1" aria-label="Показать экран 2"></button><button class="carousel-dot" data-goto="2" aria-label="Показать экран 3"></button>
+              </div>
+              <button class="carousel-btn next" aria-label="Следующий снимок">›</button>
+            </div>
+            <div class="cycle-progress"></div>
+          </div>
+        </div>
+    
+    <p class="caption">Режимы PPL/XPL и RLM/XRL объединены в одном интерфейсе с мгновенной адаптацией диагностических ключей под тип микроскопа.</p>
+    <div class="footer">
+      <span>RockSurv Petrography | ПРОХОДЯЩИЙ И ОТРАЖЁННЫЙ СВЕТ</span>
+      <span>02 / 12</span>
+    </div>
+  </section>
+
+  <section class="slide" id="slide-3" aria-label="3. 10-параметрический оптический определитель минералов">
+    <div class="brandline">
+      <span class="brand"><svg class="brand-logo" viewBox="0 0 100 100" width="30" height="30" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 10px; flex-shrink: 0;"><circle cx="50" cy="50" r="49" fill="#E8F5E9" fill-opacity="0.95"/><circle cx="50" cy="50" r="48.5" stroke="#2E7D32" stroke-width="2.8"/><circle cx="50" cy="50" r="37" stroke="#81C784" stroke-width="1.8"/><polygon points="50,15 73,41 66,72.5 50,86 34,72.5 27,41" fill="#2E7D32" fill-opacity="0.88"/><polygon points="50,15 73,41 50,56" fill="#A56618"/></svg>RockSurv Petrography</span>
+      <span class="eyebrow">ЭКСПРЕСС-ДИАГНОСТИКА | 10 ОПТИЧЕСКИХ ПРИЗНАКОВ</span>
+    </div>
+    <h2>10-параметрический оптический определитель минералов</h2>
+    <p class="lead">Быстрая диагностика прямо за микроскопом: каждый введённый оптический признак в реальном времени сужает выборку минералов-кандидатов.</p>
+    
+    <div class="feature-content">
+      <div class="copy">
+        
+          <div class="point">
+            <h3>Комплекс микроскопических признаков</h3>
+            <p>Сингония, рельеф и шагрень, окраска, плеохроизм, спайность, угол погасания, сила двупреломления, знак удлинения, оптический знак и угол 2V.</p>
+          </div>
+          <div class="point">
+            <h3>Эргономичные плашки выбора</h3>
+            <p>Удобный сенсорный ввод параметров одной рукой при одновременной работе со столиком микроскопа и микрометрическим винтом.</p>
+          </div>
+          <div class="point">
+            <h3>Динамический счётчик совпадений</h3>
+            <p>Число оставшихся кандидатов обновляется мгновенно, подсказывая следующий решающий оптический тест для быстрой верификации.</p>
+          </div>
+        <div class="metric-row">
+          <span class="metric-badge accent"><span class="metric-dot"></span>10 оптических критериев</span><span class="metric-badge emerald"><span class="metric-dot"></span>Мгновенный пересчёт</span><span class="metric-badge amber"><span class="metric-dot"></span>Эргономика за столиком</span>
+        </div>
+      </div>
+    </div>
+    
+    
+        <div class="portrait-visual">
+          <div class="carousel" data-carousel-id="slide-3-carousel" data-count="5">
+            <div class="device-notch"></div>
+            <div class="state-badge">
+              <span class="badge-title"><span class="indicator"></span><span class="title-text">Чистый определитель и 10 плашек свойств</span></span>
+              <span class="badge-count">1 из 5</span>
+            </div>
+            <div class="carousel-track">
+              
+            <div class="carousel-item active" data-index="0" data-title="Чистый определитель и 10 плашек свойств" data-tag="Определитель">
+              <img src="/presentations/petrography/02-720.webp" alt="Чистый определитель и 10 плашек свойств" srcset="/presentations/petrography/02-360.webp 360w, /presentations/petrography/02-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async"><svg class="petrography-name-fix" viewBox="0 0 720 1600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect x="84" y="101" width="110" height="23" fill="#fefcf4"/><text x="86" y="122" font-family="PetrographyBrand" font-size="25.68" font-weight="650" fill="#0d0f08" textLength="106" lengthAdjust="spacingAndGlyphs">RockSurv</text></svg>
+            </div>
+            <div class="carousel-item" data-index="1" data-title="Селектор рельефа и шагреневой поверхности" data-tag="Рельеф">
+              <img src="/presentations/petrography/08-720.webp" alt="Селектор рельефа и шагреневой поверхности" srcset="/presentations/petrography/08-360.webp 360w, /presentations/petrography/08-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async"><svg class="petrography-name-fix" viewBox="0 0 720 1600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect x="74" y="106" width="88" height="16" fill="#747570"/><text x="76" y="120" font-family="PetrographyBrand" font-size="16.22" font-weight="650" fill="#020300" textLength="84" lengthAdjust="spacingAndGlyphs">RockSurv</text></svg>
+            </div>
+            <div class="carousel-item" data-index="2" data-title="Селектор силы двупреломления (Δn)" data-tag="Двупреломление">
+              <img src="/presentations/petrography/09-720.webp" alt="Селектор силы двупреломления (Δn)" srcset="/presentations/petrography/09-360.webp 360w, /presentations/petrography/09-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async"><svg class="petrography-name-fix" viewBox="0 0 720 1600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect x="74" y="106" width="88" height="16" fill="#747570"/><text x="76" y="120" font-family="PetrographyBrand" font-size="16.22" font-weight="650" fill="#020300" textLength="84" lengthAdjust="spacingAndGlyphs">RockSurv</text></svg>
+            </div>
+            <div class="carousel-item" data-index="3" data-title="Активные фильтры и отбор кандидатов" data-tag="Фильтрация">
+              <img src="/presentations/petrography/10-720.webp" alt="Активные фильтры и отбор кандидатов" srcset="/presentations/petrography/10-360.webp 360w, /presentations/petrography/10-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async"><svg class="petrography-name-fix" viewBox="0 0 720 1600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect x="84" y="101" width="110" height="23" fill="#fefcf4"/><text x="86" y="122" font-family="PetrographyBrand" font-size="25.68" font-weight="650" fill="#0d0f08" textLength="106" lengthAdjust="spacingAndGlyphs">RockSurv</text></svg>
+            </div>
+            <div class="carousel-item" data-index="4" data-title="Динамический список подходящих минералов" data-tag="Кандидаты">
+              <img src="/presentations/petrography/11-720.webp" alt="Динамический список подходящих минералов" srcset="/presentations/petrography/11-360.webp 360w, /presentations/petrography/11-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async"><svg class="petrography-name-fix" viewBox="0 0 720 1600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect x="84" y="101" width="110" height="23" fill="#fefcf4"/><text x="86" y="122" font-family="PetrographyBrand" font-size="25.68" font-weight="650" fill="#0d0f08" textLength="106" lengthAdjust="spacingAndGlyphs">RockSurv</text></svg>
+            </div>
+            </div>
+            <div class="carousel-bottom-gradient"></div>
+            <div class="carousel-nav">
+              <button class="carousel-btn prev" aria-label="Предыдущий снимок">‹</button>
+              <div class="carousel-dots">
+                <button class="carousel-dot active" data-goto="0" aria-label="Показать экран 1"></button><button class="carousel-dot" data-goto="1" aria-label="Показать экран 2"></button><button class="carousel-dot" data-goto="2" aria-label="Показать экран 3"></button><button class="carousel-dot" data-goto="3" aria-label="Показать экран 4"></button><button class="carousel-dot" data-goto="4" aria-label="Показать экран 5"></button>
+              </div>
+              <button class="carousel-btn next" aria-label="Следующий снимок">›</button>
+            </div>
+            <div class="cycle-progress"></div>
+          </div>
+        </div>
+    
+    <p class="caption">Диагностический ключ связывает наблюдения на столике микроскопа с базой эталонных оптических констант без задержек.</p>
+    <div class="footer">
+      <span>RockSurv Petrography | 10 ОПТИЧЕСКИХ ПРИЗНАКОВ</span>
+      <span>03 / 12</span>
+    </div>
+  </section>
+
+  <section class="slide" id="slide-4" aria-label="4. Объяснимый детерминированный скоринг и ранжирование">
+    <div class="brandline">
+      <span class="brand"><svg class="brand-logo" viewBox="0 0 100 100" width="30" height="30" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 10px; flex-shrink: 0;"><circle cx="50" cy="50" r="49" fill="#E8F5E9" fill-opacity="0.95"/><circle cx="50" cy="50" r="48.5" stroke="#2E7D32" stroke-width="2.8"/><circle cx="50" cy="50" r="37" stroke="#81C784" stroke-width="1.8"/><polygon points="50,15 73,41 66,72.5 50,86 34,72.5 27,41" fill="#2E7D32" fill-opacity="0.88"/><polygon points="50,15 73,41 50,56" fill="#A56618"/></svg>RockSurv Petrography</span>
+      <span class="eyebrow">АЛГОРИТМ СООТВЕТСТВИЯ | ДЕТЕРМИНИРОВАННЫЙ СКОРИНГ</span>
+    </div>
+    <h2>Объяснимый детерминированный скоринг и ранжирование</h2>
+    <p class="lead">Прозрачный математический алгоритм ранжирует минералы по степени соответствия, наглядно разделяя подтверждённые совпадения и противоречия.</p>
+    
+    <div class="feature-content">
+      <div class="copy">
+        
+          <div class="point">
+            <h3>Прозрачный расчёт баллов</h3>
+            <p>Точные совпадения добавляют балл (+1), непроверенные свойства остаются нейтральными (0), а несовместимые черты вычитают баллы (-1).</p>
+          </div>
+          <div class="point">
+            <h3>Процент достоверности</h3>
+            <p>Наглядная шкала соответствия минералу (Пренит 82%, Авгит 67%, Оливин 58%) с защитой от ложных исключений при неполных наблюдениях.</p>
+          </div>
+          <div class="point">
+            <h3>Диагностическая карточка обоснования</h3>
+            <p>Детальный разбор каждого признака показывает, почему кандидат был предложен и какие именно параметры подтвердили диагноз.</p>
+          </div>
+        <div class="metric-row">
+          <span class="metric-badge accent"><span class="metric-dot"></span>Детерминированный скоринг</span><span class="metric-badge emerald"><span class="metric-dot"></span>Ранжирование по %</span><span class="metric-badge amber"><span class="metric-dot"></span>Детальный лист обоснования</span>
+        </div>
+      </div>
+    </div>
+    
+    
+        <div class="portrait-visual">
+          <div class="carousel" data-carousel-id="slide-4-carousel" data-count="3">
+            <div class="device-notch"></div>
+            <div class="state-badge">
+              <span class="badge-title"><span class="indicator"></span><span class="title-text">Ввод комплекса оптических наблюдений</span></span>
+              <span class="badge-count">1 из 3</span>
+            </div>
+            <div class="carousel-track">
+              
+            <div class="carousel-item active" data-index="0" data-title="Ввод комплекса оптических наблюдений" data-tag="Наблюдения">
+              <img src="/presentations/petrography/12-720.webp" alt="Ввод комплекса оптических наблюдений" srcset="/presentations/petrography/12-360.webp 360w, /presentations/petrography/12-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async"><svg class="petrography-name-fix" viewBox="0 0 720 1600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect x="84" y="101" width="110" height="23" fill="#fefcf4"/><text x="86" y="122" font-family="PetrographyBrand" font-size="25.68" font-weight="650" fill="#0d0f08" textLength="106" lengthAdjust="spacingAndGlyphs">RockSurv</text></svg>
+            </div>
+            <div class="carousel-item" data-index="1" data-title="Ранжированный список кандидатов по % совпадения" data-tag="Ранжирование">
+              <img src="/presentations/petrography/13-720.webp" alt="Ранжированный список кандидатов по % совпадения" srcset="/presentations/petrography/13-360.webp 360w, /presentations/petrography/13-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async"><svg class="petrography-name-fix" viewBox="0 0 720 1600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect x="84" y="101" width="110" height="23" fill="#fefcf4"/><text x="86" y="122" font-family="PetrographyBrand" font-size="25.68" font-weight="650" fill="#0c0e08" textLength="106" lengthAdjust="spacingAndGlyphs">RockSurv</text></svg>
+            </div>
+            <div class="carousel-item" data-index="2" data-title="Раскрытая карточка обоснования с баллами" data-tag="Обоснование">
+              <img src="/presentations/petrography/14-720.webp" alt="Раскрытая карточка обоснования с баллами" srcset="/presentations/petrography/14-360.webp 360w, /presentations/petrography/14-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async"><svg class="petrography-name-fix" viewBox="0 0 720 1600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect x="84" y="101" width="110" height="23" fill="#fefcf4"/><text x="86" y="122" font-family="PetrographyBrand" font-size="25.68" font-weight="650" fill="#0d0f08" textLength="106" lengthAdjust="spacingAndGlyphs">RockSurv</text></svg>
+            </div>
+            </div>
+            <div class="carousel-bottom-gradient"></div>
+            <div class="carousel-nav">
+              <button class="carousel-btn prev" aria-label="Предыдущий снимок">‹</button>
+              <div class="carousel-dots">
+                <button class="carousel-dot active" data-goto="0" aria-label="Показать экран 1"></button><button class="carousel-dot" data-goto="1" aria-label="Показать экран 2"></button><button class="carousel-dot" data-goto="2" aria-label="Показать экран 3"></button>
+              </div>
+              <button class="carousel-btn next" aria-label="Следующий снимок">›</button>
+            </div>
+            <div class="cycle-progress"></div>
+          </div>
+        </div>
+    
+    <p class="caption">Алгоритм исключает эффект «чёрного ящика»: петрограф видит точный математический вес каждого наблюдаемого признака.</p>
+    <div class="footer">
+      <span>RockSurv Petrography | ДЕТЕРМИНИРОВАННЫЙ СКОРИНГ</span>
+      <span>04 / 12</span>
+    </div>
+  </section>
+
+  <section class="slide" id="slide-5" aria-label="5. Атлас шлифов: 267+ микрофотографий высокой чёткости">
+    <div class="brandline">
+      <span class="brand"><svg class="brand-logo" viewBox="0 0 100 100" width="30" height="30" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 10px; flex-shrink: 0;"><circle cx="50" cy="50" r="49" fill="#E8F5E9" fill-opacity="0.95"/><circle cx="50" cy="50" r="48.5" stroke="#2E7D32" stroke-width="2.8"/><circle cx="50" cy="50" r="37" stroke="#81C784" stroke-width="1.8"/><polygon points="50,15 73,41 66,72.5 50,86 34,72.5 27,41" fill="#2E7D32" fill-opacity="0.88"/><polygon points="50,15 73,41 50,56" fill="#A56618"/></svg>RockSurv Petrography</span>
+      <span class="eyebrow">ЭТАЛОННАЯ ГАЛЕРЕЯ | 267+ МИКРОФОТОГРАФИЙ</span>
+    </div>
+    <h2>Атлас шлифов: 267+ микрофотографий высокой чёткости</h2>
+    <p class="lead">Эталонная петрографическая галерея подлинных шлифов с верифицированной геологической привязкой и метаданными режимов поляризации.</p>
+    
+    <div class="feature-content">
+      <div class="copy">
+        
+          <div class="point">
+            <h3>Быстрые фильтры освещения</h3>
+            <p>Мгновенная селекция по режимам: Все, PPL (один николь), XPL (скрещенные николи) и Синхронные парные снимки.</p>
+          </div>
+          <div class="point">
+            <h3>Калиброванный микрометрический масштаб</h3>
+            <p>Встроенный масштаб 1 мм для точной оценки размера зёрен, структур и микротекстур породы прямо с экрана планшета.</p>
+          </div>
+          <div class="point">
+            <h3>Петрографические ассоциации</h3>
+            <p>Точная маркировка минералов на снимке и контекстное описание вмещающей породы (гранитоиды, базальты, гнейсы, скарны).</p>
+          </div>
+        <div class="metric-row">
+          <span class="metric-badge accent"><span class="metric-dot"></span>267+ снимков шлифов</span><span class="metric-badge emerald"><span class="metric-dot"></span>Фильтры PPL / XPL / Pairs</span><span class="metric-badge amber"><span class="metric-dot"></span>Шкала 1 мм</span>
+        </div>
+      </div>
+    </div>
+    
+    
+        <div class="portrait-visual">
+          <div class="carousel" data-carousel-id="slide-5-carousel" data-count="4">
+            <div class="device-notch"></div>
+            <div class="state-badge">
+              <span class="badge-title"><span class="indicator"></span><span class="title-text">Биотит в PPL: плеохроизм и спайность (EN светлая)</span></span>
+              <span class="badge-count">1 из 4</span>
+            </div>
+            <div class="carousel-track">
+              
+            <div class="carousel-item active" data-index="0" data-title="Биотит в PPL: плеохроизм и спайность (EN светлая)" data-tag="Биотит PPL">
+              <img src="/presentations/petrography/04-720.webp" alt="Биотит в PPL: плеохроизм и спайность (EN светлая)" srcset="/presentations/petrography/04-360.webp 360w, /presentations/petrography/04-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async"><svg class="petrography-name-fix" viewBox="0 0 720 1600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect x="84" y="101" width="110" height="23" fill="#fefcf4"/><text x="86" y="122" font-family="PetrographyBrand" font-size="25.68" font-weight="650" fill="#0d0f08" textLength="106" lengthAdjust="spacingAndGlyphs">RockSurv</text></svg>
+            </div>
+            <div class="carousel-item" data-index="1" data-title="Ортоклаз: фильтр синхронных пар PPL/XPL" data-tag="Ортоклаз PPL">
+              <img src="/presentations/petrography/15-720.webp" alt="Ортоклаз: фильтр синхронных пар PPL/XPL" srcset="/presentations/petrography/15-360.webp 360w, /presentations/petrography/15-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async"><svg class="petrography-name-fix" viewBox="0 0 720 1600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect x="84" y="101" width="110" height="23" fill="#fefdf5"/><text x="86" y="122" font-family="PetrographyBrand" font-size="25.68" font-weight="650" fill="#0c0f08" textLength="106" lengthAdjust="spacingAndGlyphs">RockSurv</text></svg>
+            </div>
+            <div class="carousel-item" data-index="2" data-title="Кальцит в XPL: полисинтетические двойники (RU локализация)" data-tag="Кальцит XPL">
+              <img src="/presentations/petrography/16-720.webp" alt="Кальцит в XPL: полисинтетические двойники (RU локализация)" srcset="/presentations/petrography/16-360.webp 360w, /presentations/petrography/16-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async"><svg class="petrography-name-fix" viewBox="0 0 720 1600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect x="83" y="103" width="108" height="21" fill="#141613"/><text x="85" y="122" font-family="PetrographyBrand" font-size="22.97" font-weight="650" fill="#f5f8f4" textLength="104" lengthAdjust="spacingAndGlyphs">RockSurv</text></svg>
+            </div>
+            <div class="carousel-item" data-index="3" data-title="Авгит в XPL: песочные часы и пироксеновая спайность (Dark)" data-tag="Авгит XPL">
+              <img src="/presentations/petrography/17-720.webp" alt="Авгит в XPL: песочные часы и пироксеновая спайность (Dark)" srcset="/presentations/petrography/17-360.webp 360w, /presentations/petrography/17-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async">
+            </div>
+            </div>
+            <div class="carousel-bottom-gradient"></div>
+            <div class="carousel-nav">
+              <button class="carousel-btn prev" aria-label="Предыдущий снимок">‹</button>
+              <div class="carousel-dots">
+                <button class="carousel-dot active" data-goto="0" aria-label="Показать экран 1"></button><button class="carousel-dot" data-goto="1" aria-label="Показать экран 2"></button><button class="carousel-dot" data-goto="2" aria-label="Показать экран 3"></button><button class="carousel-dot" data-goto="3" aria-label="Показать экран 4"></button>
+              </div>
+              <button class="carousel-btn next" aria-label="Следующий снимок">›</button>
+            </div>
+            <div class="cycle-progress"></div>
+          </div>
+        </div>
+    
+    <p class="caption">Все микрофотографии атласа снабжены данными об источнике, петрографическом типе породы и фазовом составе шлифа.</p>
+    <div class="footer">
+      <span>RockSurv Petrography | 267+ МИКРОФОТОГРАФИЙ</span>
+      <span>05 / 12</span>
+    </div>
+  </section>
+
+  <section class="slide" id="slide-6" aria-label="6. Синхронный анализ PPL / XPL: плеохроизм и интерференция">
+    <div class="brandline">
+      <span class="brand"><svg class="brand-logo" viewBox="0 0 100 100" width="30" height="30" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 10px; flex-shrink: 0;"><circle cx="50" cy="50" r="49" fill="#E8F5E9" fill-opacity="0.95"/><circle cx="50" cy="50" r="48.5" stroke="#2E7D32" stroke-width="2.8"/><circle cx="50" cy="50" r="37" stroke="#81C784" stroke-width="1.8"/><polygon points="50,15 73,41 66,72.5 50,86 34,72.5 27,41" fill="#2E7D32" fill-opacity="0.88"/><polygon points="50,15 73,41 50,56" fill="#A56618"/></svg>RockSurv Petrography</span>
+      <span class="eyebrow">ОПТИЧЕСКИЙ КОНТРАСТ | СИНХРОННЫЙ АНАЛИЗ</span>
+    </div>
+    <h2>Синхронный анализ PPL / XPL: плеохроизм и интерференция</h2>
+    <p class="lead">Сопоставление одного и того же поля шлифа в PPL и XPL раскрывает двойникование, зональность, вторичные изменения и структуру срастаний.</p>
+    
+    <div class="feature-content">
+      <div class="copy">
+        
+          <div class="point">
+            <h3>Детальный просмотрщик с зумом</h3>
+            <p>Высокодетализированный полноэкранный просмотр микрофотографий с плавным панорамированием и калиброванной шкалой 1 мм.</p>
+          </div>
+          <div class="point">
+            <h3>Диагностический контраст</h3>
+            <p>Прямое сравнение естественной окраски и плеохроизма в PPL с интерференционной окраской и типами погасания в XPL.</p>
+          </div>
+          <div class="point">
+            <h3>Научная цитируемость и провенанс</h3>
+            <p>Полная информация об образце, месторождении, авторе шлифа и петрографическом контексте открывается по первому клику.</p>
+          </div>
+        <div class="metric-row">
+          <span class="metric-badge accent"><span class="metric-dot"></span>Синхронные пары PPL/XPL</span><span class="metric-badge emerald"><span class="metric-dot"></span>Интерференция и двойники</span><span class="metric-badge amber"><span class="metric-dot"></span>Масштабная линейка 1 мм</span>
+        </div>
+      </div>
+    </div>
+    
+    
+        <div class="portrait-visual">
+          <div class="carousel" data-carousel-id="slide-6-carousel" data-count="2">
+            <div class="device-notch"></div>
+            <div class="state-badge">
+              <span class="badge-title"><span class="indicator"></span><span class="title-text">Детальный просмотрщик PPL: форма зёрен и цемент (шкала 1 мм)</span></span>
+              <span class="badge-count">1 из 2</span>
+            </div>
+            <div class="carousel-track">
+              
+            <div class="carousel-item active" data-index="0" data-title="Детальный просмотрщик PPL: форма зёрен и цемент (шкала 1 мм)" data-tag="Кварц PPL">
+              <img src="/presentations/petrography/18-720.webp" alt="Детальный просмотрщик PPL: форма зёрен и цемент (шкала 1 мм)" srcset="/presentations/petrography/18-360.webp 360w, /presentations/petrography/18-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async">
+            </div>
+            <div class="carousel-item" data-index="1" data-title="Детальный просмотрщик XPL: погасание и интерференция (шкала 1 мм)" data-tag="Кварц XPL">
+              <img src="/presentations/petrography/19-720.webp" alt="Детальный просмотрщик XPL: погасание и интерференция (шкала 1 мм)" srcset="/presentations/petrography/19-360.webp 360w, /presentations/petrography/19-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async">
+            </div>
+            </div>
+            <div class="carousel-bottom-gradient"></div>
+            <div class="carousel-nav">
+              <button class="carousel-btn prev" aria-label="Предыдущий снимок">‹</button>
+              <div class="carousel-dots">
+                <button class="carousel-dot active" data-goto="0" aria-label="Показать экран 1"></button><button class="carousel-dot" data-goto="1" aria-label="Показать экран 2"></button>
+              </div>
+              <button class="carousel-btn next" aria-label="Следующий снимок">›</button>
+            </div>
+            <div class="cycle-progress"></div>
+          </div>
+        </div>
+    
+    <p class="caption">Парный анализ позволяет уверенно диагностировать полисинтетическое двойникование плагиоклазов, микроклиновую решётку и структуры распада.</p>
+    <div class="footer">
+      <span>RockSurv Petrography | СИНХРОННЫЙ АНАЛИЗ</span>
+      <span>06 / 12</span>
+    </div>
+  </section>
+
+  <section class="slide" id="slide-7" aria-label="7. Интерактивная номограмма Мишель-Леви и двупреломление">
+    <div class="brandline">
+      <span class="brand"><svg class="brand-logo" viewBox="0 0 100 100" width="30" height="30" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 10px; flex-shrink: 0;"><circle cx="50" cy="50" r="49" fill="#E8F5E9" fill-opacity="0.95"/><circle cx="50" cy="50" r="48.5" stroke="#2E7D32" stroke-width="2.8"/><circle cx="50" cy="50" r="37" stroke="#81C784" stroke-width="1.8"/><polygon points="50,15 73,41 66,72.5 50,86 34,72.5 27,41" fill="#2E7D32" fill-opacity="0.88"/><polygon points="50,15 73,41 50,56" fill="#A56618"/></svg>RockSurv Petrography</span>
+      <span class="eyebrow">ИНТЕРАКТИВНЫЙ КАЛЬКУЛЯТОР | НОМОГРАММА МИШЕЛЬ-ЛЕВИ</span>
+    </div>
+    <h2>Интерактивная номограмма Мишель-Леви и двупреломление</h2>
+    <p class="lead">Цифровой оптический калькулятор, связывающий стандартную толщину шлифа (30 мкм), оптическую разность хода и силу двупреломления (Δn).</p>
+    
+    <div class="feature-content">
+      <div class="copy">
+        
+          <div class="point">
+            <h3>Математическая точность</h3>
+            <p>Мгновенный расчёт разности хода Γ = 1000 · d · Δn с интерактивным ползунком и спектральными порядками интерференционных цветов (I–IV порядки).</p>
+          </div>
+          <div class="point">
+            <h3>Стандартная толщина среза</h3>
+            <p>Автоматическая привязка к эталонным 30 мкм с возможностью оперативной коррекции толщины для клиновидных участков шлифа.</p>
+          </div>
+          <div class="point">
+            <h3>Автоподбор минералов по интерференции</h3>
+            <p>Живой список породообразующих минералов, максимальное двупреломление которых соответствует выбранной интерференционной окраске.</p>
+          </div>
+        <div class="metric-row">
+          <span class="metric-badge accent"><span class="metric-dot"></span>Формула Γ = 1000·d·Δn</span><span class="metric-badge emerald"><span class="metric-dot"></span>Эталон 30 мкм</span><span class="metric-badge amber"><span class="metric-dot"></span>Автоподбор минералов</span>
+        </div>
+      </div>
+    </div>
+    
+    
+        <div class="portrait-visual">
+          <div class="carousel" data-carousel-id="slide-7-carousel" data-count="4">
+            <div class="device-notch"></div>
+            <div class="state-badge">
+              <span class="badge-title"><span class="indicator"></span><span class="title-text">Калькулятор Мишель-Леви (1080 нм, Δn = 0.036)</span></span>
+              <span class="badge-count">1 из 4</span>
+            </div>
+            <div class="carousel-track">
+              
+            <div class="carousel-item active" data-index="0" data-title="Калькулятор Мишель-Леви (1080 нм, Δn = 0.036)" data-tag="Номограмма">
+              <img src="/presentations/petrography/03-720.webp" alt="Калькулятор Мишель-Леви (1080 нм, Δn = 0.036)" srcset="/presentations/petrography/03-360.webp 360w, /presentations/petrography/03-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async"><svg class="petrography-name-fix" viewBox="0 0 720 1600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect x="84" y="101" width="110" height="23" fill="#fefcf4"/><text x="86" y="122" font-family="PetrographyBrand" font-size="25.68" font-weight="650" fill="#0d0f08" textLength="106" lengthAdjust="spacingAndGlyphs">RockSurv</text></svg>
+            </div>
+            <div class="carousel-item" data-index="1" data-title="Список минералов с подходящим двупреломлением" data-tag="Подбор минералов">
+              <img src="/presentations/petrography/20-720.webp" alt="Список минералов с подходящим двупреломлением" srcset="/presentations/petrography/20-360.webp 360w, /presentations/petrography/20-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async"><svg class="petrography-name-fix" viewBox="0 0 720 1600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect x="84" y="101" width="110" height="23" fill="#fefcf4"/><text x="86" y="122" font-family="PetrographyBrand" font-size="25.68" font-weight="650" fill="#0d0f08" textLength="106" lengthAdjust="spacingAndGlyphs">RockSurv</text></svg>
+            </div>
+            <div class="carousel-item" data-index="2" data-title="Тёмная контрастная тема номограммы" data-tag="Тёмная тема">
+              <img src="/presentations/petrography/21-720.webp" alt="Тёмная контрастная тема номограммы" srcset="/presentations/petrography/21-360.webp 360w, /presentations/petrography/21-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async"><svg class="petrography-name-fix" viewBox="0 0 720 1600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect x="84" y="101" width="110" height="23" fill="#111411"/><text x="86" y="122" font-family="PetrographyBrand" font-size="25.68" font-weight="650" fill="#f3f6f0" textLength="106" lengthAdjust="spacingAndGlyphs">RockSurv</text></svg>
+            </div>
+            <div class="carousel-item" data-index="3" data-title="Справочные таблицы оптических констант" data-tag="Таблицы">
+              <img src="/presentations/petrography/22-720.webp" alt="Справочные таблицы оптических констант" srcset="/presentations/petrography/22-360.webp 360w, /presentations/petrography/22-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async"><svg class="petrography-name-fix" viewBox="0 0 720 1600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect x="84" y="101" width="110" height="23" fill="#fefcf4"/><text x="86" y="122" font-family="PetrographyBrand" font-size="25.68" font-weight="650" fill="#0d0f08" textLength="106" lengthAdjust="spacingAndGlyphs">RockSurv</text></svg>
+            </div>
+            </div>
+            <div class="carousel-bottom-gradient"></div>
+            <div class="carousel-nav">
+              <button class="carousel-btn prev" aria-label="Предыдущий снимок">‹</button>
+              <div class="carousel-dots">
+                <button class="carousel-dot active" data-goto="0" aria-label="Показать экран 1"></button><button class="carousel-dot" data-goto="1" aria-label="Показать экран 2"></button><button class="carousel-dot" data-goto="2" aria-label="Показать экран 3"></button><button class="carousel-dot" data-goto="3" aria-label="Показать экран 4"></button>
+              </div>
+              <button class="carousel-btn next" aria-label="Следующий снимок">›</button>
+            </div>
+            <div class="cycle-progress"></div>
+          </div>
+        </div>
+    
+    <p class="caption">Точный цифровой эквивалент классической номограммы Мишель-Леви с мгновенным определением интерференционного цвета.</p>
+    <div class="footer">
+      <span>RockSurv Petrography | НОМОГРАММА МИШЕЛЬ-ЛЕВИ</span>
+      <span>07 / 12</span>
+    </div>
+  </section>
+
+  <section class="slide" id="slide-8" aria-label="8. Детальные карточки минералов: кристаллография и константы">
+    <div class="brandline">
+      <span class="brand"><svg class="brand-logo" viewBox="0 0 100 100" width="30" height="30" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 10px; flex-shrink: 0;"><circle cx="50" cy="50" r="49" fill="#E8F5E9" fill-opacity="0.95"/><circle cx="50" cy="50" r="48.5" stroke="#2E7D32" stroke-width="2.8"/><circle cx="50" cy="50" r="37" stroke="#81C784" stroke-width="1.8"/><polygon points="50,15 73,41 66,72.5 50,86 34,72.5 27,41" fill="#2E7D32" fill-opacity="0.88"/><polygon points="50,15 73,41 50,56" fill="#A56618"/></svg>RockSurv Petrography</span>
+      <span class="eyebrow">МИНЕРАЛОГИЧЕСКИЙ ПАСПОРТ | КРИСТАЛЛОГРАФИЯ И КОНСТАНТЫ</span>
+    </div>
+    <h2>Детальные карточки минералов: кристаллография и константы</h2>
+    <p class="lead">Исчерпывающие минералогические досье: показатели преломления (nα, nβ, nγ), угол 2V, индикатриса, спайность и парагенезис.</p>
+    
+    <div class="feature-content">
+      <div class="copy">
+        
+          <div class="point">
+            <h3>Полный оптический паспорт</h3>
+            <p>Двупреломление Δn, оптический знак (+/-), угол оптических осей 2V, дисперсия, схема плеохроизма и характер погасания.</p>
+          </div>
+          <div class="point">
+            <h3>Кристаллография и формула</h3>
+            <p>Сингония, пространственная группа, идеальная химическая формула, твёрдость по шкале Мооса и ориентировка плоскостей спайности.</p>
+          </div>
+          <div class="point">
+            <h3>Парагенетические ассоциации</h3>
+            <p>Типоморфные условия кристаллизации, спутники минерала и характерные продукты вторичных изменений (серицит, хлорит, соссюрит).</p>
+          </div>
+        <div class="metric-row">
+          <span class="metric-badge accent"><span class="metric-dot"></span>Оптическая индикатриса</span><span class="metric-badge emerald"><span class="metric-dot"></span>Показатели nα, nβ, nγ</span><span class="metric-badge amber"><span class="metric-dot"></span>Парагенезис и сингония</span>
+        </div>
+      </div>
+    </div>
+    
+    
+        <div class="portrait-visual">
+          <div class="carousel" data-carousel-id="slide-8-carousel" data-count="4">
+            <div class="device-notch"></div>
+            <div class="state-badge">
+              <span class="badge-title"><span class="indicator"></span><span class="title-text">Шапка карточки: формула, сингония, твёрдость</span></span>
+              <span class="badge-count">1 из 4</span>
+            </div>
+            <div class="carousel-track">
+              
+            <div class="carousel-item active" data-index="0" data-title="Шапка карточки: формула, сингония, твёрдость" data-tag="Карточка Пренита">
+              <img src="/presentations/petrography/23-720.webp" alt="Шапка карточки: формула, сингония, твёрдость" srcset="/presentations/petrography/23-360.webp 360w, /presentations/petrography/23-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async">
+            </div>
+            <div class="carousel-item" data-index="1" data-title="Оптические константы и параметры индикатрисы" data-tag="Оптические константы">
+              <img src="/presentations/petrography/24-720.webp" alt="Оптические константы и параметры индикатрисы" srcset="/presentations/petrography/24-360.webp 360w, /presentations/petrography/24-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async">
+            </div>
+            <div class="carousel-item" data-index="2" data-title="Геологический парагенезис и ассоциации" data-tag="Парагенезис">
+              <img src="/presentations/petrography/25-720.webp" alt="Геологический парагенезис и ассоциации" srcset="/presentations/petrography/25-360.webp 360w, /presentations/petrography/25-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async">
+            </div>
+            <div class="carousel-item" data-index="3" data-title="Быстрый предиктивный поиск по каталогу" data-tag="Поиск в каталоге">
+              <img src="/presentations/petrography/26-720.webp" alt="Быстрый предиктивный поиск по каталогу" srcset="/presentations/petrography/26-360.webp 360w, /presentations/petrography/26-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async"><svg class="petrography-name-fix" viewBox="0 0 720 1600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect x="84" y="101" width="110" height="23" fill="#fefcf4"/><text x="86" y="122" font-family="PetrographyBrand" font-size="25.68" font-weight="650" fill="#0c0e08" textLength="106" lengthAdjust="spacingAndGlyphs">RockSurv</text></svg>
+            </div>
+            </div>
+            <div class="carousel-bottom-gradient"></div>
+            <div class="carousel-nav">
+              <button class="carousel-btn prev" aria-label="Предыдущий снимок">‹</button>
+              <div class="carousel-dots">
+                <button class="carousel-dot active" data-goto="0" aria-label="Показать экран 1"></button><button class="carousel-dot" data-goto="1" aria-label="Показать экран 2"></button><button class="carousel-dot" data-goto="2" aria-label="Показать экран 3"></button><button class="carousel-dot" data-goto="3" aria-label="Показать экран 4"></button>
+              </div>
+              <button class="carousel-btn next" aria-label="Следующий снимок">›</button>
+            </div>
+            <div class="cycle-progress"></div>
+          </div>
+        </div>
+    
+    <p class="caption">Каждая карточка содержит верифицированные константы, структурные формулы и диагностические отличия от минералов-двойников.</p>
+    <div class="footer">
+      <span>RockSurv Petrography | КРИСТАЛЛОГРАФИЯ И КОНСТАНТЫ</span>
+      <span>08 / 12</span>
+    </div>
+  </section>
+
+  <section class="slide" id="slide-9" aria-label="9. Микроскопия в отражённом свете: рудные минералы">
+    <div class="brandline">
+      <span class="brand"><svg class="brand-logo" viewBox="0 0 100 100" width="30" height="30" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 10px; flex-shrink: 0;"><circle cx="50" cy="50" r="49" fill="#E8F5E9" fill-opacity="0.95"/><circle cx="50" cy="50" r="48.5" stroke="#2E7D32" stroke-width="2.8"/><circle cx="50" cy="50" r="37" stroke="#81C784" stroke-width="1.8"/><polygon points="50,15 73,41 66,72.5 50,86 34,72.5 27,41" fill="#2E7D32" fill-opacity="0.88"/><polygon points="50,15 73,41 50,56" fill="#A56618"/></svg>RockSurv Petrography</span>
+      <span class="eyebrow">РУДНАЯ МИКРОСКОПИЯ | АНШЛИФЫ И ОТРАЖЁННЫЙ СВЕТ</span>
+    </div>
+    <h2>Микроскопия в отражённом свете: рудные минералы</h2>
+    <p class="lead">Специализированный модуль для непрозрачных рудных минералов в аншлифах: отражательная способность (R%), двуотражение и анизотропия.</p>
+    
+    <div class="feature-content">
+      <div class="copy">
+        
+          <div class="point">
+            <h3>Отражение и цвет в воздухе и масле</h3>
+            <p>Количественные значения R% и характерные цветовые оттенки для сульфидов и оксидов (пирит, халькопирит, галенит, сфалерит).</p>
+          </div>
+          <div class="point">
+            <h3>Анизотропия и внутренние рефлексы</h3>
+            <p>Оценка эффектов в скрещенных николях (XRL) для надёжного разделения изотропных и анизотропных рудных фаз.</p>
+          </div>
+          <div class="point">
+            <h3>Рельеф полировки и текстуры</h3>
+            <p>Относительная твёрдость полировки, форма зёрен и диагностические структуры распада твёрдых растворов в полированных препаратах.</p>
+          </div>
+        <div class="metric-row">
+          <span class="metric-badge accent"><span class="metric-dot"></span>Отражательная способность R%</span><span class="metric-badge emerald"><span class="metric-dot"></span>Сульфиды и оксиды</span><span class="metric-badge amber"><span class="metric-dot"></span>Анизотропия в XRL</span>
+        </div>
+      </div>
+    </div>
+    
+    
+        <div class="portrait-visual">
+          <div class="carousel" data-carousel-id="slide-9-carousel" data-count="3">
+            <div class="device-notch"></div>
+            <div class="state-badge">
+              <span class="badge-title"><span class="indicator"></span><span class="title-text">Определитель рудных минералов с кандидатами</span></span>
+              <span class="badge-count">1 из 3</span>
+            </div>
+            <div class="carousel-track">
+              
+            <div class="carousel-item active" data-index="0" data-title="Определитель рудных минералов с кандидатами" data-tag="Рудный определитель">
+              <img src="/presentations/petrography/07-720.webp" alt="Определитель рудных минералов с кандидатами" srcset="/presentations/petrography/07-360.webp 360w, /presentations/petrography/07-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async"><svg class="petrography-name-fix" viewBox="0 0 720 1600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect x="86" y="101" width="109" height="23" fill="#fdfdf5"/><text x="88" y="122" font-family="PetrographyBrand" font-size="25.68" font-weight="650" fill="#0d0e08" textLength="105" lengthAdjust="spacingAndGlyphs">RockSurv</text></svg>
+            </div>
+            <div class="carousel-item" data-index="1" data-title="Карточка пирита в каталоге отражённого света" data-tag="Пирит в каталоге">
+              <img src="/presentations/petrography/27-720.webp" alt="Карточка пирита в каталоге отражённого света" srcset="/presentations/petrography/27-360.webp 360w, /presentations/petrography/27-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async"><svg class="petrography-name-fix" viewBox="0 0 720 1600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect x="86" y="101" width="109" height="23" fill="#fdfdf5"/><text x="88" y="122" font-family="PetrographyBrand" font-size="25.68" font-weight="650" fill="#0d0e08" textLength="105" lengthAdjust="spacingAndGlyphs">RockSurv</text></svg>
+            </div>
+            <div class="carousel-item" data-index="2" data-title="Детальные рудные свойства и константы пирита" data-tag="Свойства пирита">
+              <img src="/presentations/petrography/28-720.webp" alt="Детальные рудные свойства и константы пирита" srcset="/presentations/petrography/28-360.webp 360w, /presentations/petrography/28-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async">
+            </div>
+            </div>
+            <div class="carousel-bottom-gradient"></div>
+            <div class="carousel-nav">
+              <button class="carousel-btn prev" aria-label="Предыдущий снимок">‹</button>
+              <div class="carousel-dots">
+                <button class="carousel-dot active" data-goto="0" aria-label="Показать экран 1"></button><button class="carousel-dot" data-goto="1" aria-label="Показать экран 2"></button><button class="carousel-dot" data-goto="2" aria-label="Показать экран 3"></button>
+              </div>
+              <button class="carousel-btn next" aria-label="Следующий снимок">›</button>
+            </div>
+            <div class="cycle-progress"></div>
+          </div>
+        </div>
+    
+    <p class="caption">Диагностика рудных ассоциаций адаптирована под стандартные методики рудной микроскопии и полированных аншлифов.</p>
+    <div class="footer">
+      <span>RockSurv Petrography | АНШЛИФЫ И ОТРАЖЁННЫЙ СВЕТ</span>
+      <span>09 / 12</span>
+    </div>
+  </section>
+
+  <section class="slide" id="slide-10" aria-label="10. Виртуальная лаборатория: симуляторы микроскопии">
+    <div class="brandline">
+      <span class="brand"><svg class="brand-logo" viewBox="0 0 100 100" width="30" height="30" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 10px; flex-shrink: 0;"><circle cx="50" cy="50" r="49" fill="#E8F5E9" fill-opacity="0.95"/><circle cx="50" cy="50" r="48.5" stroke="#2E7D32" stroke-width="2.8"/><circle cx="50" cy="50" r="37" stroke="#81C784" stroke-width="1.8"/><polygon points="50,15 73,41 66,72.5 50,86 34,72.5 27,41" fill="#2E7D32" fill-opacity="0.88"/><polygon points="50,15 73,41 50,56" fill="#A56618"/></svg>RockSurv Petrography</span>
+      <span class="eyebrow">ПРАКТИКУМ И СИМУЛЯТОРЫ | ИНТЕРАКТИВНОЕ ОБУЧЕНИЕ</span>
+    </div>
+    <h2>Виртуальная лаборатория: симуляторы микроскопии</h2>
+    <p class="lead">Интерактивные обучающие тренажёры: полоска Бекке, оценка рельефа, вращение столика для плеохроизма и угол погасания.</p>
+    
+    <div class="feature-content">
+      <div class="copy">
+        
+          <div class="point">
+            <h3>Симулятор полоски Бекке и рельефа</h3>
+            <p>Интерактивная расфокусировка, наглядно демонстрирующая смещение световой полоски в среду с большим показателем преломления.</p>
+          </div>
+          <div class="point">
+            <h3>Вращающийся столик и угол погасания</h3>
+            <p>Полный поворот столика на 360° для симуляции прямого, косого и волнистого погасания минеральных зёрен в скрещенных николях.</p>
+          </div>
+          <div class="point">
+            <h3>Симулятор плеохроизма и схем абсорбции</h3>
+            <p>Вращение поляризационного столика с наглядным изменением окраски для прямой (биотит Ng > Np) и обратной (турмалин No > Ne') схем.</p>
+          </div>
+        <div class="metric-row">
+          <span class="metric-badge accent"><span class="metric-dot"></span>Полоска Бекке и рельеф</span><span class="metric-badge emerald"><span class="metric-dot"></span>Поворот столика 360°</span><span class="metric-badge amber"><span class="metric-dot"></span>Плеохроизм и абсорбция</span>
+        </div>
+      </div>
+    </div>
+    
+    
+        <div class="portrait-visual">
+          <div class="carousel" data-carousel-id="slide-10-carousel" data-count="4">
+            <div class="device-notch"></div>
+            <div class="state-badge">
+              <span class="badge-title"><span class="indicator"></span><span class="title-text">Симулятор полоски Бекке с минералами Grt-Pyx-Qrz</span></span>
+              <span class="badge-count">1 из 4</span>
+            </div>
+            <div class="carousel-track">
+              
+            <div class="carousel-item active" data-index="0" data-title="Симулятор полоски Бекке с минералами Grt-Pyx-Qrz" data-tag="Полоска Бекке">
+              <img src="/presentations/petrography/29-720.webp" alt="Симулятор полоски Бекке с минералами Grt-Pyx-Qrz" srcset="/presentations/petrography/29-360.webp 360w, /presentations/petrography/29-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async">
+            </div>
+            <div class="carousel-item" data-index="1" data-title="Вращающийся столик и угол погасания" data-tag="Вращение столика">
+              <img src="/presentations/petrography/30-720.webp" alt="Вращающийся столик и угол погасания" srcset="/presentations/petrography/30-360.webp 360w, /presentations/petrography/30-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async">
+            </div>
+            <div class="carousel-item" data-index="2" data-title="Симулятор плеохроизма и схемы абсорбции (Биотит)" data-tag="Плеохроизм">
+              <img src="/presentations/petrography/31-720.webp" alt="Симулятор плеохроизма и схемы абсорбции (Биотит)" srcset="/presentations/petrography/31-360.webp 360w, /presentations/petrography/31-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async">
+            </div>
+            <div class="carousel-item" data-index="3" data-title="Лабораторный модуль отражённого света" data-tag="Лаборатория RLM">
+              <img src="/presentations/petrography/32-720.webp" alt="Лабораторный модуль отражённого света" srcset="/presentations/petrography/32-360.webp 360w, /presentations/petrography/32-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async">
+            </div>
+            </div>
+            <div class="carousel-bottom-gradient"></div>
+            <div class="carousel-nav">
+              <button class="carousel-btn prev" aria-label="Предыдущий снимок">‹</button>
+              <div class="carousel-dots">
+                <button class="carousel-dot active" data-goto="0" aria-label="Показать экран 1"></button><button class="carousel-dot" data-goto="1" aria-label="Показать экран 2"></button><button class="carousel-dot" data-goto="2" aria-label="Показать экран 3"></button><button class="carousel-dot" data-goto="3" aria-label="Показать экран 4"></button>
+              </div>
+              <button class="carousel-btn next" aria-label="Следующий снимок">›</button>
+            </div>
+            <div class="cycle-progress"></div>
+          </div>
+        </div>
+    
+    <p class="caption">Виртуальный практикум позволяет оттачивать навыки определения оптических свойств до работы с реальным поляризационным микроскопом.</p>
+    <div class="footer">
+      <span>RockSurv Petrography | ИНТЕРАКТИВНОЕ ОБУЧЕНИЕ</span>
+      <span>10 / 12</span>
+    </div>
+  </section>
+
+  <section class="slide" id="slide-11" aria-label="11. Многоязычная архитектура и контрастный интерфейс">
+    <div class="brandline">
+      <span class="brand"><svg class="brand-logo" viewBox="0 0 100 100" width="30" height="30" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 10px; flex-shrink: 0;"><circle cx="50" cy="50" r="49" fill="#E8F5E9" fill-opacity="0.95"/><circle cx="50" cy="50" r="48.5" stroke="#2E7D32" stroke-width="2.8"/><circle cx="50" cy="50" r="37" stroke="#81C784" stroke-width="1.8"/><polygon points="50,15 73,41 66,72.5 50,86 34,72.5 27,41" fill="#2E7D32" fill-opacity="0.88"/><polygon points="50,15 73,41 50,56" fill="#A56618"/></svg>RockSurv Petrography</span>
+      <span class="eyebrow">ИНТЕРФЕЙС И ЭРГОНОМИКА | ДОСТУПНОСТЬ</span>
+    </div>
+    <h2>Многоязычная архитектура и контрастный интерфейс</h2>
+    <p class="lead">Локализация на 4 языках, включая полную поддержку RTL для арабского, и высококонтрастная тёмная тема для работы в затемнённой лаборатории.</p>
+    
+    <div class="feature-content">
+      <div class="copy">
+        
+          <div class="point">
+            <h3>4 языка интерфейса</h3>
+            <p>Полноценная локализация на русском, английском, арабском (с зеркальным RTL-интерфейсом) и китайском языках.</p>
+          </div>
+          <div class="point">
+            <h3>Тёмная тема Darkfield</h3>
+            <p>Специально разработана для снижения утомляемости глаз при длительных микроскопических наблюдениях в тёмной комнате.</p>
+          </div>
+          <div class="point">
+            <h3>Эргономика сенсорного ввода</h3>
+            <p>Увеличенные сенсорные зоны (≥ 48 dp) для комфортной работы за микроскопом без случайных ошибочных нажатий.</p>
+          </div>
+        <div class="metric-row">
+          <span class="metric-badge accent"><span class="metric-dot"></span>4 языка (RU, EN, AR RTL, ZH)</span><span class="metric-badge emerald"><span class="metric-dot"></span>Тёмная тема Darkfield</span><span class="metric-badge amber"><span class="metric-dot"></span>Эргономика >= 48dp</span>
+        </div>
+      </div>
+    </div>
+    
+    
+        <div class="portrait-visual">
+          <div class="carousel" data-carousel-id="slide-11-carousel" data-count="4">
+            <div class="device-notch"></div>
+            <div class="state-badge">
+              <span class="badge-title"><span class="indicator"></span><span class="title-text">Русский интерфейс определителя минералов</span></span>
+              <span class="badge-count">1 из 4</span>
+            </div>
+            <div class="carousel-track">
+              
+            <div class="carousel-item active" data-index="0" data-title="Русский интерфейс определителя минералов" data-tag="Русский (RU)">
+              <img src="/presentations/petrography/33-720.webp" alt="Русский интерфейс определителя минералов" srcset="/presentations/petrography/33-360.webp 360w, /presentations/petrography/33-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async"><svg class="petrography-name-fix" viewBox="0 0 720 1600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect x="83" y="103" width="108" height="21" fill="#fefcf4"/><text x="85" y="122" font-family="PetrographyBrand" font-size="22.97" font-weight="650" fill="#0a0c05" textLength="104" lengthAdjust="spacingAndGlyphs">RockSurv</text></svg>
+            </div>
+            <div class="carousel-item" data-index="1" data-title="Арабский интерфейс с зеркальной вёрсткой RTL" data-tag="Арабский (AR RTL)">
+              <img src="/presentations/petrography/34-720.webp" alt="Арабский интерфейс с зеркальной вёрсткой RTL" srcset="/presentations/petrography/34-360.webp 360w, /presentations/petrography/34-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async"><svg class="petrography-name-fix" viewBox="0 0 720 1600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect x="323" y="99" width="117" height="25" fill="#fefdf5"/><text x="325" y="122" font-family="PetrographyBrand" font-size="28.38" font-weight="650" fill="#0f1009" textLength="113" lengthAdjust="spacingAndGlyphs">RockSurv</text></svg>
+            </div>
+            <div class="carousel-item" data-index="2" data-title="Тёмная тема определителя для микроскопии" data-tag="Тёмная тема">
+              <img src="/presentations/petrography/35-720.webp" alt="Тёмная тема определителя для микроскопии" srcset="/presentations/petrography/35-360.webp 360w, /presentations/petrography/35-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async"><svg class="petrography-name-fix" viewBox="0 0 720 1600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect x="84" y="101" width="110" height="23" fill="#111411"/><text x="86" y="122" font-family="PetrographyBrand" font-size="25.68" font-weight="650" fill="#f3f6f0" textLength="106" lengthAdjust="spacingAndGlyphs">RockSurv</text></svg>
+            </div>
+            <div class="carousel-item" data-index="3" data-title="Меню мгновенного переключения языков" data-tag="Выбор языка">
+              <img src="/presentations/petrography/36-720.webp" alt="Меню мгновенного переключения языков" srcset="/presentations/petrography/36-360.webp 360w, /presentations/petrography/36-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async"><svg class="petrography-name-fix" viewBox="0 0 720 1600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect x="159" y="344" width="168" height="33" fill="#fefdf5"/><text x="161" y="375" font-family="PetrographyBrand" font-size="39.19" font-weight="650" fill="#0f1009" textLength="164" lengthAdjust="spacingAndGlyphs">RockSurv</text></svg>
+            </div>
+            </div>
+            <div class="carousel-bottom-gradient"></div>
+            <div class="carousel-nav">
+              <button class="carousel-btn prev" aria-label="Предыдущий снимок">‹</button>
+              <div class="carousel-dots">
+                <button class="carousel-dot active" data-goto="0" aria-label="Показать экран 1"></button><button class="carousel-dot" data-goto="1" aria-label="Показать экран 2"></button><button class="carousel-dot" data-goto="2" aria-label="Показать экран 3"></button><button class="carousel-dot" data-goto="3" aria-label="Показать экран 4"></button>
+              </div>
+              <button class="carousel-btn next" aria-label="Следующий снимок">›</button>
+            </div>
+            <div class="cycle-progress"></div>
+          </div>
+        </div>
+    
+    <p class="caption">Интерфейс адаптирован под международные команды исследователей и специфику освещения петрографических аудиторий.</p>
+    <div class="footer">
+      <span>RockSurv Petrography | ДОСТУПНОСТЬ</span>
+      <span>11 / 12</span>
+    </div>
+  </section>
+
+  <section class="slide closing" id="slide-12" aria-label="12. 100% автономность: для полевого лагеря и лаборатории">
+    <div class="brandline">
+      <span class="brand"><svg class="brand-logo" viewBox="0 0 100 100" width="30" height="30" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 10px; flex-shrink: 0;"><circle cx="50" cy="50" r="49" fill="#E8F5E9" fill-opacity="0.95"/><circle cx="50" cy="50" r="48.5" stroke="#2E7D32" stroke-width="2.8"/><circle cx="50" cy="50" r="37" stroke="#81C784" stroke-width="1.8"/><polygon points="50,15 73,41 66,72.5 50,86 34,72.5 27,41" fill="#2E7D32" fill-opacity="0.88"/><polygon points="50,15 73,41 50,56" fill="#A56618"/></svg>RockSurv Petrography</span>
+      <span class="eyebrow">АВТОНОМНОСТЬ И ВНЕДРЕНИЕ | ИТОГОВЫЙ СТАНДАРТ</span>
+    </div>
+    <h2>100% автономность: для полевого лагеря и лаборатории</h2>
+    <p class="lead">Полностью автономная архитектура со встроенной базой данных и локальным атласом: нулевая зависимость от сети и мгновенный отклик.</p>
+    
+    <div class="feature-content">
+      <div class="copy">
+        
+          <div class="point">
+            <h3>Локальный движок без задержек</h3>
+            <p>Все 147+ прозрачных и 6 рудных минералов, 267+ микрофотографий и интерактивные симуляторы работают локально на устройстве.</p>
+          </div>
+          <div class="point">
+            <h3>Готовность к полевым условиям</h3>
+            <p>Идеально подходит для полевых баз, кернохранилищ и удалённых экспедиций без доступа к интернету и сотовой связи.</p>
+          </div>
+          <div class="point">
+            <h3>Научный и производственный стандарт</h3>
+            <p>Создано для геологов-съёмщиков, петрографов, петрологов, студентов вузов и специалистов геологоразведочных компаний.</p>
+          </div>
+        <div class="metric-row">
+          <span class="metric-badge accent"><span class="metric-dot"></span>100% автономный запуск</span><span class="metric-badge emerald"><span class="metric-dot"></span>Нулевая задержка</span><span class="metric-badge amber"><span class="metric-dot"></span>Научный стандарт</span>
+        </div>
+      </div>
+    </div>
+    
+    
+        <div class="portrait-visual">
+          <div class="carousel" data-carousel-id="slide-12-carousel" data-count="1">
+            <div class="device-notch"></div>
+            <div class="state-badge">
+              <span class="badge-title"><span class="indicator"></span><span class="title-text">Автономный запуск в тёмной теме</span></span>
+              <span class="badge-count">1 из 1</span>
+            </div>
+            <div class="carousel-track">
+              
+            <div class="carousel-item active" data-index="0" data-title="Автономный запуск в тёмной теме" data-tag="Автономность">
+              <img src="/presentations/petrography/05-720.webp" alt="Автономный запуск в тёмной теме" srcset="/presentations/petrography/05-360.webp 360w, /presentations/petrography/05-720.webp 720w" sizes="(max-width: 900px) 46vw, 430px" width="720" height="1600" loading="eager" decoding="async"><svg class="petrography-name-fix" viewBox="0 0 720 1600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect x="159" y="344" width="168" height="33" fill="#111411"/><text x="161" y="375" font-family="PetrographyBrand" font-size="39.19" font-weight="650" fill="#f2f5ef" textLength="164" lengthAdjust="spacingAndGlyphs">RockSurv</text></svg>
+            </div>
+            </div>
+            <div class="carousel-bottom-gradient"></div>
+            <div class="carousel-nav">
+              <button class="carousel-btn prev" aria-label="Предыдущий снимок">‹</button>
+              <div class="carousel-dots">
+                <button class="carousel-dot active" data-goto="0" aria-label="Показать экран 1"></button>
+              </div>
+              <button class="carousel-btn next" aria-label="Следующий снимок">›</button>
+            </div>
+            <div class="cycle-progress"></div>
+          </div>
+        </div>
+    
+    <p class="caption">RockSurv Petrography объединяет возможности атласа, детерминированного определителя и справочника в одном компактном приложении.</p>
+    <div class="footer">
+      <span>RockSurv Petrography | ИТОГОВЫЙ СТАНДАРТ</span>
+      <span>12 / 12</span>
+    </div>
+  </section>
+
+</main>
+
+<nav class="controls" aria-label="Управление слайдами">
+  <button id="prevBtn" title="Предыдущий слайд">‹ Назад</button>
+  <output id="slideOut" aria-live="polite">1 / 12</output>
+  <button id="nextBtn" title="Следующий слайд">Вперёд ›</button>
+  <button id="fsBtn" title="На весь экран (F)">⛶ Экран</button>
+  <button id="printBtn" title="Печать в PDF (P)">⎙ Печать</button>
+</nav>
+
+<script is:inline>
+  (function() {
+    const stage = document.getElementById('stage');
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const slideOut = document.getElementById('slideOut');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const fsBtn = document.getElementById('fsBtn');
+    const printBtn = document.getElementById('printBtn');
+    const isRu = true;
+    let currentSlide = Math.min(slides.length-1, Math.max(0, (parseInt(location.hash.slice(1),10)||1)-1));
+
+    function applyScale() {
+      const scale = Math.min((window.innerWidth - 32) / 1600, (window.innerHeight - 134) / 900);
+      stage.style.setProperty('--scale', scale);
+    }
+    window.addEventListener('resize', applyScale);
+    applyScale();
+
+    function showSlide(index) {
+      if (index < 0) index = 0;
+      if (index >= slides.length) index = slides.length - 1;
+      currentSlide = index;
+      slides.forEach((s, i) => {
+        s.classList.toggle('active', i === currentSlide);
+        s.setAttribute('aria-hidden', i !== currentSlide);
+      });
+      slideOut.textContent = String(currentSlide + 1).padStart(2,'0') + ' / ' + slides.length;
+      history.replaceState(null,'','#'+(currentSlide+1));
+      document.querySelector('.petrography-language').href='/en/presentations/petrography/#'+(currentSlide+1);
+    }
+
+    prevBtn.addEventListener('click', () => showSlide(currentSlide - 1));
+    nextBtn.addEventListener('click', () => showSlide(currentSlide + 1));
+    fsBtn.addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    });
+    printBtn.addEventListener('click', () => window.print());
+
+    window.addEventListener('keydown', (e) => {
+      if(e.altKey || e.ctrlKey || e.metaKey) return;
+      if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+        e.preventDefault();
+        showSlide(currentSlide + 1);
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        showSlide(currentSlide - 1);
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        showSlide(0);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        showSlide(slides.length - 1);
+      } else if (e.key === 'f' || e.key === 'F') {
+        e.preventDefault();
+        fsBtn.click();
+      } else if (e.key === 'p' || e.key === 'P') {
+        e.preventDefault();
+        window.print();
+      }
+    });
+
+    showSlide(currentSlide);
+
+    // Modern Carousel Engine
+    document.querySelectorAll('.carousel').forEach(carousel => {
+      const items = Array.from(carousel.querySelectorAll('.carousel-item'));
+      const dots = Array.from(carousel.querySelectorAll('.carousel-dot'));
+      const titleEl = carousel.querySelector('.badge-title .title-text');
+      const countEl = carousel.querySelector('.badge-count');
+      const prevCBtn = carousel.querySelector('.carousel-btn.prev');
+      const nextCBtn = carousel.querySelector('.carousel-btn.next');
+      const progressBar = carousel.querySelector('.cycle-progress');
+      const total = items.length;
+      if (total <= 1) return;
+
+      let current = 0;
+
+      let progressTimer = null;
+      let progressVal = 0;
+      const cycleDuration = 4800;
+
+      function setItem(idx) {
+        current = (idx + total) % total;
+        items.forEach((item, i) => item.classList.toggle('active', i === current));
+        dots.forEach((dot, i) => dot.classList.toggle('active', i === current));
+        const activeItem = items[current];
+        if (titleEl && activeItem) {
+          titleEl.textContent = activeItem.getAttribute('data-title') || '';
+        }
+        if (countEl) {
+          countEl.textContent = isRu ? ((current + 1) + ' из ' + total) : ((current + 1) + ' of ' + total);
+        }
+        resetProgress();
+      }
+
+      function nextItem() { setItem(current + 1); }
+      function prevItem() { setItem(current - 1); }
+
+      function resetProgress() {
+        progressVal = 0;
+        if (progressBar) progressBar.style.width = '0%';
+      }
+
+      function startCycle() {
+        if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        stopCycle();
+        const interval = 50;
+        const step = (interval / cycleDuration) * 100;
+        progressTimer = setInterval(() => {
+          progressVal += step;
+          if (progressBar) progressBar.style.width = Math.min(progressVal, 100) + '%';
+          if (progressVal >= 100) {
+            nextItem();
+          }
+        }, interval);
+      }
+
+      function stopCycle() {
+        if (progressTimer) clearInterval(progressTimer);
+        progressTimer = null;
+      }
+
+      if (prevCBtn) prevCBtn.addEventListener('click', (e) => { e.stopPropagation(); prevItem(); startCycle(); });
+      if (nextCBtn) nextCBtn.addEventListener('click', (e) => { e.stopPropagation(); nextItem(); startCycle(); });
+      dots.forEach((dot, i) => {
+        dot.addEventListener('click', (e) => {
+          e.stopPropagation();
+          setItem(i);
+          startCycle();
+        });
+      });
+
+      carousel.addEventListener('mouseenter', stopCycle);
+      carousel.addEventListener('mouseleave', startCycle);
+
+      startCycle();
+    });
+  })();
+</script>
+</body>
+</html>

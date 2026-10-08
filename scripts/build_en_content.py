@@ -218,7 +218,7 @@ experience_en = [
     "pattern": "granite",
     "title": "Arabian Shield Geological Mapping",
     "organization": "GMAS Project, Karpinsky Institute",
-    "role": "Field Party Leader, Field Geologist",
+    "role": "Senior Geologist, Field Party",
     "summary": "1:100,000-scale geological mapping. I lead the field party and ensure field data quality and integrity across field teams.",
     "highlights": [
       "Conducted lithological, structural, and metallogenic observations along traverses, measured planar and linear attitudes, and organized systematic sampling.",
@@ -261,13 +261,14 @@ experience_en = [
     "summary": "Metallogenic analysis of Asian ore belts, petrographic and isotopic research, GIS compilation, and international collaboration.",
     "highlights": [
       "Participated in the international project 'Metallogenic Map of Northern, Central, and Eastern Asia at 1:2,500,000 scale': GIS integration, ore deposit database, and metallogenic analysis.",
+      "Studied the sulfur isotopic composition of sulfide ores from intrusions in the Norilsk region.",
       "Delivered presentations on metallogeny in Ulaanbaatar (Mongolia, 2019) and Jeju (South Korea, 2018).",
       "Co-authored publications on the geodynamics of the Arctic Ocean (Journal of Geodynamics, 2019) and the basement of the Trans-Urals (2022).",
       "Completed international field excursions: ancient Archean granites of Baijianfen (~3.8 Ga) and mineral deposits of China."
     ],
     "photoNote": "Mongolia, 2019: conference talk, field traverses, and delegates meeting in Ulaanbaatar. China: field trips in 2014 and 2017. Presentation slide decks are available in the Credentials section.",
     "photos": [
-      { "slug": "vsegei-talk-mongolia", "source": "photo/IMG_8887.JPG", "date": "2019-08", "alt": "Alexey speaking at the conference lectern beside a slide explaining metallogenic analysis methods", "caption": "Presentation on the Metallogenic Map of Asia: methodology for analyzing spatio-temporal distribution of SEDEX, MVT, porphyry, and epithermal deposits. Ulaanbaatar, Mongolia" },
+      { "slug": "vsegei-talk-mongolia", "source": "photo/IMG_8887.JPG", "date": "2019-08", "alt": "Aleksei speaking at the conference lectern beside a slide explaining metallogenic analysis methods", "caption": "Presentation on the Metallogenic Map of Asia: methodology for analyzing spatio-temporal distribution of SEDEX, MVT, porphyry, and epithermal deposits. Ulaanbaatar, Mongolia" },
       { "slug": "mongolia-meeting", "source": "photo/mongolia/DSC_0568_2019_17-е УланБатор.JPG", "date": "2019", "alt": "Group photo of dozens of international conference delegates at the hotel entrance", "caption": "Participants of the international working session in Ulaanbaatar, Mongolia." },
       { "slug": "mongolia-steppe", "source": "photo/mongolia/IMG-20190809-WA0020.jpg", "date": "2019-08", "alt": "Three geologists walk across open steppe with an expedition vehicle in the distance", "caption": "Investigation of gold occurrences in the Ikh-Khairkhan area, Mongolia" },
       { "slug": "mongolia-site", "source": "photo/mongolia/IMG-20190809-WA0023.jpg", "date": "2019-08", "alt": "Group of geologists in hard hats at an industrial mining platform near a hillside", "caption": "Field excursion to a chromite mine, Mongolia" },
@@ -302,7 +303,7 @@ experience_en = [
     "photos": [
       { "slug": "practice-route", "source": "photo/geo practice mining institute/2022.06.15028 Геологические маршруты (78).jpg", "date": "2022-06", "alt": "Group of students studies porphyritic rapakivi granite outcrops above a lake surrounded by pine trees", "caption": "Study of porphyritic rapakivi granites near Monrepos Park, Vyborg, Karelia." },
       { "slug": "practice-bridge", "source": "photo/geo practice mining institute/a4hMAkXo7m802tWI65i5v7Q5LJPiMlOkf7gXTOOP-nnypPZWN4NxgtH1lsZGc70EpYUX7tDv66E8T3V7GwRH4aXQ.jpg", "alt": "Group of students with backpacks descends a metal staircase toward a river to inspect Phanerozoic sedimentary rocks", "caption": "Investigation of Phanerozoic sedimentary rock exposures near Sablino station, Leningrad region." },
-      { "slug": "practice-geolfest", "source": "photo/geo practice mining institute/Геофест1день17.jpg", "date": "2025-09", "alt": "Alexey speaks with a microphone at GeolFest before a presentation slide on the geological compass", "caption": "Lecture on the geological compass at GeolFest, 2025" }
+      { "slug": "practice-geolfest", "source": "photo/geo practice mining institute/Геофест1день17.jpg", "date": "2025-09", "alt": "Aleksei speaks with a microphone at GeolFest before a presentation slide on the geological compass", "caption": "Lecture on the geological compass at GeolFest, 2025" }
     ],
     "photoNote": "Photographs from student field practice and GeolFest are dated by file metadata (2022 and 2025).",
     "publicationState": "published",
@@ -331,8 +332,8 @@ experience_en = [
     ],
     "photoNote": "Panzhihua photo is dated November 2011 from file metadata. Second photo lacks embedded timestamp. 2014 and 2017 visits are documented under the Karpinsky Institute stage.",
     "photos": [
-      { "slug": "china-emeishan", "source": "photo/emeishan/P1000295.JPG", "date": "2011-11", "alt": "Alexey beside an inscribed stone monument during a field excursion to the Panzhihua iron-titanium deposit", "caption": "Field excursion to the Panzhihua iron-titanium deposit, China" },
-      { "slug": "china-gear", "source": "photo/china/fkardYVw7vW9Lo47hPmOxlAp0aQCSor0cF4Hj7DYDoUHWtD2CIYPMNDXW9isQIXUVGTblaHo.jpg", "alt": "Alexey in red protective overalls and hard hat prepared for descent into the underground mine at the Linglong deposit", "caption": "Preparation for descent into the underground mine at the Linglong deposit, China." }
+      { "slug": "china-emeishan", "source": "photo/emeishan/P1000295.JPG", "date": "2011-11", "alt": "Aleksei beside an inscribed stone monument during a field excursion to the Panzhihua iron-titanium deposit", "caption": "Field excursion to the Panzhihua iron-titanium deposit, China" },
+      { "slug": "china-gear", "source": "photo/china/fkardYVw7vW9Lo47hPmOxlAp0aQCSor0cF4Hj7DYDoUHWtD2CIYPMNDXW9isQIXUVGTblaHo.jpg", "alt": "Aleksei in red protective overalls and hard hat prepared for descent into the underground mine at the Linglong deposit", "caption": "Preparation for descent into the underground mine at the Linglong deposit, China." }
     ],
     "publicationState": "published",
     "evidence": [
@@ -380,10 +381,10 @@ experience_en = [
     "role": "Geological Technician, Field Geologist",
     "summary": "Mapping and petrographic study of platinum-group element (PGE) mineralization in a layered mafic-ultramafic intrusion.",
     "highlights": [
-      "2009: Russian-Chinese field excursion on PGE-bearing targets of the Monchegorsk pluton. Conducted traverse observations, collected rock and ore samples, sketched outcrops, and drafted local geological maps.",
+      "2009: detailed geological mapping of PGE-bearing areas of the Monchegorsk pluton. Recorded geological observations along traverses, collected samples, sketched outcrops, and prepared a map of the area.",
       "2010: Defended engineering diploma thesis with honors on exploration for platinum-metal mineralization within the Plast-330 reef area of Mt. Sopcha.",
       "Detailed geological mapping, traverse planning, petrographic thin-section preparation, and geochemical assay interpretation.",
-      "Vuruchuaivench massif (with S. V. Kashin): determined that ore-bearing rocks are invariably metasomatized, but not all metasomatites carry ore. Identified metasomatic stages: chlorite-zoisite propylitization, two stages of amphibolization, and quartz-sericite alteration. PGE minerals (palladoarsenide, sperrylite, kotulskite) and electrum are closely associated with sulfides. Published conference presentation in 2019, journal article in 2022."
+      "Vuruchuaivench massif: studied mineralization with S. V. Kashin, identifying stages of metasomatism and their association with PGE minerals. Presentation in 2019, article in 2022."
     ],
     "photoNote": "2009 field season. Month is noted where present in file metadata. Thin sections and geological sketches are featured in the 2019 presentation in the Credentials section.",
     "photos": [
@@ -627,7 +628,6 @@ credentials_en = [
     "authors": "Pakhalko A. G.",
     "organization": "Presentation on behalf of Karpinsky Institute (VSEGEI)",
     "year": "2014",
-    "detail": "Ore-bearing intrusions exhibit delta 34S of 11-12 permil, while weakly mineralized intrusions show 5-7 permil.",
     "file": "/talks/2014-norilsk-sulfur-isotopes.pdf",
     "publicationState": "published",
     "evidence": { "source": "presentation", "reference": "materials/Sulfur isotopic features of sulfide ores in mafic.pptx", "verified": True }

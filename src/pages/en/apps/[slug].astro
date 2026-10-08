@@ -2,6 +2,9 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Icon from '../../../components/Icon.astro';
+import CoreShowcase from '../../../components/CoreShowcase.astro';
+import PetrographyShowcase from '../../../components/PetrographyShowcase.astro';
+import { appPresentation } from '../../../data/app-presentations';
 
 export async function getStaticPaths() {
   const products = (await getCollection('apps_en', ({ data }) => data.publicationState === 'published' && data.kind === 'product')).sort((a, b) => a.data.order - b.data.order);
@@ -18,13 +21,18 @@ interface Props {
 const { app, next } = Astro.props;
 const { data } = app;
 const isField = (data.slug ?? '').includes('field');
+const isCore = app.id === 'rocksurv-core';
+const isPetrography = app.id === 'rocksurv-petrography';
+const presentation = appPresentation(data.slug!);
 
 const caption: Record<string, string> = {
   field: 'Rocksurv Field interface on a rugged tablet: georeferenced GeoPackage layers, active observation session, and field navigation.',
+  petrography: 'RockSurv Petrography Android screens: optical mineral identification and a thin-section atlas with PPL/XPL images.',
+  core: 'Rocksurv Core rendering prototype: interactive geological strip log and lithology patterns.',
   classifier: 'Rocksurv Classifier smartphone interface: equal-area Schmidt net with intersection axis calculation (beta-axis) and IUGS Streckeisen QAPF double triangle.',
 };
 ---
-<BaseLayout title={`${data.title}: ${data.area.toLowerCase()} | Alexey Pakhalko`} description={data.summary} active="apps" theme="night" lang="en">
+<BaseLayout title={`${data.title}: ${data.area.toLowerCase()} | Aleksei Pakhalko`} description={data.summary} active="apps" theme="night" lang="en">
   <article class="case shell">
     <nav class="crumbs" aria-label="Breadcrumb navigation"><a href="/en/">Home</a><span aria-hidden="true">/</span><a href="/en/#apps">Apps</a><span aria-hidden="true">/</span><span aria-current="page">{data.title}</span></nav>
 
@@ -37,13 +45,14 @@ const caption: Record<string, string> = {
       <dl class="case-facts">
         {data.specVersion && <div><dt>Specification</dt><dd>version {data.specVersion}</dd></div>}
         {data.stack && <div><dt>Tech Stack</dt><dd>{data.stack}</dd></div>}
-        <div><dt>Operation</dt><dd>100% Offline-First</dd></div>
+        {data.statusNote && <div><dt>Stage</dt><dd>{data.statusNote}</dd></div>}
+        <div><dt>Operation</dt><dd>{isCore ? 'Offline MVP architecture' : '100% Offline-First'}</dd></div>
         <div>
           <dt>Presentation</dt>
           <dd>
-            <a href={`/en/presentations/${isField ? 'field' : 'classifier'}/`} class="case-pres-link">
+            <a href={`/en/presentations/${presentation.key}/`} class="case-pres-link">
               <Icon name="presentation" />
-              <span>Open ({isField ? '12 slides' : '10 slides'})</span>
+              <span>Open ({`${presentation.slides} slides`})</span>
             </a>
           </dd>
         </div>
@@ -52,12 +61,12 @@ const caption: Record<string, string> = {
 
     <figure class="case-figure" style={`view-transition-name: figure-${data.slug}`}>
       <div class="figure-pres-bar">
-        <a href={`/en/presentations/${isField ? 'field' : 'classifier'}/`} class="figure-pres-btn">
+        <a href={`/en/presentations/${presentation.key}/`} class="figure-pres-btn">
           <Icon name="presentation" />
-          <span>Interactive app presentation ({isField ? '12 slides' : '10 slides'}) &rarr;</span>
+          <span>Interactive app presentation ({`${presentation.slides} slides`}) &rarr;</span>
         </a>
       </div>
-      {isField ? (
+      {isPetrography ? (<PetrographyShowcase lang="en" />) : isCore ? (<CoreShowcase lang="en" />) : isField ? (
         <a href="/en/presentations/field/" class="app-showcase-link" aria-label="Open interactive presentation of Rocksurv Field">
           <div class="showcase-device showcase-tablet">
             <div class="device-bezel">
@@ -78,7 +87,7 @@ const caption: Record<string, string> = {
               </div>
               <div class="showcase-chip-photo">
                 <img
-                  src="/presentations/field/11-640.webp"
+                  src="/presentations/field/16-640.webp"
                   width="140"
                   height="90"
                   alt="Fieldwork with rugged tablet on outcrop"
@@ -129,7 +138,7 @@ const caption: Record<string, string> = {
           </div>
         </a>
       )}
-      <figcaption>{caption[isField ? 'field' : 'classifier']}</figcaption>
+      <figcaption>{caption[isPetrography ? 'petrography' : isCore ? 'core' : isField ? 'field' : 'classifier']}</figcaption>
     </figure>
 
     <section class="case-section" aria-labelledby="problem">
@@ -138,13 +147,13 @@ const caption: Record<string, string> = {
     </section>
 
     <section class="case-section" aria-labelledby="workflow">
-      <h2 id="workflow">Workflow</h2>
+      <h2 id="workflow">{isCore ? 'Intended Workflow' : 'Workflow'}</h2>
       <ol class="steps">{data.workflow.map((step) => <li><p>{step}</p></li>)}</ol>
     </section>
 
     {data.capabilities.length > 0 && (
       <section class="case-section" aria-labelledby="capabilities">
-        <h2 id="capabilities">Specification Scope</h2>
+        <h2 id="capabilities">{isPetrography ? 'Application Features' : isCore ? 'Completed Engine and Development Plan' : 'Specification Scope'}</h2>
         <div class="caps">
           {data.capabilities.map((group) => (
             <div class="cap">

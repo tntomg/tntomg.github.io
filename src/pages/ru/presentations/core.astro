@@ -1,0 +1,1347 @@
+---
+// Supplied Core presentation, with optimized assets and site navigation.
+---
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RockSurv Core | Презентация платформы документирования керна и выработок</title>
+<style is:global>
+
+:root {
+  --bg-stage: #0a1713;
+  --paper: #f7f9f6;
+  --paper-subtle: #edf3ef;
+  --paper-card: #ffffff;
+  --ink: #0d2620;
+  --ink-secondary: #244139;
+  --muted: #4e675f;
+  --muted-light: #708a82;
+  --line: #d3dfd7;
+  --line-light: #e6eee8;
+  --mint: #2ec991;
+  --mint-dark: #127954;
+  --mint-bg: rgba(46, 201, 145, 0.12);
+  --gold: #c99c3a;
+  --gold-dark: #8e6c1e;
+  --gold-bg: rgba(201, 156, 58, 0.12);
+  --danger-bg: rgba(231, 76, 60, 0.1);
+  --danger-text: #c0392b;
+  --shadow-sm: 0 2px 8px rgba(13, 38, 32, 0.04);
+  --shadow-md: 0 8px 24px -2px rgba(13, 38, 32, 0.06), 0 2px 6px rgba(13, 38, 32, 0.02);
+  --shadow-lg: 0 16px 40px -4px rgba(13, 38, 32, 0.09);
+  --shadow-device: 0 24px 60px -8px rgba(0, 0, 0, 0.38), 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-stage);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+button { font: inherit; }
+
+#stage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1600px;
+  height: 900px;
+  transform: translate(-50%, -50%) scale(var(--scale, 1));
+  transform-origin: center;
+  box-shadow: 0 24px 90px rgba(0, 0, 0, 0.65);
+  background: var(--paper);
+  border-radius: 4px;
+}
+
+.slide {
+  display: none;
+  position: relative;
+  width: 1600px;
+  height: 900px;
+  overflow: hidden;
+  background: var(--paper);
+  padding: 44px 60px 72px 60px;
+}
+.slide.active { display: flex; flex-direction: column; }
+
+/* Brandline */
+.brandline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  border-bottom: 1px solid var(--line-light);
+  padding-bottom: 10px;
+}
+.brandline .brand {
+  font-size: 20px;
+  letter-spacing: -0.5px;
+  font-weight: 800;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.brandline .brand span { color: var(--mint-dark); }
+.brandline .eyebrow {
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.brandline .tag {
+  background: var(--paper-subtle);
+  border: 1px solid var(--line);
+  padding: 3px 12px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 650;
+  color: var(--ink-secondary);
+}
+
+/* Header */
+.slide-header {
+  margin-bottom: 20px;
+}
+.slide-kicker {
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--mint-dark);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.slide-kicker::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--mint);
+}
+h1, h2, h3, p { margin: 0; }
+h2 {
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: -1.1px;
+  line-height: 1.15;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.lead {
+  font-size: 17px;
+  line-height: 1.45;
+  color: var(--muted);
+  max-width: 1420px;
+}
+
+/* Content Area */
+.content-grid {
+  flex: 1;
+  display: grid;
+  gap: 24px;
+  min-height: 0;
+}
+
+/* Cards */
+.card {
+  background: var(--paper-card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 22px 24px;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.card-title {
+  font-size: 18px;
+  font-weight: 750;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card-subtitle {
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height: 1.4;
+  margin-bottom: 14px;
+}
+
+/* Badges */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+.pill-mint { background: var(--mint-bg); color: var(--mint-dark); border: 1px solid rgba(46, 201, 145, 0.3); }
+.pill-gold { background: var(--gold-bg); color: var(--gold-dark); border: 1px solid rgba(201, 156, 58, 0.3); }
+.pill-danger { background: var(--danger-bg); color: var(--danger-text); border: 1px solid rgba(231, 76, 60, 0.3); }
+.pill-neutral { background: var(--paper-subtle); color: var(--muted); border: 1px solid var(--line); }
+
+/* Feature Items */
+.feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14.5px;
+  line-height: 1.42;
+  color: var(--ink);
+}
+.feature-item .icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.feature-item strong {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* Stats */
+.stat-box {
+  background: var(--paper-subtle);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+}
+.stat-num {
+  font-size: 28px;
+  font-weight: 850;
+  letter-spacing: -0.8px;
+  color: var(--ink);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.stat-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--muted);
+}
+
+/* Devices */
+.device-tablet {
+  background: #0f1c18;
+  border-radius: 16px;
+  padding: 8px;
+  box-shadow: var(--shadow-device);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+}
+.device-tablet .tablet-lens {
+  width: 5px;
+  height: 5px;
+  background: #254037;
+  border-radius: 50%;
+  margin: 0 auto 5px;
+}
+.device-tablet .screen {
+  border-radius: 9px;
+  overflow: hidden;
+  background: #000;
+  flex: 1;
+  display: flex;
+}
+.device-tablet img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.device-phone {
+  background: #0d1714;
+  border-radius: 26px;
+  padding: 6px;
+  box-shadow: var(--shadow-device);
+  border: 2px solid #233c34;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.device-phone .notch {
+  width: 60px;
+  height: 8px;
+  background: #000;
+  border-radius: 6px;
+  margin-bottom: 5px;
+}
+.device-phone .screen {
+  border-radius: 18px;
+  overflow: hidden;
+  background: #000;
+  width: 100%;
+}
+.device-phone img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Nav Bar */
+#nav-bar {
+  position: fixed;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(10, 27, 23, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 9999px;
+  padding: 5px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  z-index: 1000;
+}
+.nav-btn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 5px 12px;
+  border-radius: 9999px;
+  font-size: 12.5px;
+  font-weight: 650;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+.nav-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--mint);
+}
+.nav-counter {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 12.5px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  padding: 0 4px;
+}
+.nav-dots {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.dot.active {
+  background: var(--mint);
+  width: 18px;
+  border-radius: 9999px;
+}
+.nav-divider {
+  width: 1px;
+  height: 16px;
+  background: rgba(255, 255, 255, 0.18);
+}
+.lang-toggle {
+  background: rgba(46, 201, 145, 0.16);
+  border: 1px solid rgba(46, 201, 145, 0.45);
+  color: var(--mint);
+  padding: 3px 9px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 800;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  transition: all 0.15s ease;
+}
+.lang-toggle:hover {
+  background: var(--mint);
+  color: #0a1713;
+}
+
+@media print {
+  body { background: #fff; }
+  #stage { position: static; transform: none; box-shadow: none; width: 100%; height: auto; }
+  .slide { display: flex !important; page-break-after: always; height: 100vh; }
+  #nav-bar { display: none !important; }
+}
+
+
+.core-topbar { position:fixed; inset:0 0 auto; height:52px; padding:8px 16px; display:flex; align-items:center; justify-content:space-between; gap:16px; color:#f5f7f2; background:#0e1714; border-bottom:1px solid #244139; z-index:1001; font-size:13px; }
+.core-back { color:inherit; padding:8px 10px; text-decoration:none; border:1px solid #38584b; border-radius:6px; }
+.core-back:hover, .core-back:focus-visible { background:#244139; outline:2px solid #69d4ad; outline-offset:2px; }
+.core-title { font-weight:700; }
+#stage { top:calc(50% - 15px); }
+#nav-bar { max-width:calc(100vw - 16px); white-space:nowrap; }
+#nav-dots .dot { padding:0; cursor:pointer; }
+#nav-dots .dot:focus-visible { outline:2px solid #69d4ad; outline-offset:3px; }
+@media (max-width:900px) { #nav-dots, .nav-divider { display:none; } }
+@media (max-width:640px) { #btn-fs, #btn-print, .core-title { display:none; } #nav-bar { gap:6px; padding:4px 8px; } .nav-btn { min-height:44px; padding:6px 8px; } .core-topbar { padding-inline:8px; gap:8px; } }
+@media print { .core-topbar { display:none; } }
+</style>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+</head>
+<body>
+<header class="core-topbar"><a class="core-back" href="/ru/#apps">Назад к приложениям</a><span class="core-title">Rocksurv Core</span><span>14 слайдов</span></header>
+<div id="stage">
+
+    <section class="slide active" aria-label="1. RockSurv Core">
+      <div class="brandline">
+        <div class="brand">ROCKSURV <span>CORE</span></div>
+        <div class="eyebrow">МОБИЛЬНАЯ ПЛАТФОРМА ГЕОЛОГИЧЕСКОГО ДОКУМЕНТИРОВАНИЯ</div>
+        <div class="tag">FLUTTER &bull; IOS &bull; ANDROID &bull; WEB</div>
+      </div>
+      <div class="slide-header" style="margin-bottom: 28px;">
+        <div class="slide-kicker">РУДНАЯ ГРР &bull; КЕРНОХРАНИЛИЩА &bull; ГОРНЫЕ ВЫРАБОТКИ</div>
+        <h2 style="font-size: 46px; margin-bottom: 12px;">RockSurv <span style="color: var(--mint-dark);">Core</span></h2>
+        <p class="lead" style="font-size: 21px; max-width: 1200px;">
+          Высокопроизводительное мобильное приложение для документирования бурового керна и горных выработок. Процедурные векторные знаки по ГОСТ 2.857-75 со скоростью 60 FPS в 100% офлайн-режиме.
+        </p>
+      </div>
+      <div class="content-grid" style="grid-template-columns: 1.15fr 0.85fr; align-items: center;">
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+          <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+            <span class="pill pill-mint">100% Офлайн-Архитектура (ACID SQLite)</span>
+            <span class="pill pill-mint">Векторный движок ГОСТ 2.857-75</span>
+            <span class="pill pill-mint">Каротажная колонка 60 FPS (2 000 м)</span>
+            <span class="pill pill-gold">Экспорт в Leapfrog &bull; Micromine &bull; Datamine</span>
+          </div>
+          <div class="card" style="padding: 22px;">
+            <div class="card-title" style="margin-bottom: 8px;">Прямой конвейер: Кернохранилище &rarr; 3D-модель</div>
+            <p style="font-size: 14.5px; color: var(--muted); line-height: 1.5; margin-bottom: 16px;">
+              Создано специально для рудной геологоразведки, кернохранилищ и подземных забоев. Полностью устраняет двойной ввод, полевые журналы и ошибки в интервалах глубин.
+            </p>
+            <div style="display: flex; gap: 20px; align-items: center;">
+              <div class="stat-box" style="flex: 1;">
+                <div class="stat-num" style="color: var(--mint-dark);">60 FPS</div>
+                <div class="stat-label">Аппаратный рендеринг колонки керна</div>
+              </div>
+              <div class="stat-box" style="flex: 1;">
+                <div class="stat-num" style="color: var(--gold-dark);">&lt; 5 минут</div>
+                <div class="stat-label">От документирования до блочной модели</div>
+              </div>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 24px;">
+            <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted);">Платформы:</div>
+            <div style="display: flex; align-items: center; gap: 14px;">
+              <div style="display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 650; color: var(--ink);"><svg fill="#2ec991" width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.4395 5.5586c-.675 1.1664-1.352 2.3318-2.0274 3.498-.0366-.0155-.0742-.0286-.1113-.043-1.8249-.6957-3.484-.8-4.42-.787-1.8551.0185-3.3544.4643-4.2597.8203-.084-.1494-1.7526-3.021-2.0215-3.4864a1.1451 1.1451 0 0 0-.1406-.1914c-.3312-.364-.9054-.4859-1.379-.203-.475.282-.7136.9361-.3886 1.5019 1.9466 3.3696-.0966-.2158 1.9473 3.3593.0172.031-.4946.2642-1.3926 1.0177C2.8987 12.176.452 14.772 0 18.9902h24c-.119-1.1108-.3686-2.099-.7461-3.0683-.7438-1.9118-1.8435-3.2928-2.7402-4.1836a12.1048 12.1048 0 0 0-2.1309-1.6875c.6594-1.122 1.312-2.2559 1.9649-3.3848.2077-.3615.1886-.7956-.0079-1.1191a1.1001 1.1001 0 0 0-.8515-.5332c-.5225-.0536-.9392.3128-1.0488.5449zm-.0391 8.461c.3944.5926.324 1.3306-.1563 1.6503-.4799.3197-1.188.0985-1.582-.4941-.3944-.5927-.324-1.3307.1563-1.6504.4727-.315 1.1812-.1086 1.582.4941zM7.207 13.5273c.4803.3197.5506 1.0577.1563 1.6504-.394.5926-1.1038.8138-1.584.4941-.48-.3197-.5503-1.0577-.1563-1.6504.4008-.6021 1.1087-.8106 1.584-.4941z"/></svg> Android</div>
+              <div style="display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 650; color: var(--ink);"><svg fill="#2ec991" width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg> iOS</div>
+              <div style="display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 650; color: var(--ink);"><svg fill="#2ec991" width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg> Web</div>
+            </div>
+          </div>
+        </div>
+        <div style="position: relative; height: 490px; display: flex; align-items: center; justify-content: center;">
+          <div class="device-tablet" style="width: 520px; height: 350px;">
+            <div class="tablet-lens"></div>
+            <div class="screen"><img src="/presentations/core/ru-01-1280.webp" alt="Каротажная колонка на планшете" srcset="/presentations/core/ru-01-640.webp 640w, /presentations/core/ru-01-1280.webp 1280w" sizes="(max-width: 900px) 90vw, 1000px" width="1280" height="800" loading="eager" decoding="async"></div>
+          </div>
+          <div class="device-phone" style="position: absolute; right: 10px; bottom: 15px; width: 175px;">
+            <div class="notch"></div>
+            <div class="screen"><img src="/presentations/core/ru-02-390.webp" alt="Мобильный интерфейс на телефоне" srcset="/presentations/core/ru-02-390.webp 390w" sizes="(max-width: 900px) 90vw, 1000px" width="390" height="844" loading="eager" decoding="async"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    <section class="slide" aria-label="2. От кернохранилища и забоя &mdash; прямо в блочную модель">
+      <div class="brandline">
+        <div class="brand">ROCKSURV <span>CORE</span></div>
+        <div class="eyebrow">ОПЕРАЦИОННАЯ ЭФФЕКТИВНОСТЬ</div>
+        <div class="tag">СЛАЙД 02 / 14</div>
+      </div>
+      <div class="slide-header">
+        <div class="slide-kicker">ОПТИМИЗАЦИЯ ПРОЦЕССА &bull; БЕЗ ДВОЙНОГО ВВОДА</div>
+        <h2>От кернохранилища и забоя &mdash; прямо в блочную модель</h2>
+        <p class="lead">Ликвидация разрыва между ручной полевой документацией в лагере и 3D-моделированием в камералке.</p>
+      </div>
+      <div class="content-grid" style="grid-template-columns: 1fr 1fr;">
+        <div class="card" style="border-left: 4px solid #c0392b;">
+          <div class="card-header">
+            <div class="card-title">Классический ручной процесс</div>
+            <span class="pill pill-danger">ВЫСОКИЙ РИСК &bull; ЗАДЕРЖКА 24&ndash;72 Ч</span>
+          </div>
+          <p class="card-subtitle">Бумажные журналы, вечерняя перепечатка и запоздалый контроль.</p>
+          <div class="feature-list" style="margin-bottom: 20px;">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#e74c3c" fill-opacity="0.16"/><path d="M7 7L13 13M13 7L7 13" stroke="#c0392b" stroke-width="2.2" stroke-linecap="round"/></svg></div><div><strong>Запись на бумаге в кернохранилище:</strong> Грязь, вода, неразборчивый почерк, отсутствие валидации.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#e74c3c" fill-opacity="0.16"/><path d="M7 7L13 13M13 7L7 13" stroke="#c0392b" stroke-width="2.2" stroke-linecap="round"/></svg></div><div><strong>Вечерний перенос в Excel:</strong> Геолог тратит часы на монотонный двойной ввод после смены.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#e74c3c" fill-opacity="0.16"/><path d="M7 7L13 13M13 7L7 13" stroke="#c0392b" stroke-width="2.2" stroke-linecap="round"/></svg></div><div><strong>Топологические ошибки:</strong> Перехлёсты интервалов, пропуски метров, опечатки в кодах пород.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#e74c3c" fill-opacity="0.16"/><path d="M7 7L13 13M13 7L7 13" stroke="#c0392b" stroke-width="2.2" stroke-linecap="round"/></svg></div><div><strong>Задержка обновления 3D-модели:</strong> Ошибки выявляются ГИС-специалистами лишь через несколько дней.</div></div>
+          </div>
+          <div class="stat-box" style="background: rgba(231, 76, 60, 0.08); border-color: rgba(231, 76, 60, 0.2); margin-top: auto;">
+            <div class="stat-num" style="color: #c0392b;">~35%</div>
+            <div class="stat-label">Времени геолога теряется на ручную оцифровку бумажных записей</div>
+          </div>
+        </div>
+
+        <div class="card" style="border-left: 4px solid var(--mint);">
+          <div class="card-header">
+            <div class="card-title">Цифровой конвейер RockSurv Core</div>
+            <span class="pill pill-mint">ПРЯМОЙ ЦИФРОВОЙ ВВОД</span>
+          </div>
+          <p class="card-subtitle">Однократная фиксация на защищённом планшете и мгновенная топологическая проверка.</p>
+          <div class="feature-list" style="margin-bottom: 20px;">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>Прямой ввод на планшете:</strong> Фиксация у кернового ящика или забоя в защищённом интерфейсе.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>Контроль топологии на лету:</strong> Движок блокирует перехлёсты глубин, пропуски и неверные коды.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>Комплексная документация:</strong> Фото-привязка, углы &alpha;/&beta; ориентированного керна, QA/QC пробы.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>Экспорт в 1 клик:</strong> Мгновенная выгрузка канонических таблиц для Leapfrog, Micromine и Datamine.</div></div>
+          </div>
+          <div class="stat-box" style="background: var(--mint-bg); border-color: rgba(46, 201, 145, 0.3); margin-top: auto;">
+            <div class="stat-num" style="color: var(--mint-dark);">&lt; 5 минут</div>
+            <div class="stat-label">От завершения документации ящика до импорта в 3D блочную модель</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    <section class="slide" aria-label="3. Векторное обозначение горных пород по ГОСТ 2.857-75">
+      <div class="brandline">
+        <div class="brand">ROCKSURV <span>CORE</span></div>
+        <div class="eyebrow">ГРАФИЧЕСКИЙ ДВИЖОК</div>
+        <div class="tag">СЛАЙД 03 / 14</div>
+      </div>
+      <div class="slide-header">
+        <div class="slide-kicker">ВЕКТОРНЫЙ ДВИЖОК &bull; ФИЗИЧЕСКИЕ МИЛЛИМЕТРЫ</div>
+        <h2>Векторное обозначение горных пород по ГОСТ 2.857-75</h2>
+        <p class="lead">Непрерывная математическая векторная геометрия вместо размытых растровых картинок. Точные физические миллиметры.</p>
+      </div>
+      <div class="content-grid" style="grid-template-columns: 1fr 1fr; align-items: center;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div class="card" style="padding: 18px;">
+            <div class="card-title" style="font-size: 16px;">Физические миллиметры</div>
+            <p style="font-size: 13px; color: var(--muted); line-height: 1.4; margin-top: 6px;">
+              Расчёт размеров по реальному DPI экрана. Точка 0.6 мм, толщина линий 0.25 мм &mdash; строго по ГОСТ 2.857-75.
+            </p>
+          </div>
+          <div class="card" style="padding: 18px;">
+            <div class="card-title" style="font-size: 16px;">Динамический зум</div>
+            <p style="font-size: 13px; color: var(--muted); line-height: 1.4; margin-top: 6px;">
+              Плавное масштабирование от 1:20 (детализация прожилков) до 1:2000 (обзор скважины 2 000 м целиком).
+            </p>
+          </div>
+          <div class="card" style="padding: 18px;">
+            <div class="card-title" style="font-size: 16px;">16+ базовых знаков ГОСТ</div>
+            <p style="font-size: 13px; color: var(--muted); line-height: 1.4; margin-top: 6px;">
+              Песчаники, алевролиты, граниты, известняки, базальты, туфы, разломы и сульфидные руды.
+            </p>
+          </div>
+          <div class="card" style="padding: 18px;">
+            <div class="card-title" style="font-size: 16px;">Мгновенная компиляция</div>
+            <p style="font-size: 13px; color: var(--muted); line-height: 1.4; margin-top: 6px;">
+              Геометрия знаков компилируется в кэш GPU Canvas &mdash; отрисовка без задержек на скорости 60 FPS.
+            </p>
+          </div>
+          <div class="card" style="grid-column: span 2; padding: 18px; background: var(--paper-subtle);">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <div style="font-size: 15px; font-weight: 750; color: var(--ink);">Двуязычный классификатор пород</div>
+                <div style="font-size: 13px; color: var(--muted);">Мгновенное переключение терминов и описаний между русским и английским языками на лету.</div>
+              </div>
+              <span class="pill pill-mint">RU &bull; EN ВОКАБУЛЯР</span>
+            </div>
+          </div>
+        </div>
+        <div style="height: 520px; display: flex; justify-content: center;">
+          <div class="device-tablet" style="width: 440px; height: 100%;">
+            <div class="tablet-lens"></div>
+            <div class="screen"><img src="/presentations/core/ru-03-800.webp" alt="Галерея знаков ГОСТ" srcset="/presentations/core/ru-03-640.webp 640w, /presentations/core/ru-03-800.webp 800w" sizes="(max-width: 900px) 90vw, 1000px" width="800" height="1280" loading="eager" decoding="async"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    <section class="slide" aria-label="4. Адаптивная укладка знаков для любых контактов пород">
+      <div class="brandline">
+        <div class="brand">ROCKSURV <span>CORE</span></div>
+        <div class="eyebrow">ТОПОЛОГИЧЕСКИЕ АЛГОРИТМЫ</div>
+        <div class="tag">СЛАЙД 04 / 14</div>
+      </div>
+      <div class="slide-header">
+        <div class="slide-kicker">ГЕОЛОГИЧЕСКАЯ ТОПОЛОГИЯ &bull; 3 МАТЕМАТИЧЕСКИХ РЕЖИМА</div>
+        <h2>Адаптивная укладка знаков для любых контактов пород</h2>
+        <p class="lead">Различные горные породы требуют специфической геометрии на границах. RockSurv Core поддерживает три математических движка укладки.</p>
+      </div>
+      <div class="content-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Режим Fit (Вписать)</div>
+            <span class="pill pill-mint">ОТСТУП ОТ ГРАНИЦ</span>
+          </div>
+          <p class="card-subtitle">Целые элементы внутри интервала с гарантированным отступом от контактов.</p>
+          <div style="height: 250px; margin-bottom: 16px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line);">
+            <img src="/presentations/core/ru-04-1280.webp" alt="Режим Fit" style="width: 100%; height: 100%; object-fit: cover;" srcset="/presentations/core/ru-04-640.webp 640w, /presentations/core/ru-04-1280.webp 1280w" sizes="(max-width: 900px) 90vw, 1000px" width="1280" height="800" loading="eager" decoding="async">
+          </div>
+          <div class="feature-list">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Чистый отступ от кровли и подошвы 0.5 мм.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Оптимально для песчаников, конгломератов и брекчий.</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Режим Clip (Обрезать)</div>
+            <span class="pill pill-mint">РЕГУЛЯРНАЯ РЕШЁТКА</span>
+          </div>
+          <p class="card-subtitle">Непрерывная регулярная сетка знаков, строго обрезанная границами слоя.</p>
+          <div style="height: 250px; margin-bottom: 16px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line);">
+            <img src="/presentations/core/ru-05-1280.webp" alt="Режим Clip" style="width: 100%; height: 100%; object-fit: cover;" srcset="/presentations/core/ru-05-640.webp 640w, /presentations/core/ru-05-1280.webp 1280w" sizes="(max-width: 900px) 90vw, 1000px" width="1280" height="800" loading="eager" decoding="async">
+          </div>
+          <div class="feature-list">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Сохраняет пространственную фазу решётки.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Естественный вид гранитов, базальтов и габбро.</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Режим Whole (Целиком)</div>
+            <span class="pill pill-mint">ЦЕЛЫЕ ШТАМПЫ</span>
+          </div>
+          <p class="card-subtitle">Единая решётка, сохраняющая только знаки, целиком поместившиеся в интервал.</p>
+          <div style="height: 250px; margin-bottom: 16px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line);">
+            <img src="/presentations/core/ru-06-1280.webp" alt="Режим Whole" style="width: 100%; height: 100%; object-fit: cover;" srcset="/presentations/core/ru-06-640.webp 640w, /presentations/core/ru-06-1280.webp 1280w" sizes="(max-width: 900px) 90vw, 1000px" width="1280" height="800" loading="eager" decoding="async">
+          </div>
+          <div class="feature-list">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Отсекает половинчатые знаки на контактах.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Подходит для трещиноватости, прожилков и штампов.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    <section class="slide" aria-label="5. Плавный скролл 60 FPS на скважинах глубиной 2 000 метров">
+      <div class="brandline">
+        <div class="brand">ROCKSURV <span>CORE</span></div>
+        <div class="eyebrow">ПРОИЗВОДИТЕЛЬНОСТЬ</div>
+        <div class="tag">СЛАЙД 05 / 14</div>
+      </div>
+      <div class="slide-header">
+        <div class="slide-kicker">ВИРТУАЛИЗИРОВАННЫЙ VIEWPORT &bull; 60 FPS ДВИЖОК</div>
+        <h2>Плавный скролл 60 FPS на скважинах глубиной 2 000 метров</h2>
+        <p class="lead">Разработано для промышленной геологоразведки: движок отрисовывает только видимые интервалы, нагрузка на GPU менее 5%.</p>
+      </div>
+      <div class="content-grid" style="grid-template-columns: 1fr 1.35fr; align-items: center;">
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;">
+            <div class="stat-box">
+              <div class="stat-num" style="color: var(--mint-dark);">&lt; 2.1 мс</div>
+              <div class="stat-label">Отрисовка кадра</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-num" style="color: var(--gold-dark);">5 024</div>
+              <div class="stat-label">Интервала</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-num" style="color: var(--ink);">60 FPS</div>
+              <div class="stat-label">Скролл</div>
+            </div>
+          </div>
+          <div class="card" style="padding: 20px;">
+            <div class="card-title" style="margin-bottom: 12px;">Возможности каротажной колонки</div>
+            <div class="feature-list">
+              <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>Интерактивный курсор:</strong> Точное отображение глубины с шагом 0.01 м.</div></div>
+              <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>Выделение в 1 касание:</strong> Мгновенный вызов панели атрибутов интервала.</div></div>
+              <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>Многоколоночный вид:</strong> Литология, RQD, выход керна и рудные зоны.</div></div>
+              <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>Масштабирование щипком:</strong> Плавный переход от 1:20 до 1:2000.</div></div>
+            </div>
+          </div>
+        </div>
+        <div style="height: 520px; display: flex; justify-content: center;">
+          <div class="device-tablet" style="width: 100%; height: 100%;">
+            <div class="tablet-lens"></div>
+            <div class="screen"><img src="/presentations/core/ru-07-1280.webp" alt="Каротажная колонка бурового керна" srcset="/presentations/core/ru-07-640.webp 640w, /presentations/core/ru-07-1280.webp 1280w" sizes="(max-width: 900px) 90vw, 1000px" width="1280" height="800" loading="eager" decoding="async"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    <section class="slide" aria-label="6. Документирование рудных зон, брекчий и структурных элементов">
+      <div class="brandline">
+        <div class="brand">ROCKSURV <span>CORE</span></div>
+        <div class="eyebrow">РУДНАЯ И СТРУКТУРНАЯ ГЕОЛОГИЯ</div>
+        <div class="tag">СЛАЙД 06 / 14</div>
+      </div>
+      <div class="slide-header">
+        <div class="slide-kicker">РУДНАЯ ГРР &bull; СПЕЦИАЛИЗАЦИЯ НА ТВЁРДЫХ ИСКОПАЕМЫХ</div>
+        <h2>Документирование рудных зон, брекчий и структурных элементов</h2>
+        <p class="lead">Специально для рудных месторождений: золото-кварцевые жилы, медно-порфировые системы, колчеданные залежи и зоны сдвига.</p>
+      </div>
+      <div class="content-grid" style="grid-template-columns: 1fr 1.35fr; align-items: center;">
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div class="card" style="padding: 18px;">
+            <div class="card-title" style="font-size: 16px;">Динамическая густота сульфидов (0&ndash;100%)</div>
+            <p style="font-size: 13.5px; color: var(--muted); line-height: 1.4; margin-top: 4px;">
+              Густота вкрапленности на знаке динамически отражает процент сульфидов. Раздельный учёт вкрапленных, прожилковых и сплошных руд.
+            </p>
+          </div>
+          <div class="card" style="padding: 18px;">
+            <div class="card-title" style="font-size: 16px;">Структурные углы ориентированного керна</div>
+            <p style="font-size: 13.5px; color: var(--muted); line-height: 1.4; margin-top: 4px;">
+              Ввод углов &alpha; и &beta; для слоистости, сланцеватости, трещин и зеркал скольжения. Автоматический расчёт истинного азимута и угла падения.
+            </p>
+          </div>
+          <div class="card" style="padding: 18px;">
+            <div class="card-title" style="font-size: 16px;">Тектонические брекчии и зоны дробления</div>
+            <p style="font-size: 13.5px; color: var(--muted); line-height: 1.4; margin-top: 4px;">
+              Специальные знаки для катаклазитов, милонитов и глинки трения. Автоматическое определение контактов: резкий, постепенный, тектонический.
+            </p>
+          </div>
+          <div class="card" style="padding: 18px;">
+            <div class="card-title" style="font-size: 16px;">Плотность прожилкового окварцевания</div>
+            <p style="font-size: 13.5px; color: var(--muted); line-height: 1.4; margin-top: 4px;">
+              Количественный подсчёт штокверков (прожилков на метр), мощность жил, минеральный состав и околожильные изменения.
+            </p>
+          </div>
+        </div>
+        <div style="height: 520px; display: flex; justify-content: center;">
+          <div class="device-tablet" style="width: 100%; height: 100%;">
+            <div class="tablet-lens"></div>
+            <div class="screen"><img src="/presentations/core/ru-08-1280.webp" alt="Рудная зона в тёмной теме" srcset="/presentations/core/ru-08-640.webp 640w, /presentations/core/ru-08-1280.webp 1280w" sizes="(max-width: 900px) 90vw, 1000px" width="1280" height="800" loading="eager" decoding="async"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    <section class="slide" aria-label="7. Три контрастные темы для любых условий освещения">
+      <div class="brandline">
+        <div class="brand">ROCKSURV <span>CORE</span></div>
+        <div class="eyebrow">ПОЛЕВАЯ ЭРГОНОМИКА</div>
+        <div class="tag">СЛАЙД 07 / 14</div>
+      </div>
+      <div class="slide-header">
+        <div class="slide-kicker">АДАПТАЦИЯ К ОСВЕЩЕНИЮ &bull; ДОСТУПНОСТЬ</div>
+        <h2>Три контрастные темы для любых условий освещения</h2>
+        <p class="lead">Приложение одинаково удобно на слепящем солнце карьера, в тёмной шахте и в комфортном кернохранилище.</p>
+      </div>
+      <div class="content-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Светлая тема</div>
+            <span class="pill pill-neutral">КАМЕРАЛКА &bull; СКЛАД КЕРНА</span>
+          </div>
+          <p class="card-subtitle">Натуральная бумага (#f7f9f6) для комфортной длительной работы в кернохранилище и камералке.</p>
+          <div class="feature-list" style="margin-top: auto;">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Мягкий контраст, снижающий усталость глаз.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Привычный вид традиционного каротажа.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Идеально для печати PDF-отчётов.</div></div>
+          </div>
+        </div>
+
+        <div class="card" style="background: #111e1a; color: #fff; border-color: #244139;">
+          <div class="card-header">
+            <div class="card-title" style="color: #fff;">Тёмная тема</div>
+            <span class="pill pill-mint">ШАХТЫ И ВЫРАБОТКИ</span>
+          </div>
+          <p class="card-subtitle" style="color: #9cb5ab;">Глубокий чёрный фон (#0a1713) бережёт адаптацию зрения в темноте и экономит батарею.</p>
+          <div class="feature-list" style="margin-top: auto;">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div style="color: #e0ece6;">Не слепит при свете налобного фонаря.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div style="color: #e0ece6;">Экономит до 40% заряда OLED-экрана.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div style="color: #e0ece6;">Высококонтрастные контуры штриховок.</div></div>
+          </div>
+        </div>
+
+        <div class="card" style="border: 2px solid #000;">
+          <div class="card-header">
+            <div class="card-title">Солнечная тема</div>
+            <span class="pill pill-gold">WCAG AAA &bull; КАРЬЕР</span>
+          </div>
+          <p class="card-subtitle">Предельный контраст (&gt; 7:1) с глубокими чёрными линиями на белом для яркого солнца.</p>
+          <div class="feature-list" style="margin-top: auto;">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Отличная читаемость на прямом солнце.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Максимальная контрастность штриховок.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Читается даже через поляризационные очки.</div></div>
+          </div>
+        </div>
+
+        <div class="card" style="grid-column: span 3; padding: 18px 24px; background: var(--paper-subtle);">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div style="display: flex; gap: 32px;">
+              <div><strong>Работа в перчатках:</strong> Крупные сенсорные цели 48&ndash;56 dp.</div>
+              <div><strong>Тактильный отклик:</strong> Виброподтверждение при фиксации контактов.</div>
+              <div><strong>Цифровая клавиатура:</strong> Быстрый безошибочный ввод глубин.</div>
+            </div>
+            <span class="pill pill-mint">ПОЛЕВАЯ ЭРГОНОМИКА</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    <section class="slide" aria-label="8. Планшет для глубокого анализа, телефон &mdash; для быстрых замеров">
+      <div class="brandline">
+        <div class="brand">ROCKSURV <span>CORE</span></div>
+        <div class="eyebrow">ФОРМ-ФАКТОРЫ</div>
+        <div class="tag">СЛАЙД 08 / 14</div>
+      </div>
+      <div class="slide-header">
+        <div class="slide-kicker">ЕДИНЫЙ СТЕК FLUTTER &bull; АДАПТИВНОСТЬ</div>
+        <h2>Планшет для глубокого анализа, телефон &mdash; для быстрых замеров</h2>
+        <p class="lead">Единая кодовая база на защищённых планшетах 10&ndash;12&Prime; и смартфонах 6&Prime; с автоматической подстройкой интерфейса.</p>
+      </div>
+      <div class="content-grid" style="grid-template-columns: 1fr 1fr; align-items: center;">
+        <div class="card" style="height: 100%; justify-content: space-between;">
+          <div>
+            <div class="card-header">
+              <div class="card-title">Полевой планшет (10&ndash;12&Prime;)</div>
+              <span class="pill pill-mint">ОСНОВНОЙ КАРОТАЖ</span>
+            </div>
+            <p class="card-subtitle">Для кернохранилищ, полевых вагончиков и стационарных столов документирования.</p>
+            <div class="feature-list">
+              <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>Многоколоночная колонка:</strong> Одновременный вывод литологии, структуры, анализов и фото.</div></div>
+              <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>Двухоконный редактор:</strong> Редактирование интервала без потери общего контекста разреза.</div></div>
+              <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>Просмотр фото керна:</strong> Сопоставление реального кернового ящика с цифровой колонкой.</div></div>
+            </div>
+          </div>
+          <div class="stat-box" style="margin-top: 20px;">
+            <div class="stat-num" style="color: var(--mint-dark);">100%</div>
+            <div class="stat-label">Функционала настольных ГГИС в защищённом полевом планшете</div>
+          </div>
+        </div>
+
+        <div class="card" style="height: 100%; justify-content: space-between;">
+          <div>
+            <div class="card-header">
+              <div class="card-title">Защищённый смартфон (6&Prime;)</div>
+              <span class="pill pill-gold">КАРМАННЫЙ ПОМОЩНИК</span>
+            </div>
+            <p class="card-subtitle">Управление одной рукой при рекогносцировке, осмотре устьев и маршрутных замерах.</p>
+            <div class="feature-list">
+              <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>Управление пальцем одной руки:</strong> Нижняя панель настроек адаптирована под большой палец.</div></div>
+              <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>Быстрый GNSS-контроль:</strong> Фиксация координат устья и проверка проектных точек на местности.</div></div>
+              <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>Фотофиксация на ходу:</strong> Снимок камеры автоматически привязывается к скважине и глубине.</div></div>
+            </div>
+          </div>
+          <div style="display: flex; gap: 14px; justify-content: center; margin-top: 16px;">
+            <div class="device-phone" style="width: 140px;">
+              <div class="notch"></div>
+              <div class="screen"><img src="/presentations/core/ru-09-390.webp" alt="Интерфейс телефона" srcset="/presentations/core/ru-09-390.webp 390w" sizes="(max-width: 900px) 90vw, 1000px" width="390" height="844" loading="eager" decoding="async"></div>
+            </div>
+            <div class="device-phone" style="width: 140px;">
+              <div class="notch"></div>
+              <div class="screen"><img src="/presentations/core/ru-10-390.webp" alt="Шторка настроек на телефоне" srcset="/presentations/core/ru-10-390.webp 390w" sizes="(max-width: 900px) 90vw, 1000px" width="390" height="844" loading="eager" decoding="async"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    <section class="slide" aria-label="9. Канавы, шурфы и подземные забои горных выработок">
+      <div class="brandline">
+        <div class="brand">ROCKSURV <span>CORE</span></div>
+        <div class="eyebrow">МОДУЛЬ ГОРНЫХ ВЫРАБОТОК</div>
+        <div class="tag">СЛАЙД 09 / 14</div>
+      </div>
+      <div class="slide-header">
+        <div class="slide-kicker">НЕ ТОЛЬКО КЕРН &bull; ПОВЕРХНОСТНЫЕ И ПОДЗЕМНЫЕ ВЫРАБОТКИ</div>
+        <h2>Канавы, шурфы и подземные забои горных выработок</h2>
+        <p class="lead">Сквозная геологическая документация всех типов выработок: магистральные канавы, разведочные шурфы и подземные забои.</p>
+      </div>
+      <div class="content-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Канавы и траншеи</div>
+            <span class="pill pill-mint">ПИКЕТАЖНАЯ ПРИВЯЗКА</span>
+          </div>
+          <p class="card-subtitle">Линейный пикетаж от 0.0 м до забоя канавы с картированием полотна и откосов.</p>
+          <div class="feature-list">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Документирование откосов с углами падения слоёв.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Непрерывное бороздовое опробование по полотну.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Привязка поворотов оси канавы по GNSS.</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Шурфы и дудки</div>
+            <span class="pill pill-mint">РАЗВЁРТКА 4 СТЕНОК</span>
+          </div>
+          <p class="card-subtitle">Автоматическая проекция 4 стенок (Север, Восток, Юг, Запад) и картирование забоя шурфа.</p>
+          <div class="feature-list">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Развёртка 4 стенок шурфа «в коробку».</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Увязка контактов слоёв на смежных рёбрах.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Мощность рыхлых отложений и коренной контакт.</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Подземные забои</div>
+            <span class="pill pill-mint">ГОМОГРАФИЯ ФОТО</span>
+          </div>
+          <p class="card-subtitle">Картирование груди забоя с перспективным выравниванием (гомографией) фотоснимка.</p>
+          <div class="feature-list">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Устранение перспективных искажений фото забоя.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Отрисовка структурных трещин прямо по фото.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Геология кровли и боковых стенок штрека.</div></div>
+          </div>
+        </div>
+
+        <div class="card" style="grid-column: span 3; padding: 18px 24px; background: var(--paper-subtle);">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <div style="font-size: 15px; font-weight: 750; color: var(--ink);">Единая геопространственная база данных</div>
+              <div style="font-size: 13px; color: var(--muted);">Скважины, канавы, шурфы и подземные забои используют общую систему координат и справочник пород.</div>
+            </div>
+            <span class="pill pill-gold">ЕДИНОЕ ПРОСТРАНСТВО ДАННЫХ</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    <section class="slide" aria-label="10. Автоматическое опробование, слепой контроль QA/QC и Chain of Custody">
+      <div class="brandline">
+        <div class="brand">ROCKSURV <span>CORE</span></div>
+        <div class="eyebrow">КОНТРОЛЬ КАЧЕСТВА ДАННЫХ</div>
+        <div class="tag">СЛАЙД 10 / 14</div>
+      </div>
+      <div class="slide-header">
+        <div class="slide-kicker">ЦЕЛОСТНОСТЬ ДАННЫХ &bull; СТАНДАРТЫ QA/QC</div>
+        <h2>Автоматическое опробование, слепой контроль QA/QC и Chain of Custody</h2>
+        <p class="lead">Полное соответствие требованиям ГКЗ, JORC и NI 43-101 по контролю качества отбора и подготовки проб.</p>
+      </div>
+      <div class="content-grid" style="grid-template-columns: 1fr 1fr;">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Привязка к геологическим границам</div>
+            <span class="pill pill-mint">ЧИСТОТА ПРОБ</span>
+          </div>
+          <p class="card-subtitle">Автоматическая посадка интервалов проб на контакты литологических тел.</p>
+          <div class="feature-list">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>Запрет разубоживания:</strong> Движок не позволяет отбирать пробу через границу рудного тела.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>Настраиваемый шаг:</strong> Базовая длина (например, 1.0 м) с контролем минимальной мощности (0.2 м).</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>Бороздовые пробы:</strong> Точная фиксация начала и конца борозды по полотну канавы.</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Мастер слепой вставки контролей</div>
+            <span class="pill pill-gold">СООТВЕТСТВИЕ СТАНДАРТАМ</span>
+          </div>
+          <p class="card-subtitle">Автоматизированная генерация последовательностей контрольных образцов для лаборатории.</p>
+          <div class="feature-list">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>Стандартные образцы (CRM):</strong> Слепая вставка стандартов с заданной частотой (например, 1:20).</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>Холостые пробы (Blank):</strong> Вставка крупного и тонкого бланка сразу после богатых рудных зон.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>Дубликаты:</strong> Дубликаты керна (1/4), крупнодроблёные дубликаты и аналитические повторы.</div></div>
+          </div>
+        </div>
+
+        <div class="card" style="grid-column: span 2; padding: 20px 24px;">
+          <div class="card-title" style="margin-bottom: 12px;">Штрихкодирование и неизменяемый журнал Chain of Custody</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
+            <div class="stat-box">
+              <div style="font-weight: 750; font-size: 15px; margin-bottom: 4px;">Сканирование штрихкодов</div>
+              <div style="font-size: 13px; color: var(--muted);">Камера планшета мгновенно сканирует штрихкод мешка для пробы, исключая опечатки.</div>
+            </div>
+            <div class="stat-box">
+              <div style="font-weight: 750; font-size: 15px; margin-bottom: 4px;">Журнал аудита правок</div>
+              <div style="font-size: 13px; color: var(--muted);">Каждое изменение сохраняет автора, дату и старое значение в локальной SQLite БД.</div>
+            </div>
+            <div class="stat-box">
+              <div style="font-weight: 750; font-size: 15px; margin-bottom: 4px;">Ведомость отправки в лабораторию</div>
+              <div style="font-size: 13px; color: var(--muted);">Генерация готовых актов передачи проб и реестров партий со слепыми номерами контролей.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    <section class="slide" aria-label="11. Бесшовный экспорт в Leapfrog, Micromine и Datamine">
+      <div class="brandline">
+        <div class="brand">ROCKSURV <span>CORE</span></div>
+        <div class="eyebrow">ИНТЕГРАЦИЯ С ГГИС</div>
+        <div class="tag">СЛАЙД 11 / 14</div>
+      </div>
+      <div class="slide-header">
+        <div class="slide-kicker">ИНТЕРОПЕРАБЕЛЬНОСТЬ &bull; СТАНДАРТНЫЕ ТАБЛИЦЫ</div>
+        <h2>Бесшовный экспорт в Leapfrog, Micromine и Datamine</h2>
+        <p class="lead">Никаких закрытых форматов. Прямой экспорт четырёх стандартных таблиц для мгновенного Drag-and-Drop импорта в 3D ГГИС.</p>
+      </div>
+      <div class="content-grid" style="grid-template-columns: 1.1fr 0.9fr; align-items: center;">
+        <div class="card">
+          <div class="card-title" style="margin-bottom: 14px;">4 канонические таблицы бурения</div>
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div style="background: var(--paper-subtle); padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line);">
+              <div style="font-weight: 750; font-size: 14px; color: var(--ink);">1. Координаты устья (collar.csv)</div>
+              <div style="font-size: 12.5px; color: var(--muted); font-family: monospace;">Hole_ID, X, Y, Z, Total_Depth, Date_Started, Geologist</div>
+            </div>
+            <div style="background: var(--paper-subtle); padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line);">
+              <div style="font-weight: 750; font-size: 14px; color: var(--ink);">2. Инклинометрия (survey.csv)</div>
+              <div style="font-size: 12.5px; color: var(--muted); font-family: monospace;">Hole_ID, Depth, Dip, Azimuth, Survey_Tool</div>
+            </div>
+            <div style="background: var(--paper-subtle); padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line);">
+              <div style="font-weight: 750; font-size: 14px; color: var(--ink);">3. Интервальная геология и анализы (intervals.csv)</div>
+              <div style="font-size: 12.5px; color: var(--muted); font-family: monospace;">Hole_ID, From, To, Lithology, Sulfide_Pct, RQD, Sample_ID</div>
+            </div>
+            <div style="background: var(--paper-subtle); padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line);">
+              <div style="font-weight: 750; font-size: 14px; color: var(--ink);">4. Точечные и структурные замеры (points.csv)</div>
+              <div style="font-size: 12.5px; color: var(--muted); font-family: monospace;">Hole_ID, Depth, Feature_Type, Alpha, Beta, True_Dip, Dip_Dir</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <div class="card" style="padding: 20px;">
+            <div class="card-title" style="margin-bottom: 8px;">Совместимость с ключевыми ГГИС</div>
+            <p style="font-size: 13.5px; color: var(--muted); line-height: 1.45; margin-bottom: 14px;">
+              Предустановленные профили соответствия колонок для моментального импорта без ручного сопоставления:
+            </p>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+              <span class="pill pill-mint">Leapfrog Geo</span>
+              <span class="pill pill-mint">Micromine Beyond</span>
+              <span class="pill pill-mint">Datamine Studio RM</span>
+              <span class="pill pill-mint">Maptek Vulcan</span>
+              <span class="pill pill-mint">Bentley GeoStudio</span>
+              <span class="pill pill-mint">Target for ArcGIS</span>
+            </div>
+          </div>
+          <div class="stat-box" style="background: var(--mint-bg); border-color: rgba(46, 201, 145, 0.3);">
+            <div class="stat-num" style="color: var(--mint-dark);">0 ошибок</div>
+            <div class="stat-label">Предварительный топологический контроль исключает ошибки импорта в ГГИС</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    <section class="slide" aria-label="12. От прототипа движка к коммерческой корпоративной платформе">
+      <div class="brandline">
+        <div class="brand">ROCKSURV <span>CORE</span></div>
+        <div class="eyebrow">ПЛАН РАЗРАБОТКИ</div>
+        <div class="tag">СЛАЙД 12 / 14</div>
+      </div>
+      <div class="slide-header">
+        <div class="slide-kicker">ЭТАПЫ РАЗРАБОТКИ &bull; ДОРОЖНАЯ КАРТА</div>
+        <h2>От прототипа движка к коммерческой корпоративной платформе</h2>
+        <p class="lead">Поэтапный выпуск функционала с доставкой непосредственной практической пользы на каждом этапе.</p>
+      </div>
+      <div class="content-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+        <div class="card" style="border-top: 4px solid var(--mint);">
+          <div class="card-header">
+            <div class="card-title">Фаза 0: Ядро движка</div>
+            <span class="pill pill-mint">ЗАВЕРШЕНО &bull; ГОТОВО</span>
+          </div>
+          <p class="card-subtitle">Векторный движок литологии и высокоскоростной каротаж.</p>
+          <div class="feature-list">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>16 векторных знаков ГОСТ скомпилированы.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Каротажная колонка 60 FPS на 2 000 м.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>3 алгоритма укладки: Fit, Clip, Whole.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Светлая, тёмная и солнечная темы интерфейса.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>100% покрытие тестами геометрического движка.</div></div>
+          </div>
+        </div>
+
+        <div class="card" style="border-top: 4px solid var(--gold);">
+          <div class="card-header">
+            <div class="card-title">Фаза 1: Коммерческий MVP</div>
+            <span class="pill pill-gold">ТЕКУЩИЙ ЭТАП</span>
+          </div>
+          <p class="card-subtitle">Локальная офлайн-БД и полный цикл документирования скважин.</p>
+          <div class="feature-list">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Офлайн-хранилище SQLite & Drift с ACID-транзакциями.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Формы ввода паспорта скважины и интервалов.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Модуль привязки фотографий керновых ящиков.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Экспорт 4 таблиц CSV (Leapfrog и Micromine).</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Полевые релизные сборки для Android и iOS планшетов.</div></div>
+          </div>
+        </div>
+
+        <div class="card" style="border-top: 4px solid var(--ink);">
+          <div class="card-header">
+            <div class="card-title">Фаза 2: Выработки и Enterprise</div>
+            <span class="pill pill-neutral">ПЛАНИРУЕТСЯ</span>
+          </div>
+          <p class="card-subtitle">Модуль горных выработок, мастер QA/QC и облачная синхронизация.</p>
+          <div class="feature-list">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Канавы, развёртка шурфов и подземные забои.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Автоматизированный мастер слепого контроля QA/QC.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Синхронизация между планшетами по P2P и облако.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Визуальный редактор корпоративных легенд компаний.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    <section class="slide" aria-label="13. Разработано для месяцев автономной работы в поле">
+      <div class="brandline">
+        <div class="brand">ROCKSURV <span>CORE</span></div>
+        <div class="eyebrow">АРХИТЕКТУРА И НАДЁЖНОСТЬ</div>
+        <div class="tag">СЛАЙД 13 / 14</div>
+      </div>
+      <div class="slide-header">
+        <div class="slide-kicker">СОВРЕМЕННЫЙ СТЕК &bull; БЕЗ ПРИВЯЗКИ К СЕТИ</div>
+        <h2>Разработано для месяцев автономной работы в поле</h2>
+        <p class="lead">Спроектировано с расчётом на суровые условия геологоразведочных лагерей при полном отсутствии мобильной связи.</p>
+      </div>
+      <div class="content-grid" style="grid-template-columns: 1fr 1fr;">
+        <div class="card">
+          <div class="card-title" style="margin-bottom: 8px;">Flutter 3 & Dart 3 Архитектура</div>
+          <p style="font-size: 13.5px; color: var(--muted); line-height: 1.45; margin-bottom: 16px;">
+            Единая надёжная кодовая база для защищённых Android-планшетов, iPad и Web. Прямой рендеринг через GPU Skia/Impeller со скоростью 60&ndash;120 FPS.
+          </p>
+          <div class="feature-list">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Отсутствие рассинхронизации версий под Android и iOS.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Аппаратная оптимизация отрисовки векторных холстов.</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title" style="margin-bottom: 8px;">SQLite & Drift Офлайн-БД</div>
+          <p style="font-size: 13.5px; color: var(--muted); line-height: 1.45; margin-bottom: 16px;">
+            Промышленная реляционная БД на самом устройстве с полными ACID-транзакциями. Данные не теряются даже при внезапной разрядке аккумулятора.
+          </p>
+          <div class="feature-list">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Атомарное сохранение каждого введённого интервала.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Шифрование базы и автоматическое локальное резервирование.</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title" style="margin-bottom: 8px;">Геодезический движок Proj4</div>
+          <p style="font-size: 13.5px; color: var(--muted); line-height: 1.45; margin-bottom: 16px;">
+            Пересчёт систем координат прямо на мобильном планшете. Поддержка СК-42, Пулково-95, WGS-84, UTM и локальных рудничных систем.
+          </p>
+          <div class="feature-list">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Офлайн-пересчёт между географическими и плоскими координатами.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Автоматический учёт магнитного склонения для ориентированного керна.</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title" style="margin-bottom: 8px;">Двуязычные геологические словари</div>
+          <p style="font-size: 13.5px; color: var(--muted); line-height: 1.45; margin-bottom: 16px;">
+            Каждая горная порода, структура и метасоматит хранят синхронные наименования на русском и английском с отраслевыми кодами.
+          </p>
+          <div class="feature-list">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Готовность к международной отчётности (JORC / NI 43-101 / ГКЗ).</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Удобство работы в международных геологоразведочных командах.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    <section class="slide" aria-label="14. Готовы к пилотному тестированию на керне вашей компании">
+      <div class="brandline">
+        <div class="brand">ROCKSURV <span>CORE</span></div>
+        <div class="eyebrow">СЛЕДУЮЩИЕ ШАГИ</div>
+        <div class="tag">СЛАЙД 14 / 14</div>
+      </div>
+      <div class="slide-header">
+        <div class="slide-kicker">СОТРУДНИЧЕСТВО &bull; ПИЛОТНОЕ ТЕСТИРОВАНИЕ</div>
+        <h2>Готовы к пилотному тестированию на керне вашей компании</h2>
+        <p class="lead">Мы приглашаем геологоразведочные и горнодобывающие компании протестировать RockSurv Core на реальных данных проектов.</p>
+      </div>
+      <div class="content-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Демо на ваших данных</div>
+            <span class="pill pill-mint">ШАГ 1</span>
+          </div>
+          <p class="card-subtitle">Увидьте скважины вашей компании в интерфейсе RockSurv Core.</p>
+          <div class="feature-list">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Передайте тестовые таблицы collar и intervals.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Мы загрузим их в интерактивный 60 FPS просмотрщик.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Проведём демонстрацию для вашей геологической службы.</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Внедрение легенды</div>
+            <span class="pill pill-gold">ШАГ 2</span>
+          </div>
+          <p class="card-subtitle">Адаптация корпоративного классификатора пород и знаков.</p>
+          <div class="feature-list">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Оцифровка уникальных символов и штриховок компании.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Настройка стратиграфических и рудных индексов.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Предустановка регламентов вставки проб QA/QC.</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Полевой пилот</div>
+            <span class="pill pill-mint">ШАГ 3</span>
+          </div>
+          <p class="card-subtitle">Опытное документирование на планшетах в вашем кернохранилище.</p>
+          <div class="feature-list">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Передача защищённых планшетов в геологический отряд.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Прямая инженерная поддержка в период опытной эксплуатации.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Верификация выгрузки данных в вашу 3D ГГИС.</div></div>
+          </div>
+        </div>
+
+        <div class="card" style="grid-column: span 3; padding: 22px 28px; background: #0f1c18; color: #fff; border-color: #244139;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <div style="font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 4px;">RockSurv Core &mdash; Программный комплекс для рудной геологоразведки</div>
+              <div style="font-size: 14px; color: #9cb5ab;">Открыты к пилотным проектам, демонстрациям и интеграции с корпоративными базами данных.</div>
+            </div>
+            <div style="display: flex; gap: 12px; align-items: center;">
+              <span class="pill pill-mint" style="font-size: 12px; padding: 6px 14px;">ГОТОВЫ К ПИЛОТНОМУ ВНЕДРЕНИЮ</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+</div>
+
+    <div id="nav-bar">
+      <button id="btn-prev" class="nav-btn" title="Предыдущий слайд (Стрелка влево)">&#8592; Назад</button>
+      <div id="slide-counter" class="nav-counter" aria-live="polite">01 / 14</div>
+      <div id="nav-dots" class="nav-dots"></div>
+      <button id="btn-next" class="nav-btn" title="Следующий слайд (Стрелка вправо или Пробел)">Вперёд &#8594;</button>
+      <div class="nav-divider"></div>
+      <button id="btn-fs" class="nav-btn" title="Полноэкранный режим (F)">&#x26F6; На весь экран</button>
+      <button id="btn-print" class="nav-btn" title="Печать в PDF (Ctrl+P)">&#x2399; Печать / PDF</button>
+      <div class="nav-divider"></div>
+      <a href="/en/presentations/core/" class="lang-toggle" title="Switch to English version">EN</a>
+    </div>
+    
+<script is:inline>
+
+(function() {
+  var slides = Array.from(document.querySelectorAll('.slide'));
+  var dotsContainer = document.getElementById('nav-dots');
+  var currentSlide = Math.min(slides.length - 1, Math.max(0, (parseInt(location.hash.slice(1), 10) || 1) - 1));
+
+  slides.forEach(function(_, idx) {
+    var dot = document.createElement('button');
+    dot.className = 'dot' + (idx === 0 ? ' active' : '');
+    dot.type = 'button';
+    dot.title = (idx + 1).toString();
+    dot.setAttribute('aria-label', 'Слайд ' + (idx + 1));
+    dot.onclick = function() { goToSlide(idx); };
+    dotsContainer.appendChild(dot);
+  });
+
+  function updateSlide() {
+    slides.forEach(function(s, idx) {
+      s.classList.toggle('active', idx === currentSlide);
+      s.setAttribute('aria-hidden', idx !== currentSlide);
+    });
+    var dots = dotsContainer.querySelectorAll('.dot');
+    dots.forEach(function(d, idx) {
+      d.classList.toggle('active', idx === currentSlide);
+    });
+    var counter = document.getElementById('slide-counter');
+    if (counter) {
+      var num = (currentSlide + 1 < 10 ? '0' : '') + (currentSlide + 1);
+      var total = (slides.length < 10 ? '0' : '') + slides.length;
+      counter.textContent = num + ' / ' + total;
+      history.replaceState(null, '', '#' + (currentSlide + 1));
+      document.querySelector('a.lang-toggle').href = '/en/presentations/core/#' + (currentSlide + 1);
+    }
+  }
+
+  function goToSlide(n) {
+    if (n >= 0 && n < slides.length) {
+      currentSlide = n;
+      updateSlide();
+    }
+  }
+
+  function nextSlide() { goToSlide((currentSlide + 1) % slides.length); }
+  function prevSlide() { goToSlide((currentSlide - 1 + slides.length) % slides.length); }
+
+  document.getElementById('btn-prev').onclick = prevSlide;
+  document.getElementById('btn-next').onclick = nextSlide;
+  document.getElementById('btn-fs').onclick = function() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(function() {});
+    } else {
+      document.exitFullscreen();
+    }
+  };
+  document.getElementById('btn-print').onclick = function() { window.print(); };
+
+  window.addEventListener('keydown', function(e) {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if (['ArrowRight','ArrowLeft','PageDown','PageUp',' ','Home','End'].includes(e.key)) e.preventDefault();
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+      nextSlide();
+    } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+      prevSlide();
+    } else if (e.key === 'Home') {
+      goToSlide(0);
+    } else if (e.key === 'End') {
+      goToSlide(slides.length - 1);
+    } else if (e.key === 'f' || e.key === 'F') {
+      document.getElementById('btn-fs').click();
+    }
+  });
+
+  var touchStartX = 0;
+  window.addEventListener('touchstart', function(e) {
+    touchStartX = e.changedTouches[0].screenX;
+  }, {passive: true});
+  window.addEventListener('touchend', function(e) {
+    var diff = e.changedTouches[0].screenX - touchStartX;
+    if (Math.abs(diff) > 50) {
+      if (diff < 0) nextSlide();
+      else prevSlide();
+    }
+  }, {passive: true});
+
+  function resizeStage() {
+    var stage = document.getElementById('stage');
+    var scale = Math.min((window.innerWidth - 32) / 1600, (window.innerHeight - 134) / 900);
+    stage.style.setProperty('--scale', scale);
+  }
+  window.addEventListener('resize', resizeStage);
+  updateSlide();
+  resizeStage();
+})();
+
+</script>
+</body>
+</html>

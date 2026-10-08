@@ -1,0 +1,25 @@
+---
+import Icon from './Icon.astro';
+import BrandNameOverlay from './BrandNameOverlay.astro';
+interface Props { lang?: 'ru' | 'en'; }
+const { lang = 'ru' } = Astro.props;
+const isEn = lang === 'en';
+const screens = [
+  { id: '02', tag: isEn ? 'Optical identification' : 'Оптический определитель', alt: isEn ? 'RockSurv Petrography: optical mineral identification key' : 'RockSurv Petrography: определитель минералов по оптическим признакам' },
+  { id: '04', tag: isEn ? 'Thin-section atlas' : 'Атлас шлифов', alt: isEn ? 'RockSurv Petrography: thin-section atlas with PPL and XPL photographs' : 'RockSurv Petrography: атлас шлифов со снимками PPL и XPL' },
+];
+---
+<a href={`/${lang}/presentations/petrography/`} class="app-showcase-link petrography-showcase" aria-label={isEn ? 'Open RockSurv Petrography presentation' : 'Открыть презентацию RockSurv Petrography'}>
+  <div class="showcase-device showcase-dual">
+    {screens.map((screen, index) => (
+      <div class:list={['device-phone', index === 0 ? 'phone-primary' : 'phone-secondary']}>
+        <div class="phone-screen-wrap">
+          <span class="phone-tag">{screen.tag}</span>
+          <img src={`/presentations/petrography/${screen.id}-720.webp`} srcset={`/presentations/petrography/${screen.id}-360.webp 360w, /presentations/petrography/${screen.id}-720.webp 720w`} sizes="(max-width: 900px) 46vw, 280px" width="720" height="1600" alt={screen.alt} loading="lazy" decoding="async" />
+          <BrandNameOverlay imageId={screen.id} />
+        </div>
+      </div>
+    ))}
+    <div class="showcase-badge-cta"><span class="cta-pill cta-pill-cyan"><Icon name="presentation" />{isEn ? 'Interactive presentation: 12 slides' : 'Интерактивная презентация: 12 слайдов'} &rarr;</span></div>
+  </div>
+</a>

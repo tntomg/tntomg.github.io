@@ -1,0 +1,1347 @@
+---
+// Supplied Core presentation, with optimized assets and site navigation.
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RockSurv Core | Enterprise Geological Logging Presentation</title>
+<style is:global>
+
+:root {
+  --bg-stage: #0a1713;
+  --paper: #f7f9f6;
+  --paper-subtle: #edf3ef;
+  --paper-card: #ffffff;
+  --ink: #0d2620;
+  --ink-secondary: #244139;
+  --muted: #4e675f;
+  --muted-light: #708a82;
+  --line: #d3dfd7;
+  --line-light: #e6eee8;
+  --mint: #2ec991;
+  --mint-dark: #127954;
+  --mint-bg: rgba(46, 201, 145, 0.12);
+  --gold: #c99c3a;
+  --gold-dark: #8e6c1e;
+  --gold-bg: rgba(201, 156, 58, 0.12);
+  --danger-bg: rgba(231, 76, 60, 0.1);
+  --danger-text: #c0392b;
+  --shadow-sm: 0 2px 8px rgba(13, 38, 32, 0.04);
+  --shadow-md: 0 8px 24px -2px rgba(13, 38, 32, 0.06), 0 2px 6px rgba(13, 38, 32, 0.02);
+  --shadow-lg: 0 16px 40px -4px rgba(13, 38, 32, 0.09);
+  --shadow-device: 0 24px 60px -8px rgba(0, 0, 0, 0.38), 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-stage);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+button { font: inherit; }
+
+#stage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1600px;
+  height: 900px;
+  transform: translate(-50%, -50%) scale(var(--scale, 1));
+  transform-origin: center;
+  box-shadow: 0 24px 90px rgba(0, 0, 0, 0.65);
+  background: var(--paper);
+  border-radius: 4px;
+}
+
+.slide {
+  display: none;
+  position: relative;
+  width: 1600px;
+  height: 900px;
+  overflow: hidden;
+  background: var(--paper);
+  padding: 44px 60px 72px 60px;
+}
+.slide.active { display: flex; flex-direction: column; }
+
+/* Brandline */
+.brandline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  border-bottom: 1px solid var(--line-light);
+  padding-bottom: 10px;
+}
+.brandline .brand {
+  font-size: 20px;
+  letter-spacing: -0.5px;
+  font-weight: 800;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.brandline .brand span { color: var(--mint-dark); }
+.brandline .eyebrow {
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.brandline .tag {
+  background: var(--paper-subtle);
+  border: 1px solid var(--line);
+  padding: 3px 12px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 650;
+  color: var(--ink-secondary);
+}
+
+/* Header */
+.slide-header {
+  margin-bottom: 20px;
+}
+.slide-kicker {
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--mint-dark);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.slide-kicker::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--mint);
+}
+h1, h2, h3, p { margin: 0; }
+h2 {
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: -1.1px;
+  line-height: 1.15;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.lead {
+  font-size: 17px;
+  line-height: 1.45;
+  color: var(--muted);
+  max-width: 1420px;
+}
+
+/* Content Area */
+.content-grid {
+  flex: 1;
+  display: grid;
+  gap: 24px;
+  min-height: 0;
+}
+
+/* Cards */
+.card {
+  background: var(--paper-card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 22px 24px;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.card-title {
+  font-size: 18px;
+  font-weight: 750;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card-subtitle {
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height: 1.4;
+  margin-bottom: 14px;
+}
+
+/* Badges */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+.pill-mint { background: var(--mint-bg); color: var(--mint-dark); border: 1px solid rgba(46, 201, 145, 0.3); }
+.pill-gold { background: var(--gold-bg); color: var(--gold-dark); border: 1px solid rgba(201, 156, 58, 0.3); }
+.pill-danger { background: var(--danger-bg); color: var(--danger-text); border: 1px solid rgba(231, 76, 60, 0.3); }
+.pill-neutral { background: var(--paper-subtle); color: var(--muted); border: 1px solid var(--line); }
+
+/* Feature Items */
+.feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14.5px;
+  line-height: 1.42;
+  color: var(--ink);
+}
+.feature-item .icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.feature-item strong {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* Stats */
+.stat-box {
+  background: var(--paper-subtle);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+}
+.stat-num {
+  font-size: 28px;
+  font-weight: 850;
+  letter-spacing: -0.8px;
+  color: var(--ink);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.stat-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--muted);
+}
+
+/* Devices */
+.device-tablet {
+  background: #0f1c18;
+  border-radius: 16px;
+  padding: 8px;
+  box-shadow: var(--shadow-device);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+}
+.device-tablet .tablet-lens {
+  width: 5px;
+  height: 5px;
+  background: #254037;
+  border-radius: 50%;
+  margin: 0 auto 5px;
+}
+.device-tablet .screen {
+  border-radius: 9px;
+  overflow: hidden;
+  background: #000;
+  flex: 1;
+  display: flex;
+}
+.device-tablet img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.device-phone {
+  background: #0d1714;
+  border-radius: 26px;
+  padding: 6px;
+  box-shadow: var(--shadow-device);
+  border: 2px solid #233c34;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.device-phone .notch {
+  width: 60px;
+  height: 8px;
+  background: #000;
+  border-radius: 6px;
+  margin-bottom: 5px;
+}
+.device-phone .screen {
+  border-radius: 18px;
+  overflow: hidden;
+  background: #000;
+  width: 100%;
+}
+.device-phone img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Nav Bar */
+#nav-bar {
+  position: fixed;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(10, 27, 23, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 9999px;
+  padding: 5px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  z-index: 1000;
+}
+.nav-btn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 5px 12px;
+  border-radius: 9999px;
+  font-size: 12.5px;
+  font-weight: 650;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+.nav-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--mint);
+}
+.nav-counter {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 12.5px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  padding: 0 4px;
+}
+.nav-dots {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.dot.active {
+  background: var(--mint);
+  width: 18px;
+  border-radius: 9999px;
+}
+.nav-divider {
+  width: 1px;
+  height: 16px;
+  background: rgba(255, 255, 255, 0.18);
+}
+.lang-toggle {
+  background: rgba(46, 201, 145, 0.16);
+  border: 1px solid rgba(46, 201, 145, 0.45);
+  color: var(--mint);
+  padding: 3px 9px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 800;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  transition: all 0.15s ease;
+}
+.lang-toggle:hover {
+  background: var(--mint);
+  color: #0a1713;
+}
+
+@media print {
+  body { background: #fff; }
+  #stage { position: static; transform: none; box-shadow: none; width: 100%; height: auto; }
+  .slide { display: flex !important; page-break-after: always; height: 100vh; }
+  #nav-bar { display: none !important; }
+}
+
+
+.core-topbar { position:fixed; inset:0 0 auto; height:52px; padding:8px 16px; display:flex; align-items:center; justify-content:space-between; gap:16px; color:#f5f7f2; background:#0e1714; border-bottom:1px solid #244139; z-index:1001; font-size:13px; }
+.core-back { color:inherit; padding:8px 10px; text-decoration:none; border:1px solid #38584b; border-radius:6px; }
+.core-back:hover, .core-back:focus-visible { background:#244139; outline:2px solid #69d4ad; outline-offset:2px; }
+.core-title { font-weight:700; }
+#stage { top:calc(50% - 15px); }
+#nav-bar { max-width:calc(100vw - 16px); white-space:nowrap; }
+#nav-dots .dot { padding:0; cursor:pointer; }
+#nav-dots .dot:focus-visible { outline:2px solid #69d4ad; outline-offset:3px; }
+@media (max-width:900px) { #nav-dots, .nav-divider { display:none; } }
+@media (max-width:640px) { #btn-fs, #btn-print, .core-title { display:none; } #nav-bar { gap:6px; padding:4px 8px; } .nav-btn { min-height:44px; padding:6px 8px; } .core-topbar { padding-inline:8px; gap:8px; } }
+@media print { .core-topbar { display:none; } }
+</style>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+</head>
+<body>
+<header class="core-topbar"><a class="core-back" href="/en/#apps">Back to apps</a><span class="core-title">Rocksurv Core</span><span>14 slides</span></header>
+<div id="stage">
+
+    <section class="slide active" aria-label="1. RockSurv Core">
+      <div class="brandline">
+        <div class="brand">ROCKSURV <span>CORE</span></div>
+        <div class="eyebrow">ENTERPRISE GEOLOGICAL LOGGING SUITE</div>
+        <div class="tag">FLUTTER &bull; IOS &bull; ANDROID &bull; WEB</div>
+      </div>
+      <div class="slide-header" style="margin-bottom: 28px;">
+        <div class="slide-kicker">SOLID MINERAL EXPLORATION &bull; CORE SHEDS &bull; MINE WORKINGS</div>
+        <h2 style="font-size: 46px; margin-bottom: 12px;">RockSurv <span style="color: var(--mint-dark);">Core</span></h2>
+        <p class="lead" style="font-size: 21px; max-width: 1200px;">
+          High-performance mobile platform for core logging and mine workings capture. Procedural vector lithology at 60 FPS in 100% offline field environments.
+        </p>
+      </div>
+      <div class="content-grid" style="grid-template-columns: 1.15fr 0.85fr; align-items: center;">
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+          <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+            <span class="pill pill-mint">100% Offline-First (ACID SQLite)</span>
+            <span class="pill pill-mint">GOST 2.857-75 &bull; FGDC Vector Engine</span>
+            <span class="pill pill-mint">60 FPS Strip Log (2,000 m)</span>
+            <span class="pill pill-gold">Leapfrog &bull; Micromine &bull; Datamine Sync</span>
+          </div>
+          <div class="card" style="padding: 22px;">
+            <div class="card-title" style="margin-bottom: 8px;">Direct Field-to-Model Pipeline</div>
+            <p style="font-size: 14.5px; color: var(--muted); line-height: 1.5; margin-bottom: 16px;">
+              Designed specifically for solid mineral exploration camps, core sheds, and underground workings. Eliminates paper transcription, double data entry, and interval discrepancies.
+            </p>
+            <div style="display: flex; gap: 20px; align-items: center;">
+              <div class="stat-box" style="flex: 1;">
+                <div class="stat-num" style="color: var(--mint-dark);">60 FPS</div>
+                <div class="stat-label">Hardware-Accelerated Rendering</div>
+              </div>
+              <div class="stat-box" style="flex: 1;">
+                <div class="stat-num" style="color: var(--gold-dark);">&lt; 5 min</div>
+                <div class="stat-label">From Core Shed to 3D Block Model</div>
+              </div>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 24px;">
+            <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted);">Cross-Platform:</div>
+            <div style="display: flex; align-items: center; gap: 14px;">
+              <div style="display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 650; color: var(--ink);"><svg fill="#2ec991" width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.4395 5.5586c-.675 1.1664-1.352 2.3318-2.0274 3.498-.0366-.0155-.0742-.0286-.1113-.043-1.8249-.6957-3.484-.8-4.42-.787-1.8551.0185-3.3544.4643-4.2597.8203-.084-.1494-1.7526-3.021-2.0215-3.4864a1.1451 1.1451 0 0 0-.1406-.1914c-.3312-.364-.9054-.4859-1.379-.203-.475.282-.7136.9361-.3886 1.5019 1.9466 3.3696-.0966-.2158 1.9473 3.3593.0172.031-.4946.2642-1.3926 1.0177C2.8987 12.176.452 14.772 0 18.9902h24c-.119-1.1108-.3686-2.099-.7461-3.0683-.7438-1.9118-1.8435-3.2928-2.7402-4.1836a12.1048 12.1048 0 0 0-2.1309-1.6875c.6594-1.122 1.312-2.2559 1.9649-3.3848.2077-.3615.1886-.7956-.0079-1.1191a1.1001 1.1001 0 0 0-.8515-.5332c-.5225-.0536-.9392.3128-1.0488.5449zm-.0391 8.461c.3944.5926.324 1.3306-.1563 1.6503-.4799.3197-1.188.0985-1.582-.4941-.3944-.5927-.324-1.3307.1563-1.6504.4727-.315 1.1812-.1086 1.582.4941zM7.207 13.5273c.4803.3197.5506 1.0577.1563 1.6504-.394.5926-1.1038.8138-1.584.4941-.48-.3197-.5503-1.0577-.1563-1.6504.4008-.6021 1.1087-.8106 1.584-.4941z"/></svg> Android</div>
+              <div style="display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 650; color: var(--ink);"><svg fill="#2ec991" width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg> iOS</div>
+              <div style="display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 650; color: var(--ink);"><svg fill="#2ec991" width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg> Web</div>
+            </div>
+          </div>
+        </div>
+        <div style="position: relative; height: 490px; display: flex; align-items: center; justify-content: center;">
+          <div class="device-tablet" style="width: 520px; height: 350px;">
+            <div class="tablet-lens"></div>
+            <div class="screen"><img src="/presentations/core/en-01-1280.webp" alt="Tablet Strip Log" srcset="/presentations/core/en-01-640.webp 640w, /presentations/core/en-01-1280.webp 1280w" sizes="(max-width: 900px) 90vw, 1000px" width="1280" height="800" loading="eager" decoding="async"></div>
+          </div>
+          <div class="device-phone" style="position: absolute; right: 10px; bottom: 15px; width: 175px;">
+            <div class="notch"></div>
+            <div class="screen"><img src="/presentations/core/en-02-390.webp" alt="Phone Mobile Interface" srcset="/presentations/core/en-02-390.webp 390w" sizes="(max-width: 900px) 90vw, 1000px" width="390" height="844" loading="eager" decoding="async"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    <section class="slide" aria-label="2. From Core Shed and Underground Face Straight to 3D Models">
+      <div class="brandline">
+        <div class="brand">ROCKSURV <span>CORE</span></div>
+        <div class="eyebrow">OPERATIONAL EXCELLENCE</div>
+        <div class="tag">SLIDE 02 / 14</div>
+      </div>
+      <div class="slide-header">
+        <div class="slide-kicker">WORKFLOW OPTIMIZATION &bull; ZERO DOUBLE ENTRY</div>
+        <h2>From Core Shed and Underground Face Straight to 3D Models</h2>
+        <p class="lead">Bridging the gap between manual logging in remote exploration camps and downstream 3D resource modeling.</p>
+      </div>
+      <div class="content-grid" style="grid-template-columns: 1fr 1fr;">
+        <div class="card" style="border-left: 4px solid #c0392b;">
+          <div class="card-header">
+            <div class="card-title">Traditional Paper & Spreadsheet Routine</div>
+            <span class="pill pill-danger">HIGH RISK &bull; 24&ndash;72H LAG</span>
+          </div>
+          <p class="card-subtitle">Paper notes, manual evening re-typing, and delayed validation.</p>
+          <div class="feature-list" style="margin-bottom: 20px;">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#e74c3c" fill-opacity="0.16"/><path d="M7 7L13 13M13 7L7 13" stroke="#c0392b" stroke-width="2.2" stroke-linecap="round"/></svg></div><div><strong>Paper logging at the core bench:</strong> Weather damage, messy handwriting, no field validation.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#e74c3c" fill-opacity="0.16"/><path d="M7 7L13 13M13 7L7 13" stroke="#c0392b" stroke-width="2.2" stroke-linecap="round"/></svg></div><div><strong>Manual evening transcription:</strong> Hours lost re-entering data into spreadsheets after long shifts.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#e74c3c" fill-opacity="0.16"/><path d="M7 7L13 13M13 7L7 13" stroke="#c0392b" stroke-width="2.2" stroke-linecap="round"/></svg></div><div><strong>Topological errors:</strong> Overlapping depth intervals, missing intervals, incorrect codes.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#e74c3c" fill-opacity="0.16"/><path d="M7 7L13 13M13 7L7 13" stroke="#c0392b" stroke-width="2.2" stroke-linecap="round"/></svg></div><div><strong>Delayed model updates:</strong> Takes days before GIS teams identify drillhole discrepancies.</div></div>
+          </div>
+          <div class="stat-box" style="background: rgba(231, 76, 60, 0.08); border-color: rgba(231, 76, 60, 0.2); margin-top: auto;">
+            <div class="stat-num" style="color: #c0392b;">~35%</div>
+            <div class="stat-label">Geologist working time wasted on manual data re-entry</div>
+          </div>
+        </div>
+
+        <div class="card" style="border-left: 4px solid var(--mint);">
+          <div class="card-header">
+            <div class="card-title">RockSurv Core Digital Pipeline</div>
+            <span class="pill pill-mint">DIRECT DIGITAL CAPTURE</span>
+          </div>
+          <p class="card-subtitle">Single-touch logging, instant topological checks, and direct 3D export.</p>
+          <div class="feature-list" style="margin-bottom: 20px;">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>Direct digital logging:</strong> Rugged field tablet input right at the core shed or underground face.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>Real-time validation:</strong> Mathematical prevention of depth gaps, overlaps, and invalid codes.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>Rich geological capture:</strong> Photogrammetry, structural &alpha;/&beta; angles, and QA/QC sample snapping.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>Direct export:</strong> Instant generation of standard tables for Leapfrog, Micromine, and Datamine.</div></div>
+          </div>
+          <div class="stat-box" style="background: var(--mint-bg); border-color: rgba(46, 201, 145, 0.3); margin-top: auto;">
+            <div class="stat-num" style="color: var(--mint-dark);">&lt; 5 minutes</div>
+            <div class="stat-label">From logging completion to verified 3D block model import</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    <section class="slide" aria-label="3. Resolution-Independent Lithology Symbology">
+      <div class="brandline">
+        <div class="brand">ROCKSURV <span>CORE</span></div>
+        <div class="eyebrow">GRAPHICS ENGINE</div>
+        <div class="tag">SLIDE 03 / 14</div>
+      </div>
+      <div class="slide-header">
+        <div class="slide-kicker">MATHEMATICAL VECTOR ENGINE &bull; PHYSICAL MILLIMETRES</div>
+        <h2>Resolution-Independent Lithology Symbology</h2>
+        <p class="lead">Continuous mathematical vector geometry matching GOST 2.857-75 and international FGDC standards. Zero raster blur.</p>
+      </div>
+      <div class="content-grid" style="grid-template-columns: 1fr 1fr; align-items: center;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div class="card" style="padding: 18px;">
+            <div class="card-title" style="font-size: 16px;">Physical Millimetre Grid</div>
+            <p style="font-size: 13px; color: var(--muted); line-height: 1.4; margin-top: 6px;">
+              Calculates precise physical millimetres from screen DPI. Standard dot diameter 0.6 mm, stroke 0.25 mm.
+            </p>
+          </div>
+          <div class="card" style="padding: 18px;">
+            <div class="card-title" style="font-size: 16px;">Continuous Zoom</div>
+            <p style="font-size: 13px; color: var(--muted); line-height: 1.4; margin-top: 6px;">
+              Smooth scaling from 1:20 detail of shear veins to 1:2000 macro overview of whole 2,000 m holes.
+            </p>
+          </div>
+          <div class="card" style="padding: 18px;">
+            <div class="card-title" style="font-size: 16px;">16+ Standard Patterns</div>
+            <p style="font-size: 13px; color: var(--muted); line-height: 1.4; margin-top: 6px;">
+              Sediments, volcanics, intrusives, ore zones, fault breccias, and quartz veins out of the box.
+            </p>
+          </div>
+          <div class="card" style="padding: 18px;">
+            <div class="card-title" style="font-size: 16px;">Instant Compilation</div>
+            <p style="font-size: 13px; color: var(--muted); line-height: 1.4; margin-top: 6px;">
+              Pre-compiled geometry paths cached into GPU memory for zero-lag 60 FPS strip log scrolling.
+            </p>
+          </div>
+          <div class="card" style="grid-column: span 2; padding: 18px; background: var(--paper-subtle);">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <div style="font-size: 15px; font-weight: 750; color: var(--ink);">Bilingual Nomenclature Built-In</div>
+                <div style="font-size: 13px; color: var(--muted);">Real-time runtime switching between English and Russian geological catalogs.</div>
+              </div>
+              <span class="pill pill-mint">EN &bull; RU DUAL VOCAB</span>
+            </div>
+          </div>
+        </div>
+        <div style="height: 520px; display: flex; justify-content: center;">
+          <div class="device-tablet" style="width: 440px; height: 100%;">
+            <div class="tablet-lens"></div>
+            <div class="screen"><img src="/presentations/core/en-03-800.webp" alt="Sunlight Theme Pattern Gallery" srcset="/presentations/core/en-03-640.webp 640w, /presentations/core/en-03-800.webp 800w" sizes="(max-width: 900px) 90vw, 1000px" width="800" height="1280" loading="eager" decoding="async"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    <section class="slide" aria-label="4. Adaptive Symbol Layout for Any Geologic Contact">
+      <div class="brandline">
+        <div class="brand">ROCKSURV <span>CORE</span></div>
+        <div class="eyebrow">TOPOLOGY ALGORITHMS</div>
+        <div class="tag">SLIDE 04 / 14</div>
+      </div>
+      <div class="slide-header">
+        <div class="slide-kicker">GEOLOGICAL TOPOLOGY &bull; 3 MATHEMATICAL MODES</div>
+        <h2>Adaptive Symbol Layout for Any Geologic Contact</h2>
+        <p class="lead">Different rock units require different boundary handling. RockSurv Core provides three mathematically rigorous layout algorithms.</p>
+      </div>
+      <div class="content-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Fit Mode</div>
+            <span class="pill pill-mint">MARGIN CLEARANCE</span>
+          </div>
+          <p class="card-subtitle">Places whole symbols within interval boundaries, clear of contacts.</p>
+          <div style="height: 250px; margin-bottom: 16px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line);">
+            <img src="/presentations/core/en-04-1280.webp" alt="Fit Mode Granite" style="width: 100%; height: 100%; object-fit: cover;" srcset="/presentations/core/en-04-640.webp 640w, /presentations/core/en-04-1280.webp 1280w" sizes="(max-width: 900px) 90vw, 1000px" width="1280" height="800" loading="eager" decoding="async">
+          </div>
+          <div class="feature-list">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Guaranteed 0.5 mm boundary margin clearance.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Ideal for sandstones, conglomerates, and breccias.</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Clip Mode</div>
+            <span class="pill pill-mint">SEAMLESS LATTICE</span>
+          </div>
+          <p class="card-subtitle">Continuous regular lattice cut cleanly at interval boundaries.</p>
+          <div style="height: 250px; margin-bottom: 16px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line);">
+            <img src="/presentations/core/en-05-1280.webp" alt="Clip Mode Granite" style="width: 100%; height: 100%; object-fit: cover;" srcset="/presentations/core/en-05-640.webp 640w, /presentations/core/en-05-1280.webp 1280w" sizes="(max-width: 900px) 90vw, 1000px" width="1280" height="800" loading="eager" decoding="async">
+          </div>
+          <div class="feature-list">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Preserves spatial lattice continuity downhole.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Authentic appearance for granites, basalts, and gabbro.</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Whole Mode</div>
+            <span class="pill pill-mint">DISCRETE STAMPS</span>
+          </div>
+          <p class="card-subtitle">Continuous lattice that retains only complete unclipped symbols.</p>
+          <div style="height: 250px; margin-bottom: 16px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line);">
+            <img src="/presentations/core/en-06-1280.webp" alt="Whole Mode Granite" style="width: 100%; height: 100%; object-fit: cover;" srcset="/presentations/core/en-06-640.webp 640w, /presentations/core/en-06-1280.webp 1280w" sizes="(max-width: 900px) 90vw, 1000px" width="1280" height="800" loading="eager" decoding="async">
+          </div>
+          <div class="feature-list">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Discards truncated symbols touching boundaries.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Suited for jointing, veinlets, and alteration stamps.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    <section class="slide" aria-label="5. Smooth 60 FPS Scrolling on 2,000-Metre Drillholes">
+      <div class="brandline">
+        <div class="brand">ROCKSURV <span>CORE</span></div>
+        <div class="eyebrow">PERFORMANCE BENCHMARK</div>
+        <div class="tag">SLIDE 05 / 14</div>
+      </div>
+      <div class="slide-header">
+        <div class="slide-kicker">VIRTUALIZED VIEWPORT &bull; 60 FPS ENGINE</div>
+        <h2>Smooth 60 FPS Scrolling on 2,000-Metre Drillholes</h2>
+        <p class="lead">Engineered for large-scale enterprise exploration. Virtualized viewport renders only visible intervals, keeping GPU load under 5%.</p>
+      </div>
+      <div class="content-grid" style="grid-template-columns: 1fr 1.35fr; align-items: center;">
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;">
+            <div class="stat-box">
+              <div class="stat-num" style="color: var(--mint-dark);">&lt; 2.1 ms</div>
+              <div class="stat-label">Frame Render</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-num" style="color: var(--gold-dark);">5,024</div>
+              <div class="stat-label">Intervals</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-num" style="color: var(--ink);">60 FPS</div>
+              <div class="stat-label">Scrolling</div>
+            </div>
+          </div>
+          <div class="card" style="padding: 20px;">
+            <div class="card-title" style="margin-bottom: 12px;">Core Strip Log Capabilities</div>
+            <div class="feature-list">
+              <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>Interactive depth cursor:</strong> Real-time depth readout with 0.01 m precision.</div></div>
+              <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>Single-tap inspection:</strong> Instant interval selection with full attribute sheet.</div></div>
+              <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>Multi-track visualization:</strong> Lithology, visual RQD, recovery, and sulfide grade.</div></div>
+              <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>Smooth pinch-to-zoom:</strong> Instant scale transition from 1:20 to 1:2000.</div></div>
+            </div>
+          </div>
+        </div>
+        <div style="height: 520px; display: flex; justify-content: center;">
+          <div class="device-tablet" style="width: 100%; height: 100%;">
+            <div class="tablet-lens"></div>
+            <div class="screen"><img src="/presentations/core/en-07-1280.webp" alt="Core Strip Log in English" srcset="/presentations/core/en-07-640.webp 640w, /presentations/core/en-07-1280.webp 1280w" sizes="(max-width: 900px) 90vw, 1000px" width="1280" height="800" loading="eager" decoding="async"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    <section class="slide" aria-label="6. Detailed Logging of Ore Zones, Breccias & Structures">
+      <div class="brandline">
+        <div class="brand">ROCKSURV <span>CORE</span></div>
+        <div class="eyebrow">ORE & STRUCTURAL GEOLOGY</div>
+        <div class="tag">SLIDE 06 / 14</div>
+      </div>
+      <div class="slide-header">
+        <div class="slide-kicker">SOLID MINERAL EXPLORATION &bull; HARD-ROCK SPECIALIZATION</div>
+        <h2>Detailed Logging of Ore Zones, Breccias & Structures</h2>
+        <p class="lead">Tailored for complex metallogenic deposits: gold quartz veins, copper porphyries, VMS systems, and shear zones.</p>
+      </div>
+      <div class="content-grid" style="grid-template-columns: 1fr 1.35fr; align-items: center;">
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div class="card" style="padding: 18px;">
+            <div class="card-title" style="font-size: 16px;">Dynamic Sulfide Content (0&ndash;100%)</div>
+            <p style="font-size: 13.5px; color: var(--muted); line-height: 1.4; margin-top: 4px;">
+              Visual stipple density reflects logged sulfide percentage in real time. Separate tracking for disseminated, semi-massive, and massive ore.
+            </p>
+          </div>
+          <div class="card" style="padding: 18px;">
+            <div class="card-title" style="font-size: 16px;">Oriented Core Structural Angles</div>
+            <p style="font-size: 13.5px; color: var(--muted); line-height: 1.4; margin-top: 4px;">
+              Direct input of &alpha; and &beta; angles for bedding, foliation, joints, and shears. On-device calculation of true dip and dip direction.
+            </p>
+          </div>
+          <div class="card" style="padding: 18px;">
+            <div class="card-title" style="font-size: 16px;">Tectonic Breccias & Fault Zones</div>
+            <p style="font-size: 13.5px; color: var(--muted); line-height: 1.4; margin-top: 4px;">
+              Dedicated morphological symbols for cataclasites, mylonites, and gouge zones. Automatic contact tagging: sharp, gradational, or sheared.
+            </p>
+          </div>
+          <div class="card" style="padding: 18px;">
+            <div class="card-title" style="font-size: 16px;">Veinlet Stockwork Density</div>
+            <p style="font-size: 13.5px; color: var(--muted); line-height: 1.4; margin-top: 4px;">
+              Quantitative stockwork count per metre, vein thickness, mineralogy, and alteration halo tracking.
+            </p>
+          </div>
+        </div>
+        <div style="height: 520px; display: flex; justify-content: center;">
+          <div class="device-tablet" style="width: 100%; height: 100%;">
+            <div class="tablet-lens"></div>
+            <div class="screen"><img src="/presentations/core/en-08-1280.webp" alt="Dark Theme Ore Zone" srcset="/presentations/core/en-08-640.webp 640w, /presentations/core/en-08-1280.webp 1280w" sizes="(max-width: 900px) 90vw, 1000px" width="1280" height="800" loading="eager" decoding="async"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    <section class="slide" aria-label="7. Three High-Contrast Themes for Harsh Field Conditions">
+      <div class="brandline">
+        <div class="brand">ROCKSURV <span>CORE</span></div>
+        <div class="eyebrow">FIELD ACCESSIBILITY</div>
+        <div class="tag">SLIDE 07 / 14</div>
+      </div>
+      <div class="slide-header">
+        <div class="slide-kicker">LIGHTING ADAPTATION &bull; FIELD ACCESSIBILITY</div>
+        <h2>Three High-Contrast Themes for Harsh Field Conditions</h2>
+        <p class="lead">Whether logging under blazing open-pit sunshine or deep in an unlit underground stope, RockSurv adapts instantly.</p>
+      </div>
+      <div class="content-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Light Theme</div>
+            <span class="pill pill-neutral">CORE SHED &bull; OFFICE</span>
+          </div>
+          <p class="card-subtitle">Natural paper palette (#f7f9f6) calibrated for comfortable all-day core logging and office review.</p>
+          <div class="feature-list" style="margin-top: auto;">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Soft, eye-friendly contrast.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Matches natural paper logs.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Perfect for PDF report export.</div></div>
+          </div>
+        </div>
+
+        <div class="card" style="background: #111e1a; color: #fff; border-color: #244139;">
+          <div class="card-header">
+            <div class="card-title" style="color: #fff;">Dark Theme</div>
+            <span class="pill pill-mint">UNDERGROUND MINES</span>
+          </div>
+          <p class="card-subtitle" style="color: #9cb5ab;">Deep black background (#0a1713) preserves night vision and maximizes tablet battery runtime.</p>
+          <div class="feature-list" style="margin-top: auto;">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div style="color: #e0ece6;">Prevents headlamp glare in tunnels.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div style="color: #e0ece6;">OLED display power saving (+40% life).</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div style="color: #e0ece6;">High-contrast neon lithology outlines.</div></div>
+          </div>
+        </div>
+
+        <div class="card" style="border: 2px solid #000;">
+          <div class="card-header">
+            <div class="card-title">Sunlight Theme</div>
+            <span class="pill pill-gold">WCAG AAA &bull; OPEN PIT</span>
+          </div>
+          <p class="card-subtitle">Extreme contrast ratio (&gt; 7:1) with deep black strokes on pure white for direct glaring sun.</p>
+          <div class="feature-list" style="margin-top: auto;">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Legible under harsh desert sunlight.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Deep black lithological patterns.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Operable with polarized sunglasses.</div></div>
+          </div>
+        </div>
+
+        <div class="card" style="grid-column: span 3; padding: 18px 24px; background: var(--paper-subtle);">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div style="display: flex; gap: 32px;">
+              <div><strong>Glove-Friendly Touch:</strong> 48&ndash;56 dp touch targets.</div>
+              <div><strong>Tactile Haptics:</strong> Vibration confirmation on boundary taps.</div>
+              <div><strong>Numeric Keypad:</strong> Big numeric input for error-free depth entry.</div>
+            </div>
+            <span class="pill pill-mint">FIELD ERGONOMICS CERTIFIED</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    <section class="slide" aria-label="8. Field Tablet for Deep Analysis, Smartphone for Rapid Capture">
+      <div class="brandline">
+        <div class="brand">ROCKSURV <span>CORE</span></div>
+        <div class="eyebrow">FORM FACTORS</div>
+        <div class="tag">SLIDE 08 / 14</div>
+      </div>
+      <div class="slide-header">
+        <div class="slide-kicker">ADAPTIVE RESPONSIVENESS &bull; SINGLE FLUTTER CODEBASE</div>
+        <h2>Field Tablet for Deep Analysis, Smartphone for Rapid Capture</h2>
+        <p class="lead">Unified code running natively across 10&ndash;12&Prime; rugged tablets and 6&Prime; smartphones with automatic layout adaptation.</p>
+      </div>
+      <div class="content-grid" style="grid-template-columns: 1fr 1fr; align-items: center;">
+        <div class="card" style="height: 100%; justify-content: space-between;">
+          <div>
+            <div class="card-header">
+              <div class="card-title">Field Tablet (10&ndash;12&Prime;)</div>
+              <span class="pill pill-mint">PRIMARY LOGGING</span>
+            </div>
+            <p class="card-subtitle">Designed for core logging sheds, exploration trailers, and underground vehicle mounts.</p>
+            <div class="feature-list">
+              <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>Multi-column strip log:</strong> Synchronized display of lithology, structure, assays, and core photography.</div></div>
+              <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>Split-screen inspector:</strong> Edit interval attributes without losing the macro stratigraphic context.</div></div>
+              <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>Side-by-side core photo viewer:</strong> Instant visual correlation between core trays and digital log.</div></div>
+            </div>
+          </div>
+          <div class="stat-box" style="margin-top: 20px;">
+            <div class="stat-num" style="color: var(--mint-dark);">100%</div>
+            <div class="stat-label">Feature parity with desktop logging suites in a mobile form factor</div>
+          </div>
+        </div>
+
+        <div class="card" style="height: 100%; justify-content: space-between;">
+          <div>
+            <div class="card-header">
+              <div class="card-title">Rugged Smartphone (6&Prime;)</div>
+              <span class="pill pill-gold">POCKET COMPANION</span>
+            </div>
+            <p class="card-subtitle">Single-hand operation for quick collar inspection, pit mapping, and outcrop reconnaissance.</p>
+            <div class="feature-list">
+              <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>One-handed navigation:</strong> Bottom-sheet controls operable with one thumb on rugged devices.</div></div>
+              <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>Quick GNSS collar verification:</strong> Snap GPS coordinates and verify hole collars on site.</div></div>
+              <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>Instant photo capture:</strong> Camera snapshot automatically tagged with drillhole ID and downhole depth.</div></div>
+            </div>
+          </div>
+          <div style="display: flex; gap: 14px; justify-content: center; margin-top: 16px;">
+            <div class="device-phone" style="width: 140px;">
+              <div class="notch"></div>
+              <div class="screen"><img src="/presentations/core/en-09-390.webp" alt="Phone Interface" srcset="/presentations/core/en-09-390.webp 390w" sizes="(max-width: 900px) 90vw, 1000px" width="390" height="844" loading="eager" decoding="async"></div>
+            </div>
+            <div class="device-phone" style="width: 140px;">
+              <div class="notch"></div>
+              <div class="screen"><img src="/presentations/core/en-10-390.webp" alt="Phone Settings Sheet" srcset="/presentations/core/en-10-390.webp 390w" sizes="(max-width: 900px) 90vw, 1000px" width="390" height="844" loading="eager" decoding="async"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    <section class="slide" aria-label="9. Surface Trenches, Test Pits & Underground Faces">
+      <div class="brandline">
+        <div class="brand">ROCKSURV <span>CORE</span></div>
+        <div class="eyebrow">MINE WORKINGS MODULE</div>
+        <div class="tag">SLIDE 09 / 14</div>
+      </div>
+      <div class="slide-header">
+        <div class="slide-kicker">BEYOND DRILL CORES &bull; SURFACE & UNDERGROUND EXCAVATIONS</div>
+        <h2>Surface Trenches, Test Pits & Underground Faces</h2>
+        <p class="lead">Comprehensive geological documentation for all excavation types: surface trenches, exploratory pits, and underground drives.</p>
+      </div>
+      <div class="content-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Surface Trenches</div>
+            <span class="pill pill-mint">LINEAR CHAINAGE</span>
+          </div>
+          <p class="card-subtitle">Chainage stationing from 0.0 m to end of trench with wall profile and floor mapping.</p>
+          <div class="feature-list">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Trench profile wall logging with contact inclinations.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Continuous channel sampling with start/end marks.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>GNSS survey coordinates along trench trajectory.</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Test Pits & Shafts</div>
+            <span class="pill pill-mint">4-WALL UNOLDED BOX</span>
+          </div>
+          <p class="card-subtitle">Unfolded 4-wall projection: North, East, South, West walls plus pit floor geology.</p>
+          <div class="feature-list">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Automated 4-wall unfolded box projection.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Bedding contact continuity across adjacent corners.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Soil profile, overburden depth, and bedrock contact.</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Underground Faces</div>
+            <span class="pill pill-mint">FACE HOMOGRAPHY</span>
+          </div>
+          <p class="card-subtitle">Drive heading mapping with homography perspective correction of face photography.</p>
+          <div class="feature-list">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Perspective rectification of face photography.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Direct structural trace drawing over face mosaic.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Rib and roof geological mapping in drive coordinates.</div></div>
+          </div>
+        </div>
+
+        <div class="card" style="grid-column: span 3; padding: 18px 24px; background: var(--paper-subtle);">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <div style="font-size: 15px; font-weight: 750; color: var(--ink);">Unified Spatial Database Architecture</div>
+              <div style="font-size: 13px; color: var(--muted);">Drillholes, trenches, pits, and underground stopes share the identical geological taxonomy and coordinate reference system.</div>
+            </div>
+            <span class="pill pill-gold">COMMON SPATIAL REPOSITORY</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    <section class="slide" aria-label="10. Automated Sampling, Blind QA/QC & Chain of Custody">
+      <div class="brandline">
+        <div class="brand">ROCKSURV <span>CORE</span></div>
+        <div class="eyebrow">QUALITY ASSURANCE</div>
+        <div class="tag">SLIDE 10 / 14</div>
+      </div>
+      <div class="slide-header">
+        <div class="slide-kicker">DATA INTEGRITY &bull; INDUSTRY STANDARDS</div>
+        <h2>Automated Sampling, Blind QA/QC & Chain of Custody</h2>
+        <p class="lead">Full compliance with JORC, NI 43-101, and international reporting codes for exploration quality assurance.</p>
+      </div>
+      <div class="content-grid" style="grid-template-columns: 1fr 1fr;">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Geological Sample Snapping</div>
+            <span class="pill pill-mint">CONTACT INTEGRITY</span>
+          </div>
+          <p class="card-subtitle">Automated alignment of sample bounds to logged lithological boundaries.</p>
+          <div class="feature-list">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>No composite mixing:</strong> Prevents sampling across distinct geological and alteration contacts.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>Configurable sample lengths:</strong> Default nominal length (e.g. 1.0 m) with minimum threshold (0.2 m).</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>Channel sample intervals:</strong> Precise continuous stationing along trench and face lines.</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Blind QA/QC Insertion Wizard</div>
+            <span class="pill pill-gold">AUDIT COMPLIANT</span>
+          </div>
+          <p class="card-subtitle">Automated generation of quality control sample sequences for assay labs.</p>
+          <div class="feature-list">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>Certified Reference Materials (CRM):</strong> Blind standards inserted at defined frequency (e.g. 1:20).</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>Coarse & pulp blanks:</strong> Contamination checks inserted after high-grade mineralization zones.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><strong>Duplicates:</strong> 1/4 core duplicates, coarse crush duplicates, and pulp repeats.</div></div>
+          </div>
+        </div>
+
+        <div class="card" style="grid-column: span 2; padding: 20px 24px;">
+          <div class="card-title" style="margin-bottom: 12px;">Barcode Scanning & Tamper-Evident Chain of Custody</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
+            <div class="stat-box">
+              <div style="font-weight: 750; font-size: 15px; margin-bottom: 4px;">Barcode / QR Scan</div>
+              <div style="font-size: 13px; color: var(--muted);">Direct scanning of pre-printed sample ticket bags prevents numbering typos.</div>
+            </div>
+            <div class="stat-box">
+              <div style="font-weight: 750; font-size: 15px; margin-bottom: 4px;">Immutable Audit Log</div>
+              <div style="font-size: 13px; color: var(--muted);">Every modification records timestamp, user ID, and previous value in local SQLite.</div>
+            </div>
+            <div class="stat-box">
+              <div style="font-weight: 750; font-size: 15px; margin-bottom: 4px;">Lab Dispatch Manifest</div>
+              <div style="font-size: 13px; color: var(--muted);">Generates printable PDF and CSV submission manifests with blind sample numbers.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    <section class="slide" aria-label="11. Seamless Export to Leapfrog, Micromine & Datamine">
+      <div class="brandline">
+        <div class="brand">ROCKSURV <span>CORE</span></div>
+        <div class="eyebrow">ECOSYSTEM INTEGRATION</div>
+        <div class="tag">SLIDE 11 / 14</div>
+      </div>
+      <div class="slide-header">
+        <div class="slide-kicker">INTEROPERABILITY &bull; INDUSTRY STANDARD TABLES</div>
+        <h2>Seamless Export to Leapfrog, Micromine & Datamine</h2>
+        <p class="lead">Zero proprietary file locking. Direct export into canonical tables ready for immediate drag-and-drop 3D import.</p>
+      </div>
+      <div class="content-grid" style="grid-template-columns: 1.1fr 0.9fr; align-items: center;">
+        <div class="card">
+          <div class="card-title" style="margin-bottom: 14px;">The 4 Canonical Drillhole Tables</div>
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div style="background: var(--paper-subtle); padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line);">
+              <div style="font-weight: 750; font-size: 14px; color: var(--ink);">1. Collar Table (collar.csv)</div>
+              <div style="font-size: 12.5px; color: var(--muted); font-family: monospace;">Hole_ID, X, Y, Z, Total_Depth, Date_Started, Geologist</div>
+            </div>
+            <div style="background: var(--paper-subtle); padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line);">
+              <div style="font-weight: 750; font-size: 14px; color: var(--ink);">2. Survey Table (survey.csv)</div>
+              <div style="font-size: 12.5px; color: var(--muted); font-family: monospace;">Hole_ID, Depth, Dip, Azimuth, Survey_Tool</div>
+            </div>
+            <div style="background: var(--paper-subtle); padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line);">
+              <div style="font-weight: 750; font-size: 14px; color: var(--ink);">3. Interval Geology & Assays (intervals.csv)</div>
+              <div style="font-size: 12.5px; color: var(--muted); font-family: monospace;">Hole_ID, From, To, Lithology, Sulfide_Pct, RQD, Sample_ID</div>
+            </div>
+            <div style="background: var(--paper-subtle); padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line);">
+              <div style="font-weight: 750; font-size: 14px; color: var(--ink);">4. Point & Structural Data (points.csv)</div>
+              <div style="font-size: 12.5px; color: var(--muted); font-family: monospace;">Hole_ID, Depth, Feature_Type, Alpha, Beta, True_Dip, Dip_Dir</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <div class="card" style="padding: 20px;">
+            <div class="card-title" style="margin-bottom: 8px;">Direct Mining Package Compatibility</div>
+            <p style="font-size: 13.5px; color: var(--muted); line-height: 1.45; margin-bottom: 14px;">
+              Pre-configured column profiles ensure instant 1-click import into major mining and geological modeling platforms:
+            </p>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+              <span class="pill pill-mint">Leapfrog Geo</span>
+              <span class="pill pill-mint">Micromine Beyond</span>
+              <span class="pill pill-mint">Datamine Studio RM</span>
+              <span class="pill pill-mint">Maptek Vulcan</span>
+              <span class="pill pill-mint">Bentley GeoStudio</span>
+              <span class="pill pill-mint">Target for ArcGIS</span>
+            </div>
+          </div>
+          <div class="stat-box" style="background: var(--mint-bg); border-color: rgba(46, 201, 145, 0.3);">
+            <div class="stat-num" style="color: var(--mint-dark);">0 errors</div>
+            <div class="stat-label">Strict topological pre-export validation eliminates failed GIS imports</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    <section class="slide" aria-label="12. From Vector Engine Prototype to Commercial Enterprise Suite">
+      <div class="brandline">
+        <div class="brand">ROCKSURV <span>CORE</span></div>
+        <div class="eyebrow">DEVELOPMENT MILESTONES</div>
+        <div class="tag">SLIDE 12 / 14</div>
+      </div>
+      <div class="slide-header">
+        <div class="slide-kicker">DELIVERY PLAN &bull; STAGED ROADMAP</div>
+        <h2>From Vector Engine Prototype to Commercial Enterprise Suite</h2>
+        <p class="lead">Structured delivery schedule providing immediate production field utility at each progressive milestone.</p>
+      </div>
+      <div class="content-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+        <div class="card" style="border-top: 4px solid var(--mint);">
+          <div class="card-header">
+            <div class="card-title">Phase 0: Engine Core</div>
+            <span class="pill pill-mint">COMPLETED &bull; LIVE</span>
+          </div>
+          <p class="card-subtitle">Vector lithology symbology and high-speed rendering engine.</p>
+          <div class="feature-list">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>16 GOST standard vector patterns compiled.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>60 FPS virtualized strip log up to 2,000 m.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>3 placement algorithms: Fit, Clip, Whole.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Light, Dark, and Sunlight field themes.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>100% test coverage for geometry pipeline.</div></div>
+          </div>
+        </div>
+
+        <div class="card" style="border-top: 4px solid var(--gold);">
+          <div class="card-header">
+            <div class="card-title">Phase 1: Production MVP</div>
+            <span class="pill pill-gold">CURRENT WORKSTREAM</span>
+          </div>
+          <p class="card-subtitle">Local offline database and full drillhole logging workflow.</p>
+          <div class="feature-list">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>SQLite & Drift offline relational storage.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Hole header & interval attribute entry forms.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Core tray photo binding and cropping.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>4-table CSV export (Leapfrog & Micromine).</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Android & iOS field tablet release builds.</div></div>
+          </div>
+        </div>
+
+        <div class="card" style="border-top: 4px solid var(--ink);">
+          <div class="card-header">
+            <div class="card-title">Phase 2: Enterprise & Mines</div>
+            <span class="pill pill-neutral">PLANNED</span>
+          </div>
+          <p class="card-subtitle">Mine workings module, QA/QC wizard, and enterprise sync.</p>
+          <div class="feature-list">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Trenches, pits 4-wall box & underground faces.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Automated QA/QC blind CRM sequencing.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>P2P tablet sync & multi-tenant cloud backup.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Custom corporate legend vector visual editor.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    <section class="slide" aria-label="13. Engineered for Months of Remote Wilderness Operation">
+      <div class="brandline">
+        <div class="brand">ROCKSURV <span>CORE</span></div>
+        <div class="eyebrow">ARCHITECTURE & RELIABILITY</div>
+        <div class="tag">SLIDE 13 / 14</div>
+      </div>
+      <div class="slide-header">
+        <div class="slide-kicker">MODERN ARCHITECTURE &bull; ZERO CLOUD LOCK-IN</div>
+        <h2>Engineered for Months of Remote Wilderness Operation</h2>
+        <p class="lead">Built from the ground up for extreme durability and zero data loss in remote exploration camps without cellular coverage.</p>
+      </div>
+      <div class="content-grid" style="grid-template-columns: 1fr 1fr;">
+        <div class="card">
+          <div class="card-title" style="margin-bottom: 8px;">Flutter 3 & Dart 3 Architecture</div>
+          <p style="font-size: 13.5px; color: var(--muted); line-height: 1.45; margin-bottom: 16px;">
+            Single unified codebase targeting Android rugged tablets, iPads, and desktop Web browsers. Direct GPU rendering via Skia/Impeller ensures sustained 60&ndash;120 FPS performance.
+          </p>
+          <div class="feature-list">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Zero platform-specific code drift between Android and iOS.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Hardware-accelerated vector canvas compilation.</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title" style="margin-bottom: 8px;">SQLite & Drift Offline Relational Engine</div>
+          <p style="font-size: 13.5px; color: var(--muted); line-height: 1.45; margin-bottom: 16px;">
+            Enterprise relational database operating 100% locally on the device with full ACID transaction safety. No data loss even if device suffers sudden battery depletion.
+          </p>
+          <div class="feature-list">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Atomic transaction commits per interval save.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Encrypted local database with automated daily backup.</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title" style="margin-bottom: 8px;">Proj4 Geodetic Engine On-Device</div>
+          <p style="font-size: 13.5px; color: var(--muted); line-height: 1.45; margin-bottom: 16px;">
+            Mathematical coordinate transformations performed directly on the mobile tablet. Supports SK-42, Pulkovo 1995, WGS-84, UTM, and local mine grids.
+          </p>
+          <div class="feature-list">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Offline reprojection between geographic and grid coordinates.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Automatic magnetic declination calculation for oriented core.</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title" style="margin-bottom: 8px;">Bilingual Geological Catalogs</div>
+          <p style="font-size: 13.5px; color: var(--muted); line-height: 1.45; margin-bottom: 16px;">
+            Every lithological taxon, structure, and alteration type stores synchronized English and Russian nomenclature with standard geological codes.
+          </p>
+          <div class="feature-list">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>International reporting ready (JORC / NI 43-101 / GKZ).</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Seamless transition for bilingual multinational teams.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    <section class="slide" aria-label="14. Ready for Pilot Testing on Your Company's Drillholes">
+      <div class="brandline">
+        <div class="brand">ROCKSURV <span>CORE</span></div>
+        <div class="eyebrow">NEXT STEPS</div>
+        <div class="tag">SLIDE 14 / 14</div>
+      </div>
+      <div class="slide-header">
+        <div class="slide-kicker">COLLABORATION &bull; PILOT EVALUATION</div>
+        <h2>Ready for Pilot Testing on Your Company's Drillholes</h2>
+        <p class="lead">We invite exploration and mining companies to evaluate RockSurv Core on their real project datasets.</p>
+      </div>
+      <div class="content-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Live Demonstration</div>
+            <span class="pill pill-mint">STEP 1</span>
+          </div>
+          <p class="card-subtitle">See your company's drillhole data visualized in RockSurv Core.</p>
+          <div class="feature-list">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Send sample collar and interval tables.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>We load your drillhole into the 60 FPS viewer.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Interactive online demo for your geology team.</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Legend Onboarding</div>
+            <span class="pill pill-gold">STEP 2</span>
+          </div>
+          <p class="card-subtitle">Adaptation of your corporate geological legend and dictionary.</p>
+          <div class="feature-list">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Digitization of proprietary company symbols.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Configuring custom stratigraphy and alteration codes.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Presetting corporate QA/QC insertion protocols.</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Field Camp Trial</div>
+            <span class="pill pill-mint">STEP 3</span>
+          </div>
+          <p class="card-subtitle">Pilot logging on tablets directly at your active core shed.</p>
+          <div class="feature-list">
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Rugged tablet deployment to your logging camp.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Direct engineering support during trial logging.</div></div>
+            <div class="feature-item"><div class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#2ec991" fill-opacity="0.18"/><path d="M6 10.2L8.6 13L14 7.5" stroke="#127954" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Export verification directly into your 3D GIS model.</div></div>
+          </div>
+        </div>
+
+        <div class="card" style="grid-column: span 3; padding: 22px 28px; background: #0f1c18; color: #fff; border-color: #244139;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <div style="font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 4px;">RockSurv Core &mdash; Enterprise Mining Exploration Suite</div>
+              <div style="font-size: 14px; color: #9cb5ab;">Inquiries for pilot programs, demonstrations, and technical specifications are welcome.</div>
+            </div>
+            <div style="display: flex; gap: 12px; align-items: center;">
+              <span class="pill pill-mint" style="font-size: 12px; padding: 6px 14px;">PILOT PROGRAM READY</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+</div>
+
+    <div id="nav-bar">
+      <button id="btn-prev" class="nav-btn" title="Previous Slide (Left Arrow)">&#8592; Prev</button>
+      <div id="slide-counter" class="nav-counter" aria-live="polite">01 / 14</div>
+      <div id="nav-dots" class="nav-dots"></div>
+      <button id="btn-next" class="nav-btn" title="Next Slide (Right Arrow or Space)">Next &#8594;</button>
+      <div class="nav-divider"></div>
+      <button id="btn-fs" class="nav-btn" title="Fullscreen (F)">&#x26F6; Fullscreen</button>
+      <button id="btn-print" class="nav-btn" title="Print to PDF (Ctrl+P)">&#x2399; Print / PDF</button>
+      <div class="nav-divider"></div>
+      <a href="/ru/presentations/core/" class="lang-toggle" title="Switch to Russian version">RU</a>
+    </div>
+    
+<script is:inline>
+
+(function() {
+  var slides = Array.from(document.querySelectorAll('.slide'));
+  var dotsContainer = document.getElementById('nav-dots');
+  var currentSlide = Math.min(slides.length - 1, Math.max(0, (parseInt(location.hash.slice(1), 10) || 1) - 1));
+
+  slides.forEach(function(_, idx) {
+    var dot = document.createElement('button');
+    dot.className = 'dot' + (idx === 0 ? ' active' : '');
+    dot.type = 'button';
+    dot.title = (idx + 1).toString();
+    dot.setAttribute('aria-label', 'Slide ' + (idx + 1));
+    dot.onclick = function() { goToSlide(idx); };
+    dotsContainer.appendChild(dot);
+  });
+
+  function updateSlide() {
+    slides.forEach(function(s, idx) {
+      s.classList.toggle('active', idx === currentSlide);
+      s.setAttribute('aria-hidden', idx !== currentSlide);
+    });
+    var dots = dotsContainer.querySelectorAll('.dot');
+    dots.forEach(function(d, idx) {
+      d.classList.toggle('active', idx === currentSlide);
+    });
+    var counter = document.getElementById('slide-counter');
+    if (counter) {
+      var num = (currentSlide + 1 < 10 ? '0' : '') + (currentSlide + 1);
+      var total = (slides.length < 10 ? '0' : '') + slides.length;
+      counter.textContent = num + ' / ' + total;
+      history.replaceState(null, '', '#' + (currentSlide + 1));
+      document.querySelector('a.lang-toggle').href = '/ru/presentations/core/#' + (currentSlide + 1);
+    }
+  }
+
+  function goToSlide(n) {
+    if (n >= 0 && n < slides.length) {
+      currentSlide = n;
+      updateSlide();
+    }
+  }
+
+  function nextSlide() { goToSlide((currentSlide + 1) % slides.length); }
+  function prevSlide() { goToSlide((currentSlide - 1 + slides.length) % slides.length); }
+
+  document.getElementById('btn-prev').onclick = prevSlide;
+  document.getElementById('btn-next').onclick = nextSlide;
+  document.getElementById('btn-fs').onclick = function() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(function() {});
+    } else {
+      document.exitFullscreen();
+    }
+  };
+  document.getElementById('btn-print').onclick = function() { window.print(); };
+
+  window.addEventListener('keydown', function(e) {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if (['ArrowRight','ArrowLeft','PageDown','PageUp',' ','Home','End'].includes(e.key)) e.preventDefault();
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+      nextSlide();
+    } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+      prevSlide();
+    } else if (e.key === 'Home') {
+      goToSlide(0);
+    } else if (e.key === 'End') {
+      goToSlide(slides.length - 1);
+    } else if (e.key === 'f' || e.key === 'F') {
+      document.getElementById('btn-fs').click();
+    }
+  });
+
+  var touchStartX = 0;
+  window.addEventListener('touchstart', function(e) {
+    touchStartX = e.changedTouches[0].screenX;
+  }, {passive: true});
+  window.addEventListener('touchend', function(e) {
+    var diff = e.changedTouches[0].screenX - touchStartX;
+    if (Math.abs(diff) > 50) {
+      if (diff < 0) nextSlide();
+      else prevSlide();
+    }
+  }, {passive: true});
+
+  function resizeStage() {
+    var stage = document.getElementById('stage');
+    var scale = Math.min((window.innerWidth - 32) / 1600, (window.innerHeight - 134) / 900);
+    stage.style.setProperty('--scale', scale);
+  }
+  window.addEventListener('resize', resizeStage);
+  updateSlide();
+  resizeStage();
+})();
+
+</script>
+</body>
+</html>

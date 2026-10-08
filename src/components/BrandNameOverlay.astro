@@ -1,0 +1,10 @@
+---
+import corrections from '../data/presentations/petrography-name-fixes.json';
+interface Props { imageId: string; }
+interface Correction { x: number; y: number; width: number; height: number; textX: number; baseline: number; textWidth: number; fontSize: number; background: string; foreground: string; }
+const correction = (corrections as Record<string, Correction>)[Astro.props.imageId];
+---
+{correction && <svg class="petrography-name-fix" viewBox="0 0 720 1600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+  <rect x={correction.x} y={correction.y} width={correction.width} height={correction.height} fill={correction.background} />
+  <text x={correction.textX} y={correction.baseline} font-family="PetrographyBrand" font-size={correction.fontSize} font-weight="650" fill={correction.foreground} textLength={correction.textWidth} lengthAdjust="spacingAndGlyphs">RockSurv</text>
+</svg>}

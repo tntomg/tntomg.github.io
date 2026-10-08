@@ -5,6 +5,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Icon, { type IconName } from '../../components/Icon.astro';
 import Lightbox from '../../components/Lightbox.astro';
 import PhotoCarousel from '../../components/PhotoCarousel.astro';
+import CoreShowcase from '../../components/CoreShowcase.astro';
+import PetrographyShowcase from '../../components/PetrographyShowcase.astro';
+import { appPresentation } from '../../data/app-presentations';
 
 const published = <T extends { data: { publicationState: string } }>(entry: T) => entry.data.publicationState === 'published';
 const experience = (await getCollection('experience_en', published)).sort((a, b) => a.data.order - b.data.order);
@@ -19,7 +22,7 @@ const education = byKind('education');
 const papers = byKind('publication');
 const talks = byKind('talk');
 
-const cv = '/cv/Alexey-Pakhalko-CV-EN-2026.pdf';
+const cv = '/cv/Aleksei-Pakhalko-CV-EN-2026.pdf';
 
 // "Pakhalko A. G." + detail -> one period between them, never two.
 const joinSentences = (lead: string, detail?: string) => (detail ? `${lead}${lead.endsWith('.') ? '' : '.'} ${detail}` : lead);
@@ -32,20 +35,22 @@ const fileSize = (file: string) => {
 };
 
 const skills: { icon: IconName; title: string; text: string }[] = [
-  { icon: 'microscope', title: 'Geology & Petrography', text: 'Mapping at 1:100,000 and 1:50,000 scales, structural geology, transmitted and reflected light microscopy of rocks and ores, applied geochemistry, isotope data, metallogenic potential assessment.' },
+  { icon: 'code', title: 'App Development & GIS', text: 'Mobile apps for fieldwork and automated data processing. Flutter and Dart, Kotlin and Android, VBA and Excel, SQL, API testing. ArcGIS: 2D and 3D, geodatabases.' },
   { icon: 'list-checks', title: 'Field Data & QA/QC', text: 'Field traverses, lithological and structural descriptions, alteration, sampling, core logging. Validation of observation logs for completeness, integrity and consistency.' },
+  { icon: 'microscope', title: 'Geology & Petrography', text: 'Mapping at 1:100,000 and 1:50,000 scales, structural geology, transmitted and reflected light microscopy of rocks and ores, applied geochemistry, isotope data, metallogenic potential assessment.' },
   { icon: 'compass', title: 'Field Operations & Leadership', text: 'Traverse planning, task delegation, staff mentoring. Coordination of schedules, budgets and communication across multidisciplinary and international projects.' },
-  { icon: 'code', title: 'GIS & Software Development', text: 'ArcGIS (2D & 3D, geodatabases), VBA and Excel, Kotlin and Android, SQL, API testing. Also STATISTICA, AutoCAD, and CorelDraw.' },
 ];
 
 const figureCaption: Record<string, string> = {
   'field-flow': 'Rocksurv Field interface on a rugged field tablet: georeferenced GeoPackage layers, active observation session, and satellite navigation.',
+  petrography: 'RockSurv Petrography Android screens: optical mineral identification and a thin-section atlas with PPL/XPL images.',
+  core: 'Rocksurv Core rendering prototype: interactive geological strip log and lithology patterns.',
   stereonet: 'Rocksurv Classifier interfaces: equal-area Schmidt net with intersection axis calculation (beta-axis) and IUGS-standard Streckeisen QAPF double triangle.',
 };
 ---
 <BaseLayout
-  title="Alexey Pakhalko, Geologist: Mapping, Petrography, Field Data & Apps"
-  description="Field geologist since 2008: Arabian Shield mapping, Karpinsky Institute, petrography, field data QA/QC, and proprietary geological software."
+  title="Aleksei Pakhalko, Senior Geologist: Geology & App Development"
+  description="Senior Geologist with field experience since 2008. Geological mapping, petrography, geochemical mineral exploration and development of geological applications."
   active="profile"
   lang="en"
 >
@@ -53,8 +58,8 @@ const figureCaption: Record<string, string> = {
     <div class="shell hero">
       <div class="hero-copy">
         <p class="hero-kicker">Senior Engineer at Karpinsky Institute. Leading a geological field team on the GMAS project in Saudi Arabia.</p>
-        <h1 class="hero-title" id="hero-title"><span class="line"><span>Alexey</span></span><span class="line"><span>Pakhalko</span></span></h1>
-        <p class="hero-lead">Geologist. Mapping bedrock, examining thin sections under the microscope, and building software that validates field data.</p>
+        <h1 class="hero-title" id="hero-title"><span class="line"><span>Aleksei</span></span><span class="line"><span>Pakhalko</span></span></h1>
+        <p class="hero-lead">I develop modern apps for geological fieldwork: field data collection, analysis and quality control.</p>
         <div class="hero-actions">
           <a class="button button-primary" href="#apps">Explore Apps</a>
           <a class="button button-ghost" href={cv} download><Icon name="download" class="icon-down" />Download CV</a>
@@ -62,7 +67,7 @@ const figureCaption: Record<string, string> = {
       </div>
       <figure class="hero-visual">
         <div class="portrait">
-          <img src="/images/portrait-960.webp" srcset="/images/portrait-480.webp 480w, /images/portrait-960.webp 960w" sizes="(max-width: 900px) 88vw, 40vw" width="960" height="1440" alt="Alexey Pakhalko on the embankment in Saint Petersburg" fetchpriority="high" />
+          <img src="/images/portrait-960.webp" srcset="/images/portrait-480.webp 480w, /images/portrait-960.webp 960w" sizes="(max-width: 900px) 88vw, 40vw" width="960" height="1440" alt="Aleksei Pakhalko, Senior Geologist, on the embankment in Saint Petersburg" fetchpriority="high" />
         </div>
         <div class="scope">
           <img class="thin" src="/images/scope-gabbronorite-960.webp" srcset="/images/scope-gabbronorite-480.webp 480w, /images/scope-gabbronorite-960.webp 826w" sizes="(max-width: 900px) 60vw, 26vw" width="826" height="579" alt="Thin section of altered gabbronorite under polarizing microscope, crossed polars" decoding="async" />
@@ -74,7 +79,7 @@ const figureCaption: Record<string, string> = {
     <div class="shell profile">
       <div>
         <h2 data-reveal>What I do</h2>
-        <p class="profile-about" data-reveal style="--i:1">In the field since 2008: uranium in Karelia, platinum-group metals of the Monchegorsk pluton, gold at Pavlik and Zun-Kholba, Asian metallogeny, and now bedrock mapping of the Arabian Shield. At Karpinsky Institute, I compile geological reports and investigate rocks and ores under the microscope. On the GMAS project, I developed VBA validation engines for observation logs and an Android application for field data capture.</p>
+        <p class="profile-about" data-reveal style="--i:1">I combine geological experience with app development. My focus is digital solutions for geological work, from collecting observations to data analysis and quality control. My task is to optimise the collection and validation of incoming geological information. I draw on field experience since 2008, from Karelia and Asian metallogeny to mapping the Arabian Shield. At Karpinsky Institute, I lead projects, write reports and examine rocks under the microscope.</p>
         <dl class="profile-facts" data-reveal style="--i:2">
           <div><dt>Fieldwork</dt><dd>since 2008</dd></div>
           <div><dt>Countries</dt><dd>Russia, China, Mongolia, Saudi Arabia</dd></div>
@@ -147,8 +152,8 @@ const figureCaption: Record<string, string> = {
   <section class="apps" id="apps" aria-labelledby="apps-title" data-scene-night>
     <div class="shell">
       <div class="section-head">
-        <h2 id="apps-title" data-reveal>Digital Tools for Fieldwork & Petrography</h2>
-        <p data-reveal style="--i:1">Proprietary software suites engineered from real-world regional mapping campaigns. Eliminating geological data loss, automating rigorous classification by IUGS standards, and saving weeks of post-field office processing. Explore the working interfaces and interactive presentations below.</p>
+        <h2 id="apps-title" data-reveal>My Apps for Geologists</h2>
+        <p data-reveal style="--i:1">I develop apps for field and laboratory work: maps and observations, rock classification, drill core documentation and optical mineral identification. Explore the interfaces and presentations of Rocksurv Field, Rocksurv Classifier, Rocksurv Core and RockSurv Petrography below.</p>
       </div>
 
       <ol class="route" data-reveal style="--i:2" aria-label="Workflow stages and applications">
@@ -159,11 +164,15 @@ const figureCaption: Record<string, string> = {
 
       {products.map((app, index) => {
         const isField = (app.data.slug ?? '').includes('field');
+        const isCore = app.id === 'rocksurv-core';
+        const isPetrography = app.id === 'rocksurv-petrography';
+        const presentation = appPresentation(app.data.slug!);
         return (
           <article class:list={['app', { 'app-reverse': index % 2 === 1 }]} id={`app-${app.id}`} aria-labelledby={`app-title-${app.id}`}>
             {app.id === 'rocksurv-field' && <span id="app-fieldscan" class="visually-hidden"></span>}
+            {isPetrography && <span id="app-rocksurf-petrography" class="visually-hidden" aria-hidden="true"></span>}
             <figure class="app-visual" data-reveal="scale" style={`view-transition-name: figure-${app.data.slug}`}>
-              {isField ? (
+              {isPetrography ? (<PetrographyShowcase lang="en" />) : isCore ? (<CoreShowcase lang="en" />) : isField ? (
                 <a href="/en/presentations/field/" class="app-showcase-link" aria-label="Open interactive presentation of Rocksurv Field">
                   <div class="showcase-device showcase-tablet">
                     <div class="device-bezel">
@@ -184,7 +193,7 @@ const figureCaption: Record<string, string> = {
                       </div>
                       <div class="showcase-chip-photo">
                         <img
-                          src="/presentations/field/11-640.webp"
+                          src="/presentations/field/16-640.webp"
                           width="140"
                           height="90"
                           alt="Fieldwork with rugged tablet on outcrop"
@@ -200,7 +209,7 @@ const figureCaption: Record<string, string> = {
                     <div class="showcase-badge-cta">
                       <span class="cta-pill">
                         <Icon name="presentation" />
-                        Interactive presentation: 12 slides &rarr;
+                        Interactive presentation: 17 slides &rarr;
                       </span>
                     </div>
                   </div>
@@ -247,7 +256,7 @@ const figureCaption: Record<string, string> = {
                   </div>
                 </a>
               )}
-              <figcaption>{figureCaption[isField ? 'field-flow' : 'stereonet']}</figcaption>
+              <figcaption>{figureCaption[isPetrography ? 'petrography' : isCore ? 'core' : isField ? 'field-flow' : 'stereonet']}</figcaption>
             </figure>
             <div class="app-copy">
               <p class="app-stage" data-reveal>{String(index + 1).padStart(2, '0')}. {app.data.area}</p>
@@ -259,14 +268,15 @@ const figureCaption: Record<string, string> = {
               <div class="app-meta" data-reveal style="--i:5">
                 {app.data.specVersion && <span class="chip">Specification {app.data.specVersion}</span>}
                 {app.data.stack && <span class="chip">{app.data.stack}</span>}
-                <span class="chip chip-accent">100% Offline-First</span>
+                {app.data.statusNote && <span class="chip chip-accent">{app.data.statusNote}</span>}
+                <span class="chip chip-accent">{isCore ? 'Offline architecture' : '100% Offline-First'}</span>
               </div>
               <div class="app-actions" data-reveal style="--i:6">
-                <a class="app-pres-cta" href={`/en/presentations/${isField ? 'field' : 'classifier'}/`}>
+                <a class="app-pres-cta" href={`/en/presentations/${presentation.key}/`}>
                   <div class="app-pres-cta-content">
                     <div class="app-pres-cta-top">
                       <span class="app-pres-cta-badge">Interactive Review</span>
-                      <span class="app-pres-cta-slides">{isField ? '12 slides' : '10 slides · Carousels'}</span>
+                      <span class="app-pres-cta-slides">{`${presentation.slides} slides${presentation.carousels ? ' · Carousels' : ''}`}</span>
                     </div>
                     <div class="app-pres-cta-title">
                       <Icon name="presentation" />
@@ -274,14 +284,18 @@ const figureCaption: Record<string, string> = {
                       <span class="app-pres-cta-arrow" aria-hidden="true">&rarr;</span>
                     </div>
                     <p class="app-pres-cta-desc">
-                      {isField
+                      {isPetrography
+                        ? 'Explore optical identification, paired PPL/XPL images, the Michel-Lévy chart and the virtual practice lab'
+                        : isCore
+                        ? 'Explore the vector strip log, drillhole documentation workflow and development roadmap'
+                        : isField
                         ? 'Explore GeoPackage offline maps, observation log, structural measurements and session export'
                         : 'Explore Schmidt stereonet, IUGS QAPF double triangle and geometric error prevention'}
                     </p>
                   </div>
                 </a>
                 <a class="app-link" href={`/en/apps/${app.data.slug}/`}>
-                  <span>Detailed specification and architecture of {app.data.title}</span>
+                  <span>{isPetrography ? 'Features and workflow of' : isCore ? 'Capabilities and development stages of' : 'Detailed specification and architecture of'} {app.data.title}</span>
                   <Icon name="arrow-up-right" />
                 </a>
               </div>

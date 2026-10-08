@@ -7,7 +7,7 @@
     "stage": "Field",
     "title": "Rocksurv Field",
     "area": "Field Operations & Geodata Capture",
-    "summary": "Complete offline-first mobile workstation for field geologists: OGC GeoPackage maps, structured observation logs, structural measurements, photo documentation, and embedded QA/QC with zero network reliance.",
+    "summary": "Offline field software for geological mapping and mineral exploration using geochemical dispersion halos: GeoPackage maps, observation logs, sampling, structural measurements and data quality control.",
     "problem": "Traditional paper notebooks and unlinked spreadsheets result in losing up to 20% of relational links between stations, samples, and photos, while post-season digitizing requires weeks of manual cleanup. Rocksurv Field resolves this: each observation station rigidly binds lithological descriptions, sample IDs ('station-S1'), joint and bedding attitudes, photos with compass bearing and scale bar, sketches, and alteration zones within a unified OGC GeoPackage database. Projects are prepared in ArcGIS Pro, run 100% offline in the field, and export to office deliverables in a single click.",
     "workflow": [
       "In office: prepare cartographic base in ArcGIS Pro and export to standard OGC GeoPackage container (raster pyramids, vector layers, geological symbology, and domain dictionaries).",
@@ -168,6 +168,151 @@
     "evidence": {
       "source": "specification",
       "reference": "materials/design.md, sections 1, 2, 3, and 5",
+      "verified": true
+    }
+  },
+  {
+    "id": "rocksurv-core",
+    "kind": "product",
+    "slug": "rocksurv-core",
+    "order": 3,
+    "title": "Rocksurv Core",
+    "publicationState": "published",
+    "productStatus": "prototype",
+    "stage": "Core & Workings",
+    "area": "Drill Core & Mine Workings Documentation",
+    "summary": "An app for digital drill core and mine workings documentation: geological strip logs, intervals, structures and data preparation for modelling. I am developing the MVP on a completed vector rendering engine.",
+    "problem": "Paper logs and repeated Excel entry break the links between core descriptions, photographs, samples and the geological model. Interval boundary errors emerge later during data processing. I am developing Rocksurv Core for direct digital entry at the core tray or mine face, visual strip-log review and structured data preparation for modelling.",
+    "workflow": [
+      "Create the drillhole header: identifier, collar coordinates, total depth and downhole survey.",
+      "Log core intervals: boundaries, lithology, core recovery, RQD, mineralisation and structures.",
+      "Compare descriptions with the geological strip log and core tray photographs.",
+      "Prepare samples and controls for the intervals under the project protocol. Extended QA/QC and sample handover are planned for the next phase.",
+      "Validate boundaries and prepare collar, survey, intervals and points CSV tables for delivery to Leapfrog, Micromine or Datamine."
+    ],
+    "highlights": [
+      "Completed vector engine: GOST 2.857-75 lithology patterns and three boundary placement modes, Fit, Clip and Whole.",
+      "Interactive geological strip logs and three themes for core sheds, underground work and bright sunlight.",
+      "MVP in development: local storage, interval forms, linked photos and CSV export for modelling.",
+      "Next phase: trench, pit and mine face documentation, a QA/QC wizard and sample handover tracking."
+    ],
+    "capabilities": [
+      {
+        "group": "Completed Rendering Engine",
+        "items": [
+          "Vector lithology patterns based on GOST 2.857-75.",
+          "Fit, Clip and Whole placement algorithms at interval boundaries.",
+          "Zooming and geological strip-log viewing.",
+          "Light, dark and sunlight interface themes."
+        ]
+      },
+      {
+        "group": "Drillhole Documentation, MVP in Development",
+        "items": [
+          "Local SQLite and Drift storage for offline operation.",
+          "Drillhole headers, depth entry and interval attributes.",
+          "Core tray photographs linked to depth and descriptions.",
+          "Four CSV tables: collar, survey, intervals and points for delivery to modelling software."
+        ]
+      },
+      {
+        "group": "Mine Workings, Next Phase",
+        "items": [
+          "Trenches with chainage and channel sampling.",
+          "Four-wall pit unfolds and correlated geological contacts.",
+          "Underground face documentation on perspective-corrected photographs."
+        ]
+      },
+      {
+        "group": "Sampling & QA/QC, Next Phase",
+        "items": [
+          "Sample intervals tied to geological boundaries.",
+          "Blind insertion of certified reference materials, blanks and duplicates.",
+          "Barcodes, change history and laboratory sample handover manifests."
+        ]
+      }
+    ],
+    "stack": "Flutter and Dart; MVP architecture: SQLite and Drift",
+    "statusNote": "Engine complete, MVP in development",
+    "pending": [
+      "Complete the MVP offline store, entry forms, photo links and export.",
+      "Mine workings, extended QA/QC and synchronisation in the next phase.",
+      "Field pilot testing and validation of production outcomes."
+    ],
+    "evidence": {
+      "source": "presentation",
+      "reference": "materials/Rocksurv-Core/Rocksurv_Core_Presentation_EN.html, slides 3-13; development stages on slide 12",
+      "verified": true
+    }
+  },
+  {
+    "id": "rocksurv-petrography",
+    "kind": "product",
+    "slug": "rocksurv-petrography",
+    "order": 4,
+    "title": "RockSurv Petrography",
+    "publicationState": "published",
+    "productStatus": "prototype",
+    "stage": "Laboratory",
+    "area": "Optical Mineralogy & Petrography",
+    "summary": "An offline companion for mineral identification under the microscope: optical observations, a thin-section atlas, paired PPL/XPL images and a Michel-Lévy chart. Supports transmitted and reflected light.",
+    "problem": "Microscope work requires comparing observations with multiple reference books, atlases and tables. RockSurv Petrography brings together an optical identification key, explanations of matches and contradictions, thin-section photographs and reference constants. It supports a systematic check of mineral properties and rock or ore interpretation.",
+    "workflow": [
+      "Select transmitted light for transparent minerals or reflected light for opaque ore phases.",
+      "Record observed properties: colour, relief, pleochroism, cleavage, extinction, birefringence and other optical characteristics.",
+      "Compare ranked candidates and review which observations match a mineral description and which contradict it.",
+      "Compare observations with paired PPL/XPL photographs, the Michel-Lévy chart and the mineral profile.",
+      "Use the virtual practice lab to explore relief, the Becke line, pleochroism and extinction when needed."
+    ],
+    "highlights": [
+      "A ten-property optical key with explanations of matches and contradictions for each candidate.",
+      "Thin-section atlas and paired PPL/XPL photographs for comparing colour, interference, twinning and alteration.",
+      "Michel-Lévy chart linking section thickness, retardation and birefringence.",
+      "Reflected-light ore microscopy, optical constants and mineral paragenesis.",
+      "Virtual practice lab, four interface languages and offline operation."
+    ],
+    "capabilities": [
+      {
+        "group": "Optical Identification",
+        "items": [
+          "Ten observed properties, including relief, colour, cleavage, extinction, optic sign and 2V angle.",
+          "Candidate ranking with explanations of matches, missing data and contradictions.",
+          "Separate transparent and opaque mineral modes."
+        ]
+      },
+      {
+        "group": "Atlas and Mineral Profiles",
+        "items": [
+          "Thin-section photographs with PPL, XPL and paired-image filters.",
+          "Comparison of the same area in plane-polarised and cross-polarised light.",
+          "Optical constants, crystallography, paragenesis and diagnostic differences from similar minerals."
+        ]
+      },
+      {
+        "group": "Calculations and Ore Microscopy",
+        "items": [
+          "Michel-Lévy chart relating section thickness, retardation and birefringence.",
+          "Mineral filtering by birefringence and reference tables.",
+          "Opaque mineral diagnosis using reflectance, anisotropy and other polished-section observations."
+        ]
+      },
+      {
+        "group": "Practice Lab and Offline Use",
+        "items": [
+          "Becke line, relief, pleochroism and rotating-stage simulators.",
+          "Russian, English, Arabic with RTL and Chinese interfaces.",
+          "Light and dark laboratory themes, local reference data and images without a network connection."
+        ]
+      }
+    ],
+    "stack": "Flutter and Dart, local reference data and images",
+    "statusNote": "Android prototype",
+    "pending": [
+      "Confirm public release and availability on other platforms."
+    ],
+    "evidence": {
+      "source": "presentation",
+      "reference": "materials/RockSurf_Petrography_Presentation_Kit_EN_RU.zip: EN presentation, slides 2-12 and Presentation_Notes_EN_RU.md",
       "verified": true
     }
   },

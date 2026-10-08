@@ -49,7 +49,7 @@ try {
 
   // Title and header check
   const title = await page.title();
-  if (!title.includes('Alexey Pakhalko')) problems.push(`Wrong EN page title: ${title}`);
+  if (!title.includes('Aleksei Pakhalko')) problems.push(`Wrong EN page title: ${title}`);
 
   const headerText = await page.locator('.site-header').innerText();
   if (!headerText.includes('Profile') || !headerText.includes('Experience') || !headerText.includes('Apps')) {

@@ -1,0 +1,42 @@
+{
+  "source": "materials/RockSurf_Petrography_Presentation_Kit_EN_RU.zip: RockSurf_Petrography_Presentation_EN.html",
+  "lang": "en",
+  "slides": [
+    {
+      "title": "RockSurv Petrography"
+    },
+    {
+      "title": "Dual-Light Framework: Transmitted & Reflected Microscopy"
+    },
+    {
+      "title": "10-Parameter Optical Key for Thin Section Identification"
+    },
+    {
+      "title": "Explainable Deterministic Matching with Candidate Ranking"
+    },
+    {
+      "title": "Curated Thin Section Atlas: 267+ High-Resolution Micrographs"
+    },
+    {
+      "title": "Synchronized PPL & XPL Analysis: Pleochroism & Birefringence"
+    },
+    {
+      "title": "Interactive Michel-Lévy Nomogram & Birefringence Solver"
+    },
+    {
+      "title": "Deep Mineral Profiles: Crystallography & Optical Constants"
+    },
+    {
+      "title": "Reflected Light Microscopy: Opaque & Ore Mineral Diagnostics"
+    },
+    {
+      "title": "Optical Practice Lab: Interactive Microscopic Simulators"
+    },
+    {
+      "title": "Multilingual Architecture & High-Contrast Petrographic UX"
+    },
+    {
+      "title": "100% Offline Autonomy: Engineered for Field Camp & Lab"
+    }
+  ]
+}

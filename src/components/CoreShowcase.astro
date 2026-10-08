@@ -1,0 +1,30 @@
+---
+import Icon from './Icon.astro';
+
+interface Props { lang?: 'ru' | 'en'; }
+const { lang = 'ru' } = Astro.props;
+const isEn = lang === 'en';
+---
+<a href={`/${lang}/presentations/core/`} class="app-showcase-link core-showcase" aria-label={isEn ? 'Open Rocksurv Core presentation' : 'Открыть презентацию Rocksurv Core'}>
+  <div class="showcase-device showcase-tablet">
+    <div class="device-bezel">
+      <div class="device-camera-dot"></div>
+      <div class="device-screen">
+        <img
+          src={`/presentations/core/${lang}-01-1280.webp`}
+          srcset={`/presentations/core/${lang}-01-640.webp 640w, /presentations/core/${lang}-01-1280.webp 1280w`}
+          sizes="(max-width: 900px) 92vw, 560px"
+          width="1280"
+          height="800"
+          loading="lazy"
+          decoding="async"
+          class="tablet-screen-img core-screen-img"
+          alt={isEn ? 'Rocksurv Core rendering prototype: geological strip log and drillhole interval attributes' : 'Прототип движка Rocksurv Core: геологическая колонка и атрибуты интервалов скважины'}
+        />
+      </div>
+    </div>
+    <div class="showcase-badge-cta">
+      <span class="cta-pill"><Icon name="presentation" />{isEn ? 'Interactive presentation: 14 slides' : 'Интерактивная презентация: 14 слайдов'} &rarr;</span>
+    </div>
+  </div>
+</a>

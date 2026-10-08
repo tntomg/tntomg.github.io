@@ -1,19 +1,20 @@
 {
   "deck": "field",
   "lang": "en",
-  "source": "materials/Rocksurv_Field_Presentation_Kit_EN_RU_v13.zip: rocksurv_field/Rocksurv_Field_Presentation_EN.html",
+  "source": "materials/Rocksurv_Field_Presentation_Kit_EN_RU_v14.zip: rocksurv_field/Rocksurv_Field_Presentation_EN.html",
   "slides": [
     {
       "kind": "cover",
-      "chapter": "",
-      "title": "",
+      "chapter": "Product overview",
+      "title": "Rocksurv Field",
       "brand": [
-        ""
+        "Rocksurv",
+        "Field"
       ],
-      "lead": "",
+      "lead": "A modern app for geological and geochemical fieldwork.",
       "note": "",
       "points": [],
-      "caption": "",
+      "caption": "Maps, field records and terrain tools in one app.",
       "cta": "",
       "media": [
         {
@@ -27,16 +28,29 @@
     },
     {
       "kind": "feature",
-      "chapter": "",
-      "title": "",
-      "lead": "",
+      "chapter": "Project maps",
+      "title": "Vector and raster data, together.",
+      "lead": "Bring your project maps and routes into one field workspace.",
       "note": "",
-      "points": [],
-      "caption": "",
+      "points": [
+        {
+          "title": "Your project data",
+          "text": "Open local vector and raster layers from a GeoPackage."
+        },
+        {
+          "title": "Focus the map",
+          "text": "Use layer visibility, opacity, legends and feature identification."
+        },
+        {
+          "title": "Routes in context",
+          "text": "Import KML / KMZ routes alongside geological layers."
+        }
+      ],
+      "caption": "Project maps in one GeoPackage, managed directly in RS Field.",
       "cta": "",
       "media": [
         {
-          "alt": "English map interface with geological layers and visibility controls",
+          "alt": "Vector and raster data, together.",
           "state": "",
           "image": "02"
         }
@@ -46,16 +60,29 @@
     },
     {
       "kind": "feature",
-      "chapter": "",
-      "title": "",
-      "lead": "",
+      "chapter": "Field workflows",
+      "title": "Geology and geochemistry, together.",
+      "lead": "Choose the workflow that fits the survey before heading into the field.",
       "note": "",
-      "points": [],
-      "caption": "",
+      "points": [
+        {
+          "title": "Geological mapping",
+          "text": "Observations, structures, alteration, samples and media."
+        },
+        {
+          "title": "Geochemical collection",
+          "text": "Collect samples for mineral exploration using geochemical dispersion halos."
+        },
+        {
+          "title": "Shared field tools",
+          "text": "Keep maps, terrain tools and data protection in either workflow."
+        }
+      ],
+      "caption": "Set the workflow in Settings and keep the field toolbar focused on your route.",
       "cta": "",
       "media": [
         {
-          "alt": "Active Session with Point Observation, Structures and Alt Mineral controls",
+          "alt": "Geology and geochemistry, together.",
           "state": "",
           "image": "03"
         }
@@ -65,16 +92,29 @@
     },
     {
       "kind": "feature",
-      "chapter": "",
-      "title": "",
-      "lead": "",
+      "chapter": "Active session",
+      "title": "Three record types in an Active Session",
+      "lead": "Keep detailed geological records connected to each field session.",
       "note": "",
-      "points": [],
-      "caption": "",
+      "points": [
+        {
+          "title": "Observation",
+          "text": "Location, rocks, composition, textures, samples, photos and notes."
+        },
+        {
+          "title": "Structure",
+          "text": "Planar and linear measurements with orientation and linked evidence."
+        },
+        {
+          "title": "Alteration / Mineralization",
+          "text": "Minerals, alteration types, intensity, form and geological context."
+        }
+      ],
+      "caption": "One session connects the observations and evidence collected along your route.",
       "cta": "",
       "media": [
         {
-          "alt": "Live compass and ruler with a profile line and segment distance labels on a geological map",
+          "alt": "Three record types in an Active Session",
           "state": "",
           "image": "04"
         }
@@ -84,16 +124,29 @@
     },
     {
       "kind": "feature",
-      "chapter": "",
-      "title": "",
-      "lead": "",
+      "chapter": "Field orientation",
+      "title": "Keep your bearing in the field.",
+      "lead": "Combine compass direction, GNSS position and geological context.",
       "note": "",
-      "points": [],
-      "caption": "",
+      "points": [
+        {
+          "title": "Compass heading",
+          "text": "Read degrees, cardinal direction and heading quality."
+        },
+        {
+          "title": "Position on the map",
+          "text": "Use an available GNSS fix and its reported accuracy."
+        },
+        {
+          "title": "Route planning",
+          "text": "Draw and save profile lines directly on the map."
+        }
+      ],
+      "caption": "Keep direction, location and your survey map in one view.",
       "cta": "",
       "media": [
         {
-          "alt": "Actual tablet screen with intrusive QAPF rock components and the calculated Monzogranite name",
+          "alt": "Keep your bearing in the field.",
           "state": "",
           "image": "05"
         }
@@ -103,16 +156,29 @@
     },
     {
       "kind": "feature",
-      "chapter": "",
-      "title": "",
-      "lead": "",
+      "chapter": "Rock classification",
+      "title": "Smart classification, focused fields.",
+      "lead": "Rock type guides the choices available in each geological record.",
       "note": "",
-      "points": [],
-      "caption": "",
+      "points": [
+        {
+          "title": "Rock-name suggestions",
+          "text": "Geological rules use the selected type and entered composition."
+        },
+        {
+          "title": "Relevant choices",
+          "text": "Textures, components and characteristics fit the rock group."
+        },
+        {
+          "title": "Linked descriptions",
+          "text": "Build an editable draft from photo descriptions and references."
+        }
+      ],
+      "caption": "Spend less time searching through unrelated fields and more time describing the outcrop.",
       "cta": "",
       "media": [
         {
-          "alt": "Current tablet screen: planar contact measurement, calculated strike and linked photo reference PH01",
+          "alt": "Smart classification, focused fields.",
           "state": "",
           "image": "06"
         }
@@ -122,16 +188,29 @@
     },
     {
       "kind": "feature",
-      "chapter": "",
-      "title": "",
-      "lead": "",
+      "chapter": "Structural geology",
+      "title": "Measured structures, linked evidence.",
+      "lead": "Record orientation and keep its geological context close at hand.",
       "note": "",
-      "points": [],
-      "caption": "",
+      "points": [
+        {
+          "title": "Planar and linear data",
+          "text": "Record dip direction, dip angle and lineation measurements."
+        },
+        {
+          "title": "Calculated strike",
+          "text": "Strike follows the British right-hand rule."
+        },
+        {
+          "title": "Automatic references",
+          "text": "Photo and sketch references support editable descriptions."
+        }
+      ],
+      "caption": "Keep each measurement connected to its observation and supporting images.",
       "cta": "",
       "media": [
         {
-          "alt": "Presentation composite: tablet photo editor with an enlarged geological photograph on the left and its description on the right",
+          "alt": "Measured structures, linked evidence.",
           "state": "",
           "image": "07"
         }
@@ -141,16 +220,29 @@
     },
     {
       "kind": "feature",
-      "chapter": "",
-      "title": "",
-      "lead": "",
+      "chapter": "Photo documentation",
+      "title": "Photos with geological detail.",
+      "lead": "Keep visual evidence useful through clear descriptions and linked context.",
       "note": "",
-      "points": [],
-      "caption": "",
+      "points": [
+        {
+          "title": "Detailed photo notes",
+          "text": "Record geological features, scale and capture direction."
+        },
+        {
+          "title": "Context in templates",
+          "text": "Use rock, texture and structure values in descriptions."
+        },
+        {
+          "title": "Connected records",
+          "text": "Automatic photo/sketch links support observation and structure text."
+        }
+      ],
+      "caption": "Turn a field photo into a geological record that stays useful back in the office.",
       "cta": "",
       "media": [
         {
-          "alt": "Alteration and mineralization editor showing type, intensity and form fields",
+          "alt": "Photos with geological detail.",
           "state": "",
           "image": "08"
         }
@@ -160,16 +252,29 @@
     },
     {
       "kind": "feature",
-      "chapter": "",
-      "title": "",
-      "lead": "",
+      "chapter": "Alteration & mineralization",
+      "title": "Describe what you see in the field.",
+      "lead": "Capture alteration and mineralization in dedicated, connected records.",
       "note": "",
-      "points": [],
-      "caption": "",
+      "points": [
+        {
+          "title": "Alteration detail",
+          "text": "Record alteration type, intensity and form."
+        },
+        {
+          "title": "Mineralization detail",
+          "text": "Describe minerals, occurrence and geological relationships."
+        },
+        {
+          "title": "Spatial context",
+          "text": "Link an observation while retaining the point’s own coordinates."
+        }
+      ],
+      "caption": "Capture the details that matter while the outcrop is right in front of you.",
       "cta": "",
       "media": [
         {
-          "alt": "Current tablet screen for choosing Copernicus GLO-30 and defining DEM coverage",
+          "alt": "Describe what you see in the field.",
           "state": "",
           "image": "09"
         }
@@ -179,16 +284,29 @@
     },
     {
       "kind": "feature",
-      "chapter": "",
-      "title": "",
-      "lead": "",
+      "chapter": "Satellite maps",
+      "title": "Satellite context, online or offline.",
+      "lead": "Prepare an overview background for the area where your team will work.",
       "note": "",
-      "points": [],
-      "caption": "",
+      "points": [
+        {
+          "title": "Sentinel-2 RGB",
+          "text": "Natural-colour overview imagery: 2021 mosaic, 10 m pixels."
+        },
+        {
+          "title": "Choose your area",
+          "text": "Use the visible map or WGS84 bounds and set the download zoom."
+        },
+        {
+          "title": "Keep it offline",
+          "text": "Select a completed area to view its saved coverage without internet."
+        }
+      ],
+      "caption": "Download your working area before departure and keep the landscape in view.",
       "cta": "",
       "media": [
         {
-          "alt": "Field session export dialog in the Android app",
+          "alt": "Satellite context, online or offline.",
           "state": "",
           "image": "10"
         }
@@ -197,51 +315,240 @@
       "platforms": []
     },
     {
-      "kind": "languages",
-      "chapter": "",
-      "title": "",
-      "lead": "",
+      "kind": "feature",
+      "chapter": "Offline elevation",
+      "title": "Keep elevation available offline.",
+      "lead": "Use your contours or prepare open DEM data before departure.",
       "note": "",
-      "points": [],
-      "caption": "",
+      "points": [
+        {
+          "title": "Your own contours",
+          "text": "RS Field estimates elevation from your configured contour data."
+        },
+        {
+          "title": "Open DEM sources",
+          "text": "Download the required terrain coverage inside the app."
+        },
+        {
+          "title": "Contours with GNSS",
+          "text": "Combine contour-based elevation with an available GNSS height."
+        }
+      ],
+      "caption": "Prepare terrain once and keep heights at hand beyond mobile coverage.",
+      "cta": "",
+      "media": [
+        {
+          "alt": "Keep elevation available offline.",
+          "state": "",
+          "image": "11"
+        }
+      ],
+      "languages": [],
+      "platforms": []
+    },
+    {
+      "kind": "feature",
+      "chapter": "Terrain profiles",
+      "title": "Save the line. Understand the terrain.",
+      "lead": "Build an elevation profile along a saved line using DEM or contours.",
+      "note": "",
+      "points": [
+        {
+          "title": "Reusable profile lines",
+          "text": "Save profiles; edit vertices, line colour and width."
+        },
+        {
+          "title": "Elevation in context",
+          "text": "Explore the chart and its linked position on the map."
+        },
+        {
+          "title": "Three distance measures",
+          "text": "Compare horizontal length, straight slopes and sampled terrain."
+        }
+      ],
+      "caption": "See how relief changes the distances along your proposed route.",
+      "cta": "",
+      "media": [
+        {
+          "alt": "Save the line. Understand the terrain.",
+          "state": "",
+          "image": "12"
+        }
+      ],
+      "languages": [],
+      "platforms": []
+    },
+    {
+      "kind": "feature",
+      "chapter": "Geochemical fieldwork",
+      "title": "Geochemical exploration from plan to sample.",
+      "lead": "Geochemical sampling for mineral exploration using dispersion halos.",
+      "note": "",
+      "points": [
+        {
+          "title": "Plan and actual location",
+          "text": "Import CSV / point GeoPackage sites; confirm where sampling occurs."
+        },
+        {
+          "title": "Complete field context",
+          "text": "Record channel conditions, procedure, material, mass and fraction."
+        },
+        {
+          "title": "Single or composite",
+          "text": "Keep increments, materials and photos linked to their sample."
+        }
+      ],
+      "caption": "Keep the sampling plan, field conditions and sample identity connected.",
+      "cta": "",
+      "media": [
+        {
+          "alt": "Geochemical exploration from plan to sample.",
+          "state": "",
+          "image": "13"
+        }
+      ],
+      "languages": [],
+      "platforms": []
+    },
+    {
+      "kind": "feature",
+      "chapter": "Sample handover",
+      "title": "Trace every sample through handover.",
+      "lead": "Keep control samples, batch versions and transfer records organised.",
+      "note": "",
+      "points": [
+        {
+          "title": "Control sample records",
+          "text": "Register duplicates, blanks and standards with their links."
+        },
+        {
+          "title": "Fixed batch versions",
+          "text": "Prepare materials, packages and recipient instructions."
+        },
+        {
+          "title": "Transfer and receipt",
+          "text": "Track selected items, discrepancies and retained corrections."
+        }
+      ],
+      "caption": "Know which materials were handed over, received or need follow-up.",
+      "cta": "",
+      "media": [
+        {
+          "alt": "Trace every sample through handover.",
+          "state": "",
+          "image": "14"
+        }
+      ],
+      "languages": [],
+      "platforms": []
+    },
+    {
+      "kind": "feature",
+      "chapter": "Field to office",
+      "title": "Make field data ready for handover.",
+      "lead": "Export structured records and keep a recoverable field archive.",
+      "note": "",
+      "points": [
+        {
+          "title": "Geology export",
+          "text": "Excel, available photos/sketches and a validation report in a ZIP."
+        },
+        {
+          "title": "Geochemistry packages",
+          "text": "Separate the internal archive from the laboratory submission."
+        },
+        {
+          "title": "Data protection",
+          "text": "Saved-state feedback, change history and project backups."
+        }
+      ],
+      "caption": "Hand over organised records while keeping a copy for your field team.",
+      "cta": "",
+      "media": [
+        {
+          "alt": "Make field data ready for handover.",
+          "state": "",
+          "image": "15"
+        }
+      ],
+      "languages": [],
+      "platforms": []
+    },
+    {
+      "kind": "languages",
+      "chapter": "Languages & platforms",
+      "title": "An interface for international teams.",
+      "lead": "Switch interface language and keep the same field workflow.",
+      "note": "",
+      "points": [
+        {
+          "title": "Instant localisation",
+          "text": "Choose English, Russian or Arabic in Settings."
+        },
+        {
+          "title": "Consistent field tools",
+          "text": "Use the same geological and geochemical workflows."
+        },
+        {
+          "title": "Platform availability",
+          "text": "Android tablet build demonstrated. iOS release to be confirmed."
+        }
+      ],
+      "caption": "A familiar interface language helps international teams get straight to fieldwork.",
       "cta": "",
       "media": [],
       "languages": [
         {
-          "code": "",
-          "name": "",
-          "lang": "",
+          "code": "EN",
+          "name": "English",
+          "lang": "en",
           "dir": "ltr"
         },
         {
-          "code": "",
-          "name": "",
-          "lang": "",
+          "code": "RU",
+          "name": "Русский",
+          "lang": "ru",
           "dir": "ltr"
         },
         {
-          "code": "",
-          "name": "",
-          "lang": "",
-          "dir": "ltr"
+          "code": "AR",
+          "name": "العربية",
+          "lang": "ar",
+          "dir": "rtl"
         }
       ],
-      "platforms": []
+      "platforms": [
+        "Android",
+        "iOS"
+      ]
     },
     {
       "kind": "closing",
-      "chapter": "",
-      "title": "",
-      "lead": "",
+      "chapter": "Your field companion",
+      "title": "Your ultimate field companion.",
+      "lead": "Maps, geological records and geochemical sampling in one field app.",
       "note": "",
-      "points": [],
-      "caption": "",
-      "cta": "",
+      "points": [
+        {
+          "title": "See the full picture",
+          "text": "Project maps, satellite context and terrain profiles."
+        },
+        {
+          "title": "Capture every detail",
+          "text": "Connected observations, samples, photos and descriptions."
+        },
+        {
+          "title": "Keep work moving",
+          "text": "Prepared offline data and structured office handover."
+        }
+      ],
+      "caption": "Bring your project data and see how RS Field fits your team’s fieldwork.",
+      "cta": "Focus on the geology. RS Field is at your side.",
       "media": [
         {
-          "alt": "AI-edited field photograph based on the author’s photo: geologist seen from behind using RS Field on a tablet.",
+          "alt": "Your ultimate field companion.",
           "state": "",
-          "image": "11"
+          "image": "16"
         }
       ],
       "languages": [],

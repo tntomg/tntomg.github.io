@@ -31,7 +31,7 @@ const nav = isEn
 const email = 't1tanium@yandex.ru';
 const telegram = '@t1tanium';
 const telegramUrl = 'https://t.me/t1tanium';
-const cv = isEn ? '/cv/Alexey-Pakhalko-CV-EN-2026.pdf' : '/cv/Alexey-Pakhalko-CV-RU-2026.pdf';
+const cv = isEn ? '/cv/Aleksei-Pakhalko-CV-EN-2026.pdf' : '/cv/Aleksei-Pakhalko-CV-RU-2026.pdf';
 
 const pathname = Astro.url.pathname;
 const isHome = isEn ? pathname === '/en/' : pathname === '/ru/';
@@ -72,8 +72,8 @@ if (pathname.startsWith('/ru/')) {
     <header class="site-header" data-header>
       <div class="shell header-inner">
         <a class="brand" href={homeUrl}>
-          <strong>{isEn ? 'Alexey Pakhalko' : 'Алексей Пахалко'}</strong>
-          <span>{isEn ? 'geologist' : 'геолог'}</span>
+          <strong>{isEn ? 'Aleksei Pakhalko' : 'Алексей Пахалко'}</strong>
+          <span>{isEn ? 'Senior Geologist' : 'ведущий геолог'}</span>
         </a>
         <nav class="site-nav" aria-label={isEn ? 'Sections' : 'Разделы'}>
           {nav.map(({ id, label }) => (
@@ -103,7 +103,7 @@ if (pathname.startsWith('/ru/')) {
     <footer class="site-footer">
       <div class="shell footer-main">
         <div>
-          <h2>{isEn ? 'Questions about experience, projects, or applications' : 'Вопросы по опыту, проектам или приложениям'}</h2>
+          <h2>{isEn ? 'Let’s discuss geological projects and applications' : 'Обсудим геологические проекты и приложения'}</h2>
           <div class="footer-contacts">
             <a class="footer-contact-link footer-mail" href={`mailto:${email}`} aria-label={`Email: ${email}`}>
               <Icon name="envelope" />
@@ -123,7 +123,7 @@ if (pathname.startsWith('/ru/')) {
         </div>
       </div>
       <div class="shell footer-bottom">
-        <span>{isEn ? '© 2026 Alexey Pakhalko' : '© 2026 Алексей Пахалко'}</span>
+        <span>{isEn ? '© 2026 Aleksei Pakhalko' : '© 2026 Алексей Пахалко'}</span>
         <a href="#main">{isEn ? 'Back to top' : 'Наверх'}</a>
       </div>
     </footer>

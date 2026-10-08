@@ -32,6 +32,7 @@ const appsSchema = z
     diagram: z.enum(['field-flow', 'stereonet']).optional(),
     pending: z.array(copy).default([]),
     publicationState,
+    statusNote: copy.optional(),
     productStatus: z.enum(['concept', 'prototype', 'pilot', 'in-use', 'released', 'unverified']),
     evidence,
   })
