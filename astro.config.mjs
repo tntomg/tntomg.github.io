@@ -3,6 +3,11 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
   output: 'static',
   trailingSlash: 'always',
+  // Keep animation-timeline separate from the animation shorthand. Lightning CSS
+  // merges them in an esnext build, producing syntax browsers currently reject.
+  vite: {
+    build: { cssMinify: 'esbuild' },
+  },
   // Node 22 resolves "localhost" to IPv6 ::1 only; on this machine the browser
   // could not reach it (ERR_CONNECTION_REFUSED). Bind explicitly to IPv4 loopback.
   // For testing on a phone in the same Wi-Fi: npm run dev -- --host
