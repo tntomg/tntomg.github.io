@@ -24,8 +24,8 @@ EXPERIENCE_IMAGES = IMAGES / "experience"
 SIZES_FILE = ROOT / "src" / "data" / "photo-sizes.json"
 PORTRAIT = ROOT / "photo" / "Personal" / "Летний сад-62.jpg"
 SCOPE_SOURCE = (ROOT / "materials" / "Pakhalko Herlany 2019.pptx", "ppt/media/image11.jpeg")
-CV_SOURCE = ROOT / "CV" / "CV Geologist Pakhalko RUS 2026.docx"
-CV_SOURCE_EN = ROOT / "CV" / "CV Geologist Pakhalko ENG 2026.docx"
+CV_SOURCE = ROOT / "CV" / "CV_Pakhalko_Senior_Geologist_Rocksurv_2026_RU.docx"
+CV_SOURCE_EN = ROOT / "CV" / "CV_Pakhalko_Senior_Geologist_Rocksurv_2026_EN.docx"
 
 
 def open_rgb(path):
