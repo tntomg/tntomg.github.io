@@ -14,6 +14,7 @@ from docx.shared import Mm
 from lxml import etree
 from PIL import Image, ImageDraw
 from reportlab.graphics.barcode.qr import QrCodeWidget
+from cv_identity import normalize_cv_identity
 
 ROOT = Path(__file__).resolve().parents[1]
 REVIEW = ROOT / "review/cv-update-2026-10-09"
@@ -232,6 +233,7 @@ def update_language(lang):
  updated = ROOT / "CV" / f"CV_Pakhalko_Senior_Geologist_Rocksurv_2026_{lang}.docx"
  with ZipFile(updated, "w", compression=ZIP_DEFLATED) as archive:
   for filename, payload in files.items(): archive.writestr(filename, payload)
+ normalize_cv_identity(updated, updated, lang.lower())
  copy2(updated, source)
  copy2(updated, source.with_name(source.name.replace("Aleksei", "Alexey")))
  print(f"Updated {lang}: source + public canonical and alias; original retained")

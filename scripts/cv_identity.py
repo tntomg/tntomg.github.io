@@ -1,4 +1,4 @@
-"""Normalize the agreed CV heading and GMAS role while preserving other job titles."""
+"""Normalize the agreed CV heading, GMAS role, and English proficiency."""
 from pathlib import Path
 from zipfile import ZipFile
 from lxml import etree
@@ -25,6 +25,8 @@ def normalize_cv_identity(source, target, lang):
   elif text.startswith('Geologist with '):replacement='Senior Geologist'+text[len('Geologist'):]
   elif text.strip()=='Руководитель полевой партии / Полевой геолог':replacement='Ведущий геолог партии'
   elif text.strip()=='Field team leader, field geologist':replacement='Senior Geologist, Field Party'
+  elif 'Upper-Intermediate' in text and ('English' in text or 'английск' in text.lower()):
+   replacement=text.replace('Upper-Intermediate','C1')
 
   if replacement is not None and nodes:
    old=text;prefix=0
